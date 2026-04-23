@@ -53,3 +53,5 @@ experiments/
 scripts/
 docs/cleanup/
 dissertation/
+# Added by code-review-graph
+.code-review-graph/

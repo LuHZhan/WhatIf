@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatIf — 技术架构文档</title>
+  <style>
+    :root {
+      --bg:       #0d0f14;
+      --surface:  #151820;
+      --surface2: #1c2030;
+      --border:   #2a2f45;
+      --accent:   #6c8ef5;
+      --accent2:  #a78bfa;
+      --accent3:  #34d399;
+      --accent4:  #f59e0b;
+      --accent5:  #f87171;
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --code-bg:  #111318;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d0f14 0%, #1a1f35 50%, #0d0f14 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% -20%, rgba(108,142,245,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg, #6c8ef5, #a78bfa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    .badge {
+      display: inline-block;
+      margin: 16px 4px 0;
+      padding: 3px 12px;
+      border-radius: 99px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+    .badge-blue  { background: rgba(108,142,245,.15); border: 1px solid rgba(108,142,245,.4); color: #6c8ef5; }
+    .badge-purple{ background: rgba(167,139,250,.15); border: 1px solid rgba(167,139,250,.4); color: #a78bfa; }
+    .badge-green { background: rgba(52,211,153,.15);  border: 1px solid rgba(52,211,153,.4);  color: #34d399; }
+    .badge-amber { background: rgba(245,158,11,.15);  border: 1px solid rgba(245,158,11,.4);  color: #f59e0b; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,15,20,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 20px;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    nav a:hover { color: var(--text); background: var(--surface2); }
+
+    /* ── Layout ── */
+    main { max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    section { margin-bottom: 72px; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .section-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .num-blue   { background: rgba(108,142,245,.2); color: #6c8ef5; border: 1px solid rgba(108,142,245,.3); }
+    .num-purple { background: rgba(167,139,250,.2); color: #a78bfa; border: 1px solid rgba(167,139,250,.3); }
+    .num-green  { background: rgba(52,211,153,.2);  color: #34d399; border: 1px solid rgba(52,211,153,.3);  }
+
+    .section-label h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-label p { font-size: .85rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red    { background: #f87171; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green  { background: #34d399; }
+
+    /* ── Architecture Diagram ── */
+    .arch-stack { display: flex; flex-direction: column; gap: 2px; }
+
+    .arch-layer {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .layer-header {
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .layer-body { padding: 16px 20px 20px; }
+
+    .layer-ui     { background: rgba(108,142,245,.06); border-color: rgba(108,142,245,.25); }
+    .layer-api    { background: rgba(167,139,250,.06); border-color: rgba(167,139,250,.25); }
+    .layer-engine { background: rgba(52,211,153,.06);  border-color: rgba(52,211,153,.25);  }
+    .layer-llm    { background: rgba(245,158,11,.06);  border-color: rgba(245,158,11,.25);  }
+
+    .layer-ui .layer-header     { color: #6c8ef5; }
+    .layer-api .layer-header    { color: #a78bfa; }
+    .layer-engine .layer-header { color: #34d399; }
+    .layer-llm .layer-header    { color: #f59e0b; }
+
+    .layer-icon { font-size: 1.1rem; }
+
+    .boxes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .box {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .box-blue   { background: rgba(108,142,245,.12); border: 1px solid rgba(108,142,245,.2); color: #93a7f8; }
+    .box-purple { background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.2); color: #b89ffb; }
+    .box-green  { background: rgba(52,211,153,.12);  border: 1px solid rgba(52,211,153,.2);  color: #5ddba7; }
+    .box-amber  { background: rgba(245,158,11,.12);  border: 1px solid rgba(245,158,11,.2);  color: #fbbf24; }
+    .box-red    { background: rgba(248,113,113,.12); border: 1px solid rgba(248,113,113,.2); color: #fb8c8c; }
+    .box-cyan   { background: rgba(34,211,238,.12);  border: 1px solid rgba(34,211,238,.2);  color: #38d5ee; }
+
+    .box small { display: block; color: var(--muted); font-size: .72rem; font-weight: 400; margin-top: 2px; }
+
+    .arrow-connector {
+      text-align: center;
+      padding: 4px 0;
+      color: var(--muted);
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .arrow-line { flex: 1; height: 1px; background: var(--border); max-width: 120px; }
+
+    .sse-events { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .sse-tag {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: .75rem;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+    .sse-state  { background: rgba(108,142,245,.1); border-color: rgba(108,142,245,.3); color: #6c8ef5; }
+    .sse-chunk  { background: rgba(52,211,153,.1);  border-color: rgba(52,211,153,.3);  color: #34d399; }
+    .sse-audio  { background: rgba(245,158,11,.1);  border-color: rgba(245,158,11,.3);  color: #f59e0b; }
+    .sse-error  { background: rgba(248,113,113,.1); border-color: rgba(248,113,113,.3); color: #f87171; }
+    .sse-done   { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.3); color: #a78bfa; }
+
+    .provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 10px; }
+    .provider-item {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(245,158,11,.08);
+      border: 1px solid rgba(245,158,11,.2);
+      font-size: .8rem;
+      color: #fbbf24;
+    }
+    .provider-item code {
+      display: block;
+      font-family: monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Folder Tree ── */
+    .tree {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: .82rem;
+      line-height: 1.9;
+      padding: 24px;
+      overflow-x: auto;
+    }
+    .tree-line { display: flex; align-items: baseline; gap: 0; }
+    .tree-prefix { color: #3a4060; white-space: pre; }
+    .tree-name { color: var(--text); }
+    .tree-dir  { color: #6c8ef5; font-weight: 600; }
+    .tree-star { color: #f59e0b; font-weight: 700; }
+    .tree-desc { color: var(--muted); font-size: .75rem; margin-left: 10px; }
+    .tree-file { color: #94a3b8; }
+    .tree-section { margin-top: 14px; }
+
+    /* ── Flow ── */
+    .flow-container { display: flex; flex-direction: column; gap: 0; }
+
+    .flow-step {
+      display: flex;
+      gap: 0;
+      position: relative;
+    }
+    .flow-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 48px;
+      flex-shrink: 0;
+    }
+    .flow-circle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .8rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .flow-line {
+      width: 2px;
+      flex: 1;
+      min-height: 16px;
+      background: var(--border);
+    }
+    .flow-body {
+      flex: 1;
+      padding: 0 0 28px 16px;
+    }
+    .flow-title {
+      font-weight: 600;
+      font-size: .95rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 6px;
+    }
+    .flow-desc { color: var(--muted); font-size: .82rem; line-height: 1.6; }
+    .flow-inner {
+      margin-top: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: .8rem;
+    }
+    .flow-inner ul { margin-left: 16px; }
+    .flow-inner li { margin-bottom: 4px; color: var(--muted); }
+    .flow-inner li strong { color: var(--text); }
+
+    .fc-blue   { background: rgba(108,142,245,.2); border: 2px solid rgba(108,142,245,.5); color: #6c8ef5; }
+    .fc-purple { background: rgba(167,139,250,.2); border: 2px solid rgba(167,139,250,.5); color: #a78bfa; }
+    .fc-green  { background: rgba(52,211,153,.2);  border: 2px solid rgba(52,211,153,.5);  color: #34d399; }
+    .fc-amber  { background: rgba(245,158,11,.2);  border: 2px solid rgba(245,158,11,.5);  color: #f59e0b; }
+    .fc-red    { background: rgba(248,113,113,.2); border: 2px solid rgba(248,113,113,.5); color: #f87171; }
+    .fc-cyan   { background: rgba(34,211,238,.2);  border: 2px solid rgba(34,211,238,.5);  color: #22d3ee; }
+
+    /* ── Agent Grid ── */
+    .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+    .agent-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .agent-card h4 { font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+    .agent-card p  { font-size: .75rem; color: var(--muted); line-height: 1.5; }
+    .agent-card .tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: .68rem;
+      font-weight: 600;
+    }
+
+    /* ── Memory Diagram ── */
+    .memory-diagram {
+      display: flex;
+      align-items: stretch;
+      gap: 2px;
+      margin-top: 16px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .mem-block {
+      flex: 1;
+      padding: 16px;
+      text-align: center;
+      font-size: .8rem;
+    }
+    .mem-block h4 { font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+    .mem-block p  { font-size: .75rem; line-height: 1.5; }
+    .mem-recent { background: rgba(52,211,153,.08);  border-right: 1px solid var(--border); }
+    .mem-l0     { background: rgba(108,142,245,.08); border-right: 1px solid var(--border); }
+    .mem-l1     { background: rgba(167,139,250,.08); }
+    .mem-arrow  {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
+      color: var(--muted);
+      font-size: 1.2rem;
+      background: var(--surface);
+    }
+
+    /* ── SSE Timing ── */
+    .timing-grid {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 0;
+      margin-top: 16px;
+      font-size: .78rem;
+    }
+    .timing-col {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .timing-col-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: .8rem;
+    }
+    .timing-items { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .timing-item {
+      padding: 6px 10px;
+      border-radius: 6px;
+      line-height: 1.4;
+    }
+    .timing-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+    .timing-arrow { color: var(--accent); }
+
+    /* ── Phase Strip ── */
+    .phase-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .phase-card {
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .phase-setup        { background: rgba(108,142,245,.1); border: 1px solid rgba(108,142,245,.25); }
+    .phase-confrontation{ background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.25); }
+    .phase-resolution   { background: rgba(52,211,153,.1);  border: 1px solid rgba(52,211,153,.25);  }
+    .phase-card h4 { font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+    .phase-card p  { font-size: .75rem; color: var(--muted); }
+
+    /* ── Code blocks ── */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: .8rem;
+      line-height: 1.7;
+      color: #94a3b8;
+      margin-top: 12px;
+    }
+    pre .kw  { color: #a78bfa; }
+    pre .str { color: #34d399; }
+    pre .cm  { color: #475569; }
+    pre .fn  { color: #6c8ef5; }
+    pre .num { color: #f59e0b; }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .78rem;
+      padding: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3a4060; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <h1>WhatIf 技术架构文档</h1>
+  <p>将中文小说转化为 AI 驱动的互动叙事游戏</p>
+  <div>
+    <span class="badge badge-blue">React 19 + Electron</span>
+    <span class="badge badge-purple">FastAPI + LiteLLM</span>
+    <span class="badge badge-green">Python 3.10+</span>
+    <span class="badge badge-amber">多 LLM 提供商</span>
+  </div>
+</header>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a href="#arch">技术架构</a>
+  <a href="#folder">文件结构</a>
+  <a href="#flow">游玩流程</a>
+  <a href="#agents">Agent 系统</a>
+  <a href="#memory">记忆压缩</a>
+  <a href="#sse">SSE 时序</a>
+</nav>
+
+<main>
+
+<!-- ══════════ SECTION 1: ARCH ══════════ -->
+<section id="arch">
+  <div class="section-label">
+    <div class="section-num num-blue">01</div>
+    <div>
+      <h2>技术架构图</h2>
+      <p>四层纵向架构，从 UI 到 LLM 完整链路</p>
+    </div>
+  </div>
+
+  <div class="arch-stack">
+
+    <!-- UI Layer -->
+    <div class="arch-layer layer-ui">
+      <div class="layer-header">
+        <span class="layer-icon">🖥</span> 用户界面层 &nbsp;·&nbsp; Electron 41 + React 19 + TypeScript + Vite
+      </div>
+      <div class="layer-body">
+        <div class="boxes">
+          <div class="box box-blue">start-page<small>主菜单 / 新游戏 / 导入</small></div>
+          <div class="box box-blue">gameplay-page<small>游玩主界面 / SSE流接收</small></div>
+          <div class="box box-blue">settings-page<small>API Key / LLM配置 / TTS</small></div>
+          <div class="box box-blue">library-page<small>WorldPkg 浏览 / 导入</small></div>
+          <div class="box box-cyan">electron/main.ts<small>窗口创建 / IPC</small></div>
+          <div class="box box-cyan">electron/sidecar.ts<small>拉起后端Python进程</small></div>
+        </div>
+        <div style="margin-top:12px; color:var(--muted); font-size:.8rem;">
+          <strong style="color:var(--text)">lib/api.ts</strong> — 统一 HTTP + SSE 客户端（setBaseUrl / readSSEStream / 全部接口封装）<br>
+          <strong style="color:var(--text)">Vite 代理</strong>：开发时 <code style="background:var(--code-bg);padding:1px 6px;border-radius:4px;font-size:.75rem">/api</code> → <code style="background:var(--code-bg);padding:1px 6px;border-radius:4px;font-size:.75rem">http://localhost:8000</code> &nbsp;|&nbsp;
+          <strong style="color:var(--text)">生产</strong>：sidecar.ts 启动后端，Electron 直连
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">
+      <div class="arrow-line"></div>
+      <span>HTTP REST &nbsp;/&nbsp; SSE 流式响应</span>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- API Layer -->
+    <div class="arch-layer layer-api">
+      <div class="layer-header">
+        <span class="layer-icon">⚡</span> API 层 &nbsp;·&nbsp; FastAPI + uvicorn + edge-tts
+      </div>
+      <div class="layer-body">
+        <div class="boxes">
+          <div class="box box-purple">POST /api/game/start<small>开始新游戏（SSE流）</small></div>
+          <div class="box box-purple">POST /api/game/action<small>玩家行动（SSE流）</small></div>
+          <div class="box box-purple">POST /api/game/continue<small>推进下一事件（SSE流）</small></div>
+          <div class="box box-purple">GET /api/game/state<small>游戏状态快照</small></div>
+          <div class="box box-purple">POST /api/game/save|load<small>存档 / 读档</small></div>
+          <div class="box box-red">POST /api/extraction<small>触发预处理管道</small></div>
+          <div class="box box-red">GET/PUT /api/config/*<small>WorldPkg / LLM / API Key</small></div>
+          <div class="box box-red">GET /api/voice/*<small>TTS 声音列表 / 分句</small></div>
+        </div>
+        <div style="margin-top:14px;">
+          <div style="font-size:.8rem; color:var(--muted); margin-bottom:8px;">SSE 事件类型（三条流式端点均使用）：</div>
+          <div class="sse-events">
+            <span class="sse-tag sse-state">event: state</span>
+            <span class="sse-tag sse-chunk">event: chunk</span>
+            <span class="sse-tag sse-audio">event: audio</span>
+            <span class="sse-tag sse-error">event: error</span>
+            <span class="sse-tag sse-done">event: done</span>
+          </div>
+          <div style="margin-top:10px; font-size:.78rem; color:var(--muted);">
+            api/tts.py：SentenceBuffer 分句 → asyncio.create_task(edge-tts) → audio_hold dict 按序号重排 → base64 编码下发
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">
+      <div class="arrow-line"></div>
+      <span>GameEngine 方法调用 &nbsp;·&nbsp; run_in_executor (异步→线程)</span>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- Engine Layer -->
+    <div class="arch-layer layer-engine">
+      <div class="layer-header">
+        <span class="layer-icon">⚙️</span> 运行时引擎层 &nbsp;·&nbsp; GameEngine + AgentExecutor（RLock 线程安全）
+      </div>
+      <div class="layer-body">
+        <div class="boxes">
+          <div class="box box-green">WorldPkgLoader<small>解析 .wpkg zip</small></div>
+          <div class="box box-green">DeltaStateManager<small>平行时间线追踪</small></div>
+          <div class="box box-green">MemoryCompression<small>L0 / L1 记忆压缩</small></div>
+          <div class="box box-green">ContextEnrichment<small>历史召回 / 实体识别</small></div>
+          <div class="box box-green">DeviationGuidance<small>偏离原著引导</small></div>
+          <div class="box box-green">NarrativeGeneration<small>UnifiedWriter 叙事生成</small></div>
+          <div class="box box-green">SceneAdaptation<small>场景时空适配</small></div>
+          <div class="box box-green">DeltaLifecycle<small>Delta状态生命周期</small></div>
+        </div>
+        <div style="margin-top:12px; font-size:.78rem; color:var(--muted);">
+          状态字段：current_event_id &nbsp;|&nbsp; current_phase (setup/confrontation/resolution) &nbsp;|&nbsp;
+          total_turns &nbsp;|&nbsp; l0_summaries &nbsp;|&nbsp; l1_summaries &nbsp;|&nbsp; delta_state &nbsp;|&nbsp; _prefetch_slot（后台预取下一段叙事）
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">
+      <div class="arrow-line"></div>
+      <span>LLMClient.call() &nbsp;·&nbsp; LiteLLM 统一封装 &nbsp;·&nbsp; thinking_budget 自动翻译</span>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- LLM Layer -->
+    <div class="arch-layer layer-llm">
+      <div class="layer-header">
+        <span class="layer-icon">🤖</span> LLM 抽象层 &nbsp;·&nbsp; core/llm.py + LiteLLM + llm_config.yaml
+      </div>
+      <div class="layer-body">
+        <div style="font-size:.8rem; color:var(--muted); margin-bottom:10px;">
+          所有模型参数配置于 <strong style="color:var(--text)">backend/llm_config.yaml</strong>，thinking_budget 按提供商自动翻译：
+        </div>
+        <div class="provider-grid">
+          <div class="provider-item">通义千问<code>dashscope/* → extra_body.enable_thinking</code></div>
+          <div class="provider-item">Claude<code>anthropic/* → thinking.budget_tokens</code></div>
+          <div class="provider-item">OpenAI / GPT<code>→ reasoning_effort: low/medium/high</code></div>
+          <div class="provider-item">Gemini<code>→ reasoning_effort 翻译</code></div>
+          <div class="provider-item">阶跃星辰<code>stepfun/*</code></div>
+          <div class="provider-item">Grok / xAI<code>xai/*</code></div>
+          <div class="provider-item">火山引擎<code>volcengine/*</code></div>
+          <div class="provider-item">其他 LiteLLM<code>兼容提供商</code></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end arch-stack -->
+</section>
+
+<!-- ══════════ SECTION 2: FOLDER ══════════ -->
+<section id="folder">
+  <div class="section-label">
+    <div class="section-num num-purple">02</div>
+    <div>
+      <h2>文件夹结构</h2>
+      <p>标注关键文件职责，⭐ 为核心文件</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <span style="margin-left:8px;">WhatIf/ 项目根目录</span>
+    </div>
+    <div class="tree">
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-file">start.py</span><span class="tree-desc">全栈启动器（端口清理 / venv检测 / 健康检查 / 进程管理）</span></div>
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">backend/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-file">config.py</span><span class="tree-desc">系统配置加载与校验（读 llm_config.yaml，校验20个必填 key）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-star">⭐ llm_config.yaml</span><span class="tree-desc">所有 Extractor 和 Agent 的 LLM 参数（模型/温度/thinking_budget）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-file">extract.py</span><span class="tree-desc">预处理管道 CLI 入口（小说.txt → WorldPkg）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-file">play.py</span><span class="tree-desc">命令行游玩入口</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-dir">core/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-star">⭐ llm.py</span><span class="tree-desc">LiteLLM 统一封装，自动翻译推理参数</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-file">models.py</span><span class="tree-desc">共享数据模型（Event / Character / Location / Transition 等）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   └── </span><span class="tree-dir">prompts/</span><span class="tree-desc">共享 prompt 模板（.txt 文件）</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-dir">preprocessing/</span><span class="tree-desc">阶段一：小说 → WorldPkg</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">segmentation/</span><span class="tree-desc">文本清洗 / 分句 / 事件提取 / 决策文本提取</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">lorebook/</span><span class="tree-desc">角色 / 地点 / 道具 / 知识提取</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   └── </span><span class="tree-dir">entity_transition/</span><span class="tree-desc">7阶段实体状态转换分析</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       ├── </span><span class="tree-file">scanner.py</span><span class="tree-desc">Stage1：扫描所有实体</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       ├── </span><span class="tree-file">necessity_grader.py</span><span class="tree-desc">Stage3：LLM 重要性评分</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       ├── </span><span class="tree-file">transition_annotator.py</span><span class="tree-desc">Stage4：LLM 状态标注</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       ├── </span><span class="tree-file">cross_validator.py</span><span class="tree-desc">Stage5：一致性校验</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       └── </span><span class="tree-file">repairer.py</span><span class="tree-desc">Stage6：LLM 错误修复</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-dir">runtime/</span><span class="tree-desc">阶段二：游戏运行时</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-star">⭐ game.py</span><span class="tree-desc">GameEngine 主状态机（1106行，RLock + ThreadPoolExecutor）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-file">game_logger.py</span><span class="tree-desc">会话日志写入 .jsonl（每局一文件）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-file">cli.py</span><span class="tree-desc">CLI 游玩界面</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">agents/</span><span class="tree-desc">Agent 框架</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-star">⭐ base.py</span><span class="tree-desc">BaseLLMCaller / BaseAgent / AgentExecutor 注册表</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-file">models.py</span><span class="tree-desc">Agent 结果 Pydantic 模型（EventContext / L0Summary / L1Summary 等）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-file">delta_state.py</span><span class="tree-desc">DeltaStateManager（玩家偏离原著追踪，"What If"核心）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-dir">narrative_generation/</span><span class="tree-desc">UnifiedWriter + 相位编排器（setup/confrontation/resolution）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-dir">context_enrichment/</span><span class="tree-desc">L0/L1 召回、实体识别、历史召回</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-dir">memory_compression/</span><span class="tree-desc">L0/L1 压缩（上下文窗口管理）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-dir">deviation_guidance/</span><span class="tree-desc">DeviationController（偏离原著引导）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-dir">delta_lifecycle/</span><span class="tree-desc">Delta 状态生命周期管理</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   └── </span><span class="tree-dir">scene_adaptation/</span><span class="tree-desc">场景适配（时空上下文 / 衔接方案规划）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">tools/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   └── </span><span class="tree-file">lorebook_query.py</span><span class="tree-desc">世界观知识库检索过滤</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   └── </span><span class="tree-dir">world/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │       └── </span><span class="tree-file">loader.py</span><span class="tree-desc">WorldPkgLoader（解析 .wpkg zip 结构）</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">│   └── </span><span class="tree-dir">api/</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">app.py</span><span class="tree-desc">FastAPI 应用 + CORS + 路由注册</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">deps.py</span><span class="tree-desc">依赖注入（get_engine / get_llm_client）</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">schemas.py</span><span class="tree-desc">Pydantic 响应模型（alias_generator: snake_case → camelCase）</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">tts.py</span><span class="tree-desc">SSE 音频事件编码（SentenceBuffer / 重排序 / base64）</span></div>
+<div class="tree-line"><span class="tree-prefix">│       └── </span><span class="tree-dir">routes/</span></div>
+<div class="tree-line"><span class="tree-prefix">│           ├── </span><span class="tree-star">⭐ game.py</span><span class="tree-desc">SSE 流 + 存读档路由</span></div>
+<div class="tree-line"><span class="tree-prefix">│           ├── </span><span class="tree-file">config.py</span><span class="tree-desc">配置 / WorldPkg 管理路由</span></div>
+<div class="tree-line"><span class="tree-prefix">│           ├── </span><span class="tree-file">extraction.py</span><span class="tree-desc">预处理管道触发路由</span></div>
+<div class="tree-line"><span class="tree-prefix">│           └── </span><span class="tree-file">voice.py</span><span class="tree-desc">TTS 声音列表 / 分句路由</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">frontend/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   ├── </span><span class="tree-dir">src/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-file">App.tsx</span><span class="tree-desc">路由根（start / gameplay / settings / library）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">pages/</span><span class="tree-desc">四个页面组件</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">components/</span><span class="tree-desc">粒子特效 / 视差背景 / 存档弹窗 / 标题栏等</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   ├── </span><span class="tree-dir">lib/</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-star">⭐ api.ts</span><span class="tree-desc">HTTP + SSE 客户端，全部接口封装（293行）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-file">config-store.ts</span><span class="tree-desc">Electron-store / localStorage 客户端配置持久化</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   ├── </span><span class="tree-file">audio-player.ts</span><span class="tree-desc">TTS 音频按序播放</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   │   └── </span><span class="tree-file">hooks.ts</span><span class="tree-desc">自定义 hooks（useBackendReady 等）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   │   └── </span><span class="tree-dir">locales/</span><span class="tree-desc">i18n 翻译文件（zh-CN / en 等）</span></div>
+<div class="tree-line"><span class="tree-prefix">│   └── </span><span class="tree-dir">electron/</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">main.ts</span><span class="tree-desc">Electron 主进程（窗口创建 / IPC）</span></div>
+<div class="tree-line"><span class="tree-prefix">│       ├── </span><span class="tree-file">preload.ts</span><span class="tree-desc">IPC 预加载桥接</span></div>
+<div class="tree-line"><span class="tree-prefix">│       └── </span><span class="tree-file">sidecar.ts</span><span class="tree-desc">启动后端 Python 进程（生产环境）</span></div>
+</div>
+
+<div class="tree-section">
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">data/novels/</span><span class="tree-desc">输入：原始中文小说 .txt</span></div>
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">output/</span><span class="tree-desc">输出：WorldPkg 提取结果（events/ lorebook/ transitions/）</span></div>
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">saves/</span><span class="tree-desc">游戏存档（JSON，11个状态字段）</span></div>
+<div class="tree-line"><span class="tree-prefix">├── </span><span class="tree-dir">logs/sessions/</span><span class="tree-desc">会话日志（.jsonl，每局一个）</span></div>
+<div class="tree-line"><span class="tree-prefix">└── </span><span class="tree-file">tools/log_analyzer.html</span><span class="tree-desc">独立 HTML 工具，可视化分析 .jsonl 日志</span></div>
+</div>
+
+    </div><!-- end .tree -->
+  </div>
+</section>
+
+<!-- ══════════ SECTION 3: FLOW ══════════ -->
+<section id="flow">
+  <div class="section-label">
+    <div class="section-num num-green">03</div>
+    <div>
+      <h2>游玩流程流转解析</h2>
+      <p>从启动到每次玩家行动的完整链路</p>
+    </div>
+  </div>
+
+  <!-- 3.1 Preprocessing -->
+  <div style="margin-bottom: 40px;">
+    <h3 style="font-size:1rem; color:var(--muted); margin-bottom:16px; text-transform:uppercase; letter-spacing:.1em;">3.1 预处理阶段（离线一次性）</h3>
+    <div class="flow-container">
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-amber">IN</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#f59e0b">输入：中文小说 .txt</div>
+          <div class="flow-desc">放置于 data/novels/，通过 <code style="background:var(--code-bg);padding:1px 6px;border-radius:4px">python extract.py</code> 触发</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-blue">①</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#6c8ef5">文本清洗 + 分句</div>
+          <div class="flow-desc">preprocessing/segmentation/ — 去噪、标准化、按语义边界分句</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-blue">②</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#6c8ef5">EventExtractor（LLM）</div>
+          <div class="flow-desc">识别关键叙事事件（冲突节点、转折点），输出 events/[id].json</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-blue">③</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#6c8ef5">LorebookExtractor（LLM）</div>
+          <div class="flow-desc">提取角色、地点、道具、背景知识，写入 lorebook/ 目录</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-blue">④</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#6c8ef5">DecisionTextExtractor（LLM）</div>
+          <div class="flow-desc">为每个 Event 生成面向玩家的"决策文本"摘要</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-purple">⑤</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#a78bfa">7阶段实体状态转换分析</div>
+          <div class="flow-inner">
+            <ul>
+              <li><strong>Stage 1</strong> EntityScanner — 扫描所有实体</li>
+              <li><strong>Stage 2</strong> Registry 构建 — 为 Stage3 准备注册表</li>
+              <li><strong>Stage 3</strong> NecessityGrader（LLM）— 重要性评分</li>
+              <li><strong>Stage 4</strong> TransitionAnnotator（LLM）— 状态逐帧标注</li>
+              <li><strong>Stage 5</strong> CrossValidator — 一致性校验</li>
+              <li><strong>Stage 6</strong> Repairer（LLM）— 错误修复</li>
+              <li><strong>Stage 7</strong> 最终校验 → 写入 transitions/</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-green">OUT</div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#34d399">输出：&lt;小说名&gt;.wpkg（zip 包）</div>
+          <div class="flow-desc">包含 metadata.json · events/ · lorebook/ · transitions/ · source/ · debug/</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3.2 Runtime -->
+  <div>
+    <h3 style="font-size:1rem; color:var(--muted); margin-bottom:16px; text-transform:uppercase; letter-spacing:.1em;">3.2 运行时游玩主流程</h3>
+
+    <!-- Phase strip -->
+    <div class="phase-strip">
+      <div class="phase-card phase-setup">
+        <h4 style="color:#6c8ef5">setup 阶段</h4>
+        <p>SetupOrchestrator<br>生成开场叙事，建立场景</p>
+      </div>
+      <div class="phase-card phase-confrontation">
+        <h4 style="color:#f87171">confrontation 阶段</h4>
+        <p>玩家行动循环<br>冲突深化 / 偏离引导</p>
+      </div>
+      <div class="phase-card phase-resolution">
+        <h4 style="color:#34d399">resolution 阶段</h4>
+        <p>ResolutionOrchestrator<br>事件收尾 / 切换下一 Event</p>
+      </div>
+    </div>
+
+    <div class="flow-container" style="margin-top:28px;">
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-blue">1</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#6c8ef5">POST /api/game/start → GameEngine.new_game()</div>
+          <div class="flow-desc">定位主角（importance=protagonist）→ 加载第一个 Event → 初始化状态（phase=setup, turn=0）→ 清空 L0/L1/delta_state</div>
+          <div class="flow-inner">
+            <div>
+              <span class="sse-tag sse-state" style="font-size:.72rem">event: state</span> 早期快照（phase / eventId / turn）<br style="margin:4px 0">
+              <span class="sse-tag sse-chunk" style="font-size:.72rem">event: chunk</span> 开场叙事文本流<br style="margin:4px 0">
+              <span class="sse-tag sse-done" style="font-size:.72rem">event: done</span> 流结束
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-red">2</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#f87171">POST /api/game/action → GameEngine.process_input(action)</div>
+          <div class="flow-desc">run_in_executor 异步转线程，on_narrative_chunk 回调实时流出文本</div>
+          <div class="flow-inner">
+            <ul>
+              <li><strong>① ContextEnrichmentAgent</strong> — HistoryRecaller 召回 + EntityRecognizer 识别 + LorebookQuery 检索</li>
+              <li><strong>② DeviationGuidanceAgent</strong> — DeviationController 判断偏离程度，生成引导策略</li>
+              <li><strong>③ DeltaLifecycleAgent</strong> — 更新 DeltaStateManager，记录平行时间线变化</li>
+              <li><strong>④ NarrativeGenerationAgent</strong> — UnifiedWriter 综合所有上下文生成叙事，on_narrative_chunk() 流出</li>
+              <li><strong>⑤ SceneAdaptationAgent</strong> — SceneAdapter 分析时空变化，BridgePlanner 规划衔接</li>
+              <li><strong>⑥ MemoryCompressionAgent</strong>（按阈值触发）— L0 → L1 压缩</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-amber">3</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#f59e0b">并行 TTS 合成（若开启）</div>
+          <div class="flow-desc">SentenceBuffer 凑整句 → asyncio.create_task(edge-tts) → audio_hold 按序号重排 → base64 编码</div>
+          <div class="sse-events" style="margin-top:10px;">
+            <span class="sse-tag sse-chunk">event: chunk "...文本片..."</span>
+            <span class="sse-tag sse-audio">event: audio {index, audio}</span>
+            <span class="sse-tag sse-state">event: state（最终快照）</span>
+            <span class="sse-tag sse-done">event: done</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-green">4</div><div class="flow-line"></div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#34d399">awaiting_next_event = true → POST /api/game/continue</div>
+          <div class="flow-desc">切换到下一个 Event → phase 重置为 setup → ResolutionOrchestrator 生成过渡叙事 → 循环回步骤 1</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle fc-cyan">5</div></div>
+        <div class="flow-body">
+          <div class="flow-title" style="color:#22d3ee">存档 / 读档</div>
+          <div class="flow-desc">
+            <strong>存档：</strong>POST /api/game/save → 序列化 11 个状态字段到 saves/slot_N.json<br>
+            <strong>读档：</strong>POST /api/game/load → 反序列化 + 校验必填字段 + 重建运行时状态 → 直接返回 JSON（不走 SSE）
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 4: AGENTS ══════════ -->
+<section id="agents">
+  <div class="section-label">
+    <div class="section-num num-blue">04</div>
+    <div>
+      <h2>Agent 系统</h2>
+      <p>6 个 Agent 族，每次玩家行动的协作链路</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 20px;">
+    <div style="font-size:.82rem; color:var(--muted); margin-bottom:16px;">
+      所有 Agent 继承 <strong style="color:var(--text)">BaseLLMCaller</strong>，必须实现：
+      <code style="background:var(--code-bg);padding:2px 8px;border-radius:4px;margin:0 4px">@property prompt_file</code> →
+      <code style="background:var(--code-bg);padding:2px 8px;border-radius:4px;margin:0 4px">@property response_model</code>（Pydantic 结构化输出），
+      通过 <code style="background:var(--code-bg);padding:2px 8px;border-radius:4px">AgentExecutor</code> 注册表统一调度
+    </div>
+    <div class="agent-grid">
+      <div class="agent-card">
+        <h4 style="color:#6c8ef5">NarrativeGeneration</h4>
+        <p>UnifiedWriter + 相位编排器（setup / confrontation / resolution），根据全部上下文生成流式叙事文本，是最核心的写作 Agent</p>
+        <span class="tag" style="background:rgba(108,142,245,.15);color:#6c8ef5">streaming</span>
+      </div>
+      <div class="agent-card">
+        <h4 style="color:#34d399">ContextEnrichment</h4>
+        <p>三子 Agent 协作：HistoryRecaller 召回相关历史、EntityRecognizer 识别行动实体、LorebookQuery 检索角色/地点/道具信息</p>
+        <span class="tag" style="background:rgba(52,211,153,.15);color:#34d399">context</span>
+      </div>
+      <div class="agent-card">
+        <h4 style="color:#f87171">DeviationGuidance</h4>
+        <p>DeviationController 判断玩家行动偏离原著的程度，生成 DeviationAnalysis，引导叙事回归或拥抱平行时间线</p>
+        <span class="tag" style="background:rgba(248,113,113,.15);color:#f87171">guidance</span>
+      </div>
+      <div class="agent-card">
+        <h4 style="color:#a78bfa">MemoryCompression</h4>
+        <p>L0Compressor 压缩近期对话为短期摘要，L1Compressor 将多个 L0 合并为长期记忆，解决 LLM 上下文窗口限制</p>
+        <span class="tag" style="background:rgba(167,139,250,.15);color:#a78bfa">memory</span>
+      </div>
+      <div class="agent-card">
+        <h4 style="color:#f59e0b">SceneAdaptation</h4>
+        <p>SceneAdapter 分析空间/时间场景变化，BridgePlanner 规划场景转换衔接方案，保证叙事连贯性</p>
+        <span class="tag" style="background:rgba(245,158,11,.15);color:#f59e0b">scene</span>
+      </div>
+      <div class="agent-card">
+        <h4 style="color:#22d3ee">DeltaLifecycle</h4>
+        <p>管理 DeltaStateManager 的状态转换生命周期，追踪每次行动后世界状态相对于原著的偏差量</p>
+        <span class="tag" style="background:rgba(34,211,238,.15);color:#22d3ee">state</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 5: MEMORY ══════════ -->
+<section id="memory">
+  <div class="section-label">
+    <div class="section-num num-purple">05</div>
+    <div>
+      <h2>记忆压缩机制</h2>
+      <p>三级记忆层解决 LLM 上下文窗口限制</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 20px;">
+    <div class="memory-diagram">
+      <div class="mem-block mem-recent">
+        <h4 style="color:#34d399">近期原文</h4>
+        <p style="color:var(--muted)">最近 N 轮对话完整记录，直接放入 prompt 上下文</p>
+      </div>
+      <div class="mem-arrow">→</div>
+      <div class="mem-block mem-l0">
+        <h4 style="color:#6c8ef5">L0 摘要</h4>
+        <p style="color:var(--muted)">L0Compressor（LLM）将超出阈值的近期轮次压缩为中期摘要</p>
+      </div>
+      <div class="mem-arrow">→</div>
+      <div class="mem-block mem-l1">
+        <h4 style="color:#a78bfa">L1 摘要</h4>
+        <p style="color:var(--muted)">L1Compressor（LLM）将多个 L0 合并为长期记忆，L0 列表清空</p>
+      </div>
+    </div>
+
+    <pre><span class="cm"># UnifiedWriter 构建 prompt 上下文的顺序</span>
+L1摘要（最远历史，高度压缩）
+  + L0摘要（中期事件，适度压缩）
+  + 近期对话（原文，最近 N 轮）
+  → 送入 LLM 生成叙事</pre>
+
+    <div style="margin-top:16px; font-size:.8rem; color:var(--muted);">
+      压缩触发条件均在 <strong style="color:var(--text)">llm_config.yaml</strong> 中配置，压缩结果序列化到存档（l0_summaries / l1_summaries 字段），读档后完整恢复记忆链。
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 6: SSE TIMING ══════════ -->
+<section id="sse">
+  <div class="section-label">
+    <div class="section-num num-green">06</div>
+    <div>
+      <h2>SSE 流内部时序</h2>
+      <p>asyncio 线程与后端生成线程的协作模式</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 20px;">
+    <div class="timing-grid">
+      <div class="timing-col">
+        <div class="timing-col-header" style="color:#6c8ef5">API 线程（asyncio）</div>
+        <div class="timing-items">
+          <div class="timing-item" style="background:rgba(108,142,245,.1);border:1px solid rgba(108,142,245,.2);color:#93a7f8">run_in_executor(process_input)</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">← call_soon_threadsafe(chunk)</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">yield event:state（早期快照）</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">yield event:chunk "文本片1"</div>
+          <div class="timing-item" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24">create_task(edge-tts 合成)</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">yield event:chunk "文本片2..."</div>
+          <div class="timing-item" style="background:rgba(108,142,245,.1);border:1px solid rgba(108,142,245,.2);color:#93a7f8">await future（等线程完成）</div>
+          <div class="timing-item" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24">await gather(all_tts_tasks)</div>
+          <div class="timing-item" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24">drain audio_hold（按序号）</div>
+          <div class="timing-item" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24">yield event:audio {0, …}</div>
+          <div class="timing-item" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24">yield event:audio {1, …}</div>
+          <div class="timing-item" style="background:rgba(108,142,245,.1);border:1px solid rgba(108,142,245,.2);color:#93a7f8">yield event:state（最终快照）</div>
+          <div class="timing-item" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:#b89ffb">yield event:done</div>
+        </div>
+      </div>
+
+      <div class="timing-center">
+        <div class="timing-arrow">⇄</div>
+        <div style="writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.05em;margin-top:8px">queue / callback</div>
+      </div>
+
+      <div class="timing-col">
+        <div class="timing-col-header" style="color:#34d399">后端线程（ThreadPoolExecutor）</div>
+        <div class="timing-items">
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">ContextEnrichmentAgent 运行</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">DeviationGuidanceAgent 运行</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">DeltaLifecycleAgent 运行</div>
+          <div class="timing-item" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#fb8c8c">UnifiedWriter → LLM 流式调用</div>
+          <div class="timing-item" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#fb8c8c">on_narrative_chunk("文本片1") →</div>
+          <div class="timing-item" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#fb8c8c">on_narrative_chunk("文本片2") →</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">SceneAdaptationAgent 运行</div>
+          <div class="timing-item" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:#b89ffb">MemoryCompression（按阈值）</div>
+          <div class="timing-item" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#5ddba7">线程完成，future resolved</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px; font-size:.78rem; color:var(--muted); line-height:1.8;">
+      <strong style="color:var(--text)">关键设计：</strong>
+      文本块与音频块<strong>交错输出</strong>——文本优先流出保证响应速度，TTS 在后台并行合成，
+      <code style="background:var(--code-bg);padding:1px 6px;border-radius:4px">audio_hold</code> 字典确保按句子序号有序播放，避免乱序。
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  WhatIf · MIT License · 架构文档由 Claude Code 生成
+</footer>
+
+</body>
+</html>

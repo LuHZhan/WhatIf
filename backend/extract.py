@@ -35,6 +35,23 @@ from preprocessing.entity_transition.validators import validate_transitions
 import config
 
 
+def _read_input_file(path: Path) -> str:
+    if path.suffix.lower() == ".epub":
+        try:
+            import ebooklib
+            from ebooklib import epub
+            from bs4 import BeautifulSoup
+        except ImportError:
+            raise ImportError("处理 EPUB 需要安装依赖: pip install ebooklib beautifulsoup4")
+        book = epub.read_epub(str(path))
+        chapters = []
+        for item in book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+            soup = BeautifulSoup(item.get_content(), "html.parser")
+            chapters.append(soup.get_text())
+        return "\n\n".join(chapters)
+    return path.read_text(encoding="utf-8")
+
+
 def load_json(path: Path, model: Type[BaseModel]) -> BaseModel:
     return model.model_validate_json(path.read_text(encoding="utf-8"))
 
@@ -117,7 +134,7 @@ def main(input_path: str, output_dir: str | None = None):
         clean = full_text_file.read_text(encoding="utf-8")
         sentences = load_json(sentences_file, SentenceData)
     else:
-        raw_text = input_file.read_text(encoding="utf-8")
+        raw_text = _read_input_file(input_file)
         clean = clean_text(raw_text)
         sentences = split_sentences(clean)
 
