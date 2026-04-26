@@ -30,6 +30,7 @@ class EntityRecognizerAgent(BaseLLMCaller):
             extra_params=self.extra_params or None,
             api_base=self.api_base,
             api_key_env=self.api_key_env,
+            caller=self._config_name,
         )
         return result
 

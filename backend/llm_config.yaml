@@ -1,78 +1,78 @@
 extractors:
   event_extractor:
-    model: deepseek/deepseek-reasoner
+    model: deepseek/deepseek-v4-pro
     temperature: 0.2
     thinking_budget: 0
   lorebook_extractor:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   decision_text_extractor:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   necessity_grader:
-    model: deepseek/deepseek-reasoner
+    model: deepseek/deepseek-v4-pro
     temperature: 0.2
     thinking_budget: 0
   transition_annotator:
-    model: deepseek/deepseek-reasoner
+    model: deepseek/deepseek-v4-pro
     temperature: 0.2
     thinking_budget: 0
   cross_validator:
-    model: deepseek/deepseek-reasoner
+    model: deepseek/deepseek-v4-pro
     temperature: 0.2
     thinking_budget: 0
   repairer:
-    model: deepseek/deepseek-reasoner
+    model: deepseek/deepseek-v4-pro
     temperature: 0.2
     thinking_budget: 0
 agents:
   unified_writer:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-pro
     temperature: 0.7
     thinking_budget: 0
   setup_orchestrator:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-pro
     temperature: 0.3
     thinking_budget: 0
   confrontation_orchestrator:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-pro
     temperature: 0.3
     thinking_budget: 0
   resolution_orchestrator:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-pro
     temperature: 0.3
     thinking_budget: 0
   bridge_planner:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.3
     thinking_budget: 0
   deviation_controller:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   l0_recall_agent:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   l1_recall_agent:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   entity_recognizer_agent:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.1
     thinking_budget: 0
   l0_compressor:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   l1_compressor:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0
   scene_adapter:
-    model: deepseek/deepseek-chat
+    model: deepseek/deepseek-v4-flash
     temperature: 0.2
     thinking_budget: 0

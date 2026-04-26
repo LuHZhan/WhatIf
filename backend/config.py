@@ -51,8 +51,8 @@ _PROVIDER_KEY_MAP = {
 PROJECT_ROOT = Path(__file__).parent
 REPO_ROOT = PROJECT_ROOT.parent
 OUTPUT_DIR = REPO_ROOT / "output"
-OUTPUT_WORK_DIR = OUTPUT_DIR / "龙族"
-OUTPUT_WPKG = OUTPUT_DIR / "龙族.wpkg"
+OUTPUT_WORK_DIR = OUTPUT_DIR / "大明王朝"
+OUTPUT_WPKG = OUTPUT_DIR / "大明王朝.wpkg"
 CORE_PROMPTS_DIR = PROJECT_ROOT / "core" / "prompts"
 SAVES_DIR = REPO_ROOT / "saves"
 

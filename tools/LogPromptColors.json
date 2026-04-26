@@ -1,0 +1,36 @@
+{
+  "注释": "此文件定义 log_viewer.html 中 prompt 文本的 XML 标签高亮颜色。key 为标签名（小写），'*' 为未匹配标签的默认颜色。",
+
+  "input":                        "#1a73e8",
+  "phase_source":                 "#e8711a",
+  "previous_event":               "#9334e6",
+  "delta_state":                  "#c0392b",
+  "active_deltas":                "#c0392b",
+  "pending_echo":                 "#f29900",
+  "archived_overrides":           "#78909c",
+  "event_meta":                   "#007b83",
+  "event_id":                     "#00838f",
+  "importance":                   "#00838f",
+  "soft_guide_hints":             "#00838f",
+  "event_type":                   "#00838f",
+  "preconditions":                "#00838f",
+  "goal":                         "#00838f",
+
+  "tools":                        "#2e7d32",
+  "tool":                         "#388e3c",
+  "principles":                   "#1557b0",
+  "output_format":                "#1557b0",
+  "writing_guidance_instructions":"#6d4c41",
+  "writing_guidance":             "#e8711a",
+
+  "delta":                        "#c0392b",
+  "echo":                         "#f29900",
+  "echo_instruction":             "#e65100",
+  "error":                        "#d32f2f",
+
+  "confrontation_history":        "#7b1fa2",
+  "setup_narrative":              "#7b1fa2",
+  "player_input":                 "#9334e6",
+
+  "*":                            "#546e7a"
+}

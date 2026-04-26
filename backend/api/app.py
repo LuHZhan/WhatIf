@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routes import extraction, game
 from api.routes.config import router as config_router
 from api.routes.voice import router as voice_router
+from api.routes.logs import router as logs_router
 
 app = FastAPI(
     title="WhatIf API",
@@ -22,6 +23,7 @@ app.include_router(game.router)
 app.include_router(extraction.router)
 app.include_router(config_router)
 app.include_router(voice_router)
+app.include_router(logs_router)
 
 
 @app.get("/api/health")

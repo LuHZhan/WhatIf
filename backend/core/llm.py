@@ -134,6 +134,7 @@ class LLMClient:
         api_base: str | None = None,
         api_key_env: str | None = None,
         log: bool = True,
+        caller: str | None = None,
     ) -> str:
         params = self._build_reasoning_params(model, thinking_budget, extra_params)
 
@@ -154,6 +155,7 @@ class LLMClient:
         if _glog and log:
             _glog.log("LLM_CALL", {
                 "method": "generate",
+                "caller": caller,
                 "model": model,
                 "temperature": temperature,
                 "thinking_budget": thinking_budget,
@@ -177,6 +179,7 @@ class LLMClient:
         api_base: str | None = None,
         api_key_env: str | None = None,
         max_tokens: int = 32768,
+        caller: str | None = None,
     ) -> T:
         params = self._build_reasoning_params(model, thinking_budget, extra_params)
 
@@ -224,6 +227,7 @@ class LLMClient:
         if _glog:
             _glog.log("LLM_CALL", {
                 "method": "generate_structured",
+                "caller": caller,
                 "model": model,
                 "temperature": temperature,
                 "thinking_budget": thinking_budget,
@@ -279,6 +283,7 @@ class LLMClient:
         extra_params: dict | None = None,
         api_base: str | None = None,
         api_key_env: str | None = None,
+        caller: str | None = None,
     ) -> T:
         params = self._build_reasoning_params(model, thinking_budget, extra_params)
 
@@ -335,6 +340,7 @@ class LLMClient:
         if _glog:
             _glog.log("LLM_CALL", {
                 "method": "generate_structured_with_cache",
+                "caller": caller,
                 "model": model,
                 "temperature": temperature,
                 "extra_params": extra_params,

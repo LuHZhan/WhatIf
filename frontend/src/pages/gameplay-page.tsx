@@ -42,6 +42,7 @@ export function GameplayPage({ onBack, initialLoad = null }: Props) {
   const [showJumpBtn, setShowJumpBtn] = useState(false)
   const [debugMode, setDebugMode] = useState(false)
   const debugRef = useRef(false)
+  const TTS_ENABLED = false // 全局 TTS 开关，设为 true 恢复语音
   const [bgImageUrl, setBgImageUrl] = useState<string | null>(null)
   const [textHidden, setTextHidden] = useState(false)
   const [showBackConfirm, setShowBackConfirm] = useState(false)
@@ -255,7 +256,7 @@ export function GameplayPage({ onBack, initialLoad = null }: Props) {
       }
     }
 
-    const ttsEnabled = conversationModeRef.current || voiceConfig.enabled
+    const ttsEnabled = TTS_ENABLED && (conversationModeRef.current || voiceConfig.enabled)
     if (ttsEnabled) {
       audioPlayer.reset()
       audioPlayer.unlock()
@@ -337,7 +338,7 @@ export function GameplayPage({ onBack, initialLoad = null }: Props) {
     audioPlayer.stop()
     setConvState(conversationModeRef.current ? 'submitting' : 'off')
     setEntries(prev => [...prev, { id: nextId(), kind: 'player', status: 'final', text: action }])
-    const tts = conversationModeRef.current || voiceConfig.enabled
+    const tts = TTS_ENABLED && (conversationModeRef.current || voiceConfig.enabled)
     void processStream(submitAction(action, tts, voiceConfig.voice, locale), {
       revealLatest: true,
       scrollBehavior: conversationModeRef.current ? 'auto' : 'smooth',
@@ -357,7 +358,7 @@ export function GameplayPage({ onBack, initialLoad = null }: Props) {
     if (conversationModeRef.current && origin === 'auto') {
       setConvState('submitting')
     }
-    const tts = conversationModeRef.current || voiceConfig.enabled || debugRef.current
+    const tts = TTS_ENABLED && (conversationModeRef.current || voiceConfig.enabled || debugRef.current)
     void processStream(continueGame(tts, voiceConfig.voice, locale), {
       revealLatest: true,
       scrollBehavior: conversationModeRef.current ? 'auto' : 'smooth',
@@ -495,7 +496,7 @@ export function GameplayPage({ onBack, initialLoad = null }: Props) {
         return
       }
 
-      const tts = conversationModeRef.current || voiceConfig.enabled
+      const tts = TTS_ENABLED && (conversationModeRef.current || voiceConfig.enabled)
       void processStream(startGame(tts, voiceConfig.voice, locale))
     }, 0)
 

@@ -14,7 +14,7 @@ import {
 } from '@/lib/api'
 import i18n from '@/lib/i18n'
 
-const PROVIDERS = ['dashscope', 'anthropic', 'gemini', 'openai', 'volcengine'] as const
+const PROVIDERS = ['dashscope', 'anthropic', 'gemini', 'openai', 'volcengine', 'deepseek'] as const
 
 type Tab = 'apiKeys' | 'modelConfig' | 'language'
 const TABS: Tab[] = ['apiKeys', 'modelConfig', 'language']

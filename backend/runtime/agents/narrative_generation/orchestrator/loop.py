@@ -106,6 +106,7 @@ def _call_llm(
         extra_params=loop_config.extra_params or None,
         api_base=loop_config.api_base,
         api_key_env=loop_config.api_key_env,
+        caller=loop_config.config_name,
     )
 
 

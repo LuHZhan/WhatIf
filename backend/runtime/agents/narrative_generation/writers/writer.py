@@ -44,6 +44,7 @@ class UnifiedWriter(BaseLLMCaller):
             input_data=inp,
             output_text=narrative,
             prompt=prompt,
+            prompt_template=self.load_prompt(),
         )
         return narrative
 

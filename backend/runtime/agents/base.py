@@ -19,8 +19,8 @@ class BaseLLMCaller(ABC):
 
     def __init__(self, llm_client: LLMClient):
         self.llm = llm_client
-        config_name = config.class_to_config_name(self.__class__.__name__)
-        self._config = config.get_llm_config(config_name)
+        self._config_name = config.class_to_config_name(self.__class__.__name__)
+        self._config = config.get_llm_config(self._config_name)
 
     @property
     @abstractmethod
@@ -72,6 +72,7 @@ class BaseLLMCaller(ABC):
             extra_params=self.extra_params or None,
             api_base=self.api_base,
             api_key_env=self.api_key_env,
+            caller=self._config_name,
         )
 
     def call_llm_text(self, prompt: str, *, model_override: str | None = None, _log: bool = True) -> str:
@@ -84,6 +85,7 @@ class BaseLLMCaller(ABC):
             api_base=self.api_base,
             api_key_env=self.api_key_env,
             log=_log,
+            caller=self._config_name,
         )
 
     def call_llm_text_stream(
@@ -94,11 +96,12 @@ class BaseLLMCaller(ABC):
         model_override: str | None = None,
     ) -> str:
         has_sent = False
+        model = model_override or self.model_name
         try:
             full_text = ""
             for chunk in self.llm.generate_stream(
                 prompt=prompt,
-                model=model_override or self.model_name,
+                model=model,
                 temperature=self.temperature,
                 thinking_budget=self.thinking_budget,
                 extra_params=self.extra_params or None,
@@ -108,11 +111,33 @@ class BaseLLMCaller(ABC):
                 full_text += chunk
                 has_sent = True
                 on_chunk(chunk)
+            glog.log("LLM_CALL", {
+                "method": "generate_stream",
+                "caller": self._config_name,
+                "model": model,
+                "temperature": self.temperature,
+                "thinking_budget": self.thinking_budget,
+                "prompt_len": len(prompt),
+                "response_len": len(full_text),
+                "prompt": prompt,
+                "response": full_text,
+            })
             return full_text
         except Exception:
             if has_sent:
                 raise
             text = self.call_llm_text(prompt, model_override=model_override, _log=False)
+            glog.log("LLM_CALL", {
+                "method": "generate_stream_fallback",
+                "caller": self._config_name,
+                "model": model,
+                "temperature": self.temperature,
+                "thinking_budget": self.thinking_budget,
+                "prompt_len": len(prompt),
+                "response_len": len(text),
+                "prompt": prompt,
+                "response": text,
+            })
             on_chunk(text)
             return text
 
@@ -122,6 +147,7 @@ class BaseLLMCaller(ABC):
         input_data: BaseModel,
         output_text: str,
         prompt: str | None = None,
+        prompt_template: str | None = None,
     ) -> None:
         log_data = {
             "writer_type": writer_type,
@@ -132,6 +158,8 @@ class BaseLLMCaller(ABC):
             "input": input_data.model_dump(),
             "output": output_text,
         }
+        if prompt_template:
+            log_data["prompt_template"] = prompt_template
         if prompt:
             log_data["prompt"] = prompt
         glog.log("WRITER", log_data)

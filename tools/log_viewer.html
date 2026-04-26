@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatIf Log Viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.hidden { display: none !important; }
+
+:root {
+  --md-primary: #1a73e8;
+  --md-primary-light: #e8f0fe;
+  --md-primary-dark: #1557b0;
+  --md-surface: #ffffff;
+  --md-surface-variant: #f8f9fa;
+  --md-bg: #f1f3f4;
+  --md-outline: #dadce0;
+  --md-outline-variant: #e8eaed;
+  --md-on-surface: #202124;
+  --md-on-surface-variant: #5f6368;
+  --md-on-surface-dim: #9aa0a6;
+  --md-shadow-1: 0 1px 2px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+  --md-shadow-2: 0 1px 2px rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+
+  --cat-session: #34a853;
+  --cat-game-state: #1a73e8;
+  --cat-llm-call: #e8711a;
+  --cat-agent-exec: #9334e6;
+  --cat-writer: #007b83;
+  --cat-error: #d93025;
+  --cat-repair: #f29900;
+  --cat-default: #5f6368;
+
+  /* agent 子类型颜色 */
+  --agent-narrative:  #e8711a;
+  --agent-context:    #1a73e8;
+  --agent-memory:     #9334e6;
+  --agent-deviation:  #d93025;
+  --agent-scene:      #34a853;
+  --agent-delta:      #f29900;
+
+  --sidebar-w: 280px;
+}
+
+body {
+  font-family: 'Google Sans', 'Segoe UI', system-ui, sans-serif;
+  background: var(--md-bg);
+  color: var(--md-on-surface);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Top Bar ── */
+.topbar {
+  height: 56px;
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-outline);
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 20px;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--md-on-surface);
+  flex-shrink: 0;
+}
+.topbar-logo .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--md-primary);
+}
+.topbar-logo .dot.live { animation: pulse-dot 1.5s ease-in-out infinite; }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.7); }
+}
+.topbar-divider { width: 1px; height: 24px; background: var(--md-outline); flex-shrink: 0; }
+.topbar-url { display: flex; align-items: center; gap: 8px; }
+.topbar-url label { font-size: 13px; color: var(--md-on-surface-variant); white-space: nowrap; }
+.topbar-url input {
+  height: 32px; border: 1px solid var(--md-outline); border-radius: 6px;
+  padding: 0 10px; font-size: 13px; font-family: inherit;
+  color: var(--md-on-surface); background: var(--md-surface-variant);
+  width: 220px; outline: none;
+  transition: border-color .15s;
+}
+.topbar-url input:focus { border-color: var(--md-primary); background: #fff; }
+.topbar-spacer { flex: 1; }
+.topbar-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--md-on-surface-variant);
+}
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--md-on-surface-dim);
+  transition: background .3s;
+}
+.status-dot.ok { background: var(--cat-session); }
+.status-dot.err { background: var(--cat-error); }
+
+/* ── Filter bar ── */
+.filterbar {
+  height: 48px;
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-outline-variant);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.filterbar::-webkit-scrollbar { display: none; }
+.chip {
+  height: 32px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 12px;
+  border-radius: 16px;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid var(--md-outline);
+  background: var(--md-surface);
+  color: var(--md-on-surface-variant);
+  transition: all .15s;
+  white-space: nowrap;
+  user-select: none;
+}
+.chip .chip-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.chip:hover { background: var(--md-surface-variant); }
+.chip.active {
+  background: var(--md-primary-light);
+  border-color: var(--md-primary);
+  color: var(--md-primary-dark);
+}
+.chip .chip-count {
+  background: var(--md-outline-variant);
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+}
+.chip.active .chip-count { background: #c5d8fc; }
+
+/* Agent 子类型 chip（缩进样式） */
+.chip.sub-chip {
+  height: 26px;
+  padding: 0 9px;
+  font-size: 12px;
+  border-radius: 13px;
+  border-style: dashed;
+  opacity: .85;
+  margin-left: -2px;
+}
+.chip.sub-chip.active { opacity: 1; border-style: solid; }
+
+/* ── Main layout ── */
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--md-surface);
+  border-right: 1px solid var(--md-outline);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sidebar-header {
+  padding: 16px 16px 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sidebar-title { font-size: 13px; font-weight: 600; color: var(--md-on-surface-variant); text-transform: uppercase; letter-spacing: .08em; }
+.icon-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: none; background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--md-on-surface-variant);
+  transition: background .15s;
+}
+.icon-btn:hover { background: var(--md-surface-variant); }
+.icon-btn svg { width: 18px; height: 18px; }
+.session-list {
+  flex: 1; overflow-y: auto;
+  padding: 0 8px 8px;
+}
+.session-list::-webkit-scrollbar { width: 4px; }
+.session-list::-webkit-scrollbar-thumb { background: var(--md-outline); border-radius: 2px; }
+.session-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  position: relative;
+  margin-bottom: 2px;
+}
+.session-item:hover { background: var(--md-surface-variant); }
+.session-item.active { background: var(--md-primary-light); }
+.session-name {
+  font-size: 13px; font-weight: 500;
+  color: var(--md-on-surface);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.session-item.active .session-name { color: var(--md-primary-dark); }
+.session-meta {
+  display: flex; align-items: center; gap: 6px; margin-top: 3px;
+}
+.session-size { font-size: 11px; color: var(--md-on-surface-dim); }
+.live-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #e6f4ea; color: #137333;
+  border-radius: 10px; padding: 1px 7px; font-size: 11px; font-weight: 500;
+}
+.live-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #34a853;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+.session-empty { padding: 24px 16px; text-align: center; color: var(--md-on-surface-dim); font-size: 13px; }
+
+/* ── Content ── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+.content::-webkit-scrollbar { width: 6px; }
+.content::-webkit-scrollbar-thumb { background: var(--md-outline); border-radius: 3px; }
+
+/* ── Empty / Loading state ── */
+.state-view {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 100%; gap: 12px;
+  color: var(--md-on-surface-dim);
+}
+.state-view svg { width: 48px; height: 48px; opacity: .4; }
+.state-view p { font-size: 14px; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--md-outline);
+  border-top-color: var(--md-primary);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Log Timeline ── */
+.timeline { display: flex; flex-direction: column; gap: 8px; }
+.timeline-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 0 8px;
+}
+.timeline-count { font-size: 13px; color: var(--md-on-surface-variant); }
+
+/* ── Log Card ── */
+.log-card {
+  background: var(--md-surface);
+  border-radius: 10px;
+  border: 1px solid var(--md-outline-variant);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.log-card:hover { box-shadow: var(--md-shadow-1); }
+
+.card-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+.cat-badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  flex-shrink: 0;
+}
+.card-ts {
+  font-size: 11px; color: var(--md-on-surface-dim);
+  font-family: 'Roboto Mono', monospace;
+  flex-shrink: 0;
+}
+.card-summary {
+  flex: 1; min-width: 0;
+  font-size: 13px; color: var(--md-on-surface-variant);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-expand-icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  color: var(--md-on-surface-dim);
+  transition: transform .2s;
+}
+.log-card.expanded .card-expand-icon { transform: rotate(180deg); }
+
+.card-body {
+  display: none;
+  border-top: 1px solid var(--md-outline-variant);
+  padding: 12px 14px;
+  flex-direction: column;
+  gap: 10px;
+}
+.log-card.expanded .card-body { display: flex; }
+
+/* ── Fields ── */
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.field {
+  background: var(--md-surface-variant);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+.field-key {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--md-on-surface-dim); margin-bottom: 2px;
+}
+.field-val {
+  font-size: 13px; color: var(--md-on-surface); word-break: break-all;
+}
+.field-val.mono { font-family: 'Roboto Mono', monospace; font-size: 12px; }
+
+/* ── Text block (prompt / response) ── */
+.text-block { display: flex; flex-direction: column; gap: 4px; }
+.text-block-label {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.text-block-label span {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--md-on-surface-dim);
+}
+.text-block-label .len-tag {
+  font-size: 11px; color: var(--md-on-surface-dim);
+  background: var(--md-outline-variant); border-radius: 8px; padding: 1px 7px;
+}
+.text-pre {
+  background: #f8f9fa;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 12px; font-family: 'Roboto Mono', monospace;
+  color: var(--md-on-surface);
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 320px; overflow-y: auto;
+  line-height: 1.6;
+}
+.text-pre::-webkit-scrollbar { width: 4px; }
+.text-pre::-webkit-scrollbar-thumb { background: var(--md-outline); border-radius: 2px; }
+.show-more-btn {
+  align-self: flex-start;
+  height: 28px; padding: 0 12px;
+  border-radius: 14px;
+  border: 1px solid var(--md-outline);
+  background: var(--md-surface);
+  font-size: 12px; font-family: inherit;
+  color: var(--md-primary); cursor: pointer;
+  transition: background .15s;
+}
+.show-more-btn:hover { background: var(--md-primary-light); }
+
+/* ── Category color map ── */
+[data-cat="SESSION"]        { --cc: var(--cat-session);    --cb: #e6f4ea; }
+[data-cat="GAME_STATE"]     { --cc: var(--cat-game-state); --cb: #e8f0fe; }
+[data-cat="LLM_CALL"]       { --cc: var(--cat-llm-call);  --cb: #fce8d5; }
+[data-cat="AGENT_EXEC"]     { --cc: var(--cat-agent-exec); --cb: #f3e8fd; }
+[data-cat="WRITER"]         { --cc: var(--cat-writer);    --cb: #e0f5f5; }
+[data-cat="ERROR"]          { --cc: var(--cat-error);     --cb: #fce8e6; }
+[data-cat="LLM_JSON_REPAIR"]{ --cc: var(--cat-repair);   --cb: #fef7e0; }
+
+.cat-badge { background: var(--cb, #f1f3f4); color: var(--cc, var(--cat-default)); }
+.log-card  { border-left: 3px solid var(--cc, var(--md-outline)); }
+
+/* ── Auto-refresh indicator ── */
+.refresh-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  background: #e8f0fe;
+  font-size: 12px; color: var(--md-primary-dark);
+  flex-shrink: 0;
+  border-bottom: 1px solid #c5d8fc;
+}
+.refresh-bar.hidden { display: none; }
+.refresh-spinner {
+  width: 14px; height: 14px;
+  border: 2px solid #c5d8fc;
+  border-top-color: var(--md-primary);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Local file section ── */
+.sidebar-section-divider {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px 6px;
+  flex-shrink: 0;
+}
+.sidebar-section-divider span {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--md-on-surface-dim); white-space: nowrap;
+}
+.sidebar-section-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--md-outline-variant);
+}
+
+.local-drop-zone {
+  margin: 4px 8px 8px;
+  border: 1.5px dashed var(--md-outline);
+  border-radius: 10px;
+  padding: 14px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  text-align: center;
+}
+.local-drop-zone:hover,
+.local-drop-zone.dragover {
+  border-color: var(--md-primary);
+  background: var(--md-primary-light);
+}
+.local-drop-zone svg { width: 24px; height: 24px; color: var(--md-on-surface-dim); }
+.local-drop-zone p { font-size: 12px; color: var(--md-on-surface-variant); line-height: 1.4; }
+.local-drop-zone .drop-hint { font-size: 11px; color: var(--md-on-surface-dim); }
+.local-file-btn {
+  height: 28px; padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--md-primary);
+  background: var(--md-surface);
+  font-size: 12px; font-family: inherit;
+  color: var(--md-primary); cursor: pointer;
+  transition: background .15s;
+}
+.local-file-btn:hover { background: var(--md-primary-light); }
+.local-badge {
+  display: inline-flex; align-items: center;
+  background: #fce8d5; color: #b05c00;
+  border-radius: 10px; padding: 1px 7px; font-size: 11px; font-weight: 500;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--md-outline); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="dot" id="live-dot"></div>
+    WhatIf Log Viewer
+  </div>
+  <div class="topbar-divider"></div>
+  <div class="topbar-url">
+    <label>后端地址</label>
+    <input type="text" id="backend-url" value="http://localhost:8000" placeholder="http://localhost:8000">
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-status">
+    <div class="status-dot" id="status-dot"></div>
+    <span id="status-text">连接中…</span>
+  </div>
+</div>
+
+<!-- Auto-refresh bar -->
+<div class="refresh-bar hidden" id="refresh-bar">
+  <div class="refresh-spinner"></div>
+  正在监听当前会话，每 2 秒刷新一次
+  <button class="show-more-btn" id="stop-refresh-btn" style="margin-left:auto;">停止监听</button>
+</div>
+
+<!-- Filter chips -->
+<div class="filterbar" id="filterbar">
+  <span style="font-size:13px;color:var(--md-on-surface-variant);flex-shrink:0;">过滤：</span>
+  <!-- chips injected by JS -->
+</div>
+
+<!-- Main -->
+<div class="main">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">会话列表</span>
+      <button class="icon-btn" id="refresh-list-btn" title="刷新列表">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+      </button>
+    </div>
+    <div class="session-list" id="session-list">
+      <div class="session-empty">加载中…</div>
+    </div>
+
+    <!-- Local files section -->
+    <div class="sidebar-section-divider"><span>本地文件</span></div>
+    <div class="session-list" id="local-session-list"></div>
+    <div class="local-drop-zone" id="local-drop-zone" title="拖入 .jsonl 文件或点击选择">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <p>拖入 .jsonl 文件<br>或点击选择</p>
+      <button class="local-file-btn" onclick="event.stopPropagation(); localFileInput.click()">选择文件</button>
+    </div>
+    <input type="file" id="local-file-input" accept=".jsonl" multiple style="display:none">
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <div class="state-view" id="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+      </svg>
+      <p>从左侧选择一个会话</p>
+    </div>
+    <div class="state-view hidden" id="loading-state">
+      <div class="spinner"></div>
+      <p>加载日志…</p>
+    </div>
+    <div class="hidden" id="timeline-container">
+      <div class="timeline-header">
+        <span class="timeline-count" id="timeline-count"></span>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──
+let backendUrl = 'http://localhost:8000'
+let sessions = []
+let currentSession = null       // name of live session from backend
+let selectedFile = null         // currently displayed filename (server or local key)
+let selectedSource = 'server'   // 'server' | 'local'
+let allEntries = []
+let filteredCats = new Set()    // empty = show all
+let filteredAgents = new Set()  // empty = show all agents
+let catCounts = {}
+let agentCounts = {}            // agentName → count (for AGENT_EXEC entries)
+let refreshTimer = null
+let isLiveSession = false
+// Local files: key (filename) → { name, entries, size }
+const localFiles = new Map()
+
+// Agent 名称 → 显示标签 & 颜色
+const AGENT_META = {
+  narrative_generation: { label: '叙事生成',  color: 'var(--agent-narrative)' },
+  context_enrichment:   { label: '上下文增强', color: 'var(--agent-context)'  },
+  memory_compression:   { label: '记忆压缩',  color: 'var(--agent-memory)'   },
+  deviation_guidance:   { label: '偏离引导',  color: 'var(--agent-deviation)' },
+  scene_adaptation:     { label: '场景适配',  color: 'var(--agent-scene)'    },
+  delta_lifecycle:      { label: 'Delta 生命', color: 'var(--agent-delta)'    },
+}
+
+// ── Prompt tag color config ──
+let promptTagColors = {
+  input: '#1a73e8', phase_source: '#e8711a', previous_event: '#9334e6',
+  delta_state: '#c0392b', active_deltas: '#c0392b', pending_echo: '#f29900',
+  archived_overrides: '#78909c', event_meta: '#007b83', event_id: '#00838f',
+  importance: '#00838f', soft_guide_hints: '#00838f', event_type: '#00838f',
+  preconditions: '#00838f', goal: '#00838f',
+  tools: '#2e7d32', tool: '#388e3c', principles: '#1557b0',
+  output_format: '#1557b0', writing_guidance_instructions: '#6d4c41',
+  writing_guidance: '#e8711a', delta: '#c0392b', echo: '#f29900',
+  echo_instruction: '#e65100', error: '#d32f2f',
+  confrontation_history: '#7b1fa2', setup_narrative: '#7b1fa2',
+  player_input: '#9334e6', '*': '#546e7a',
+}
+
+async function loadTagColors() {
+  try {
+    const r = await fetch('./LogPromptColors.json')
+    if (r.ok) {
+      const data = await r.json()
+      // 合并（过滤掉注释键）
+      Object.entries(data).forEach(([k, v]) => {
+        if (k !== '注释') promptTagColors[k] = v
+      })
+    }
+  } catch { /* 使用内置默认值 */ }
+}
+
+// 对 prompt 文本进行 XML 标签着色（先切分标签再转义，避免双重转义）
+function applyTagColorsAndEscape(text) {
+  const TAG_RE = /(<\/?[\w][\w:-]*(?:\s[^>]*)?>)/g
+  const parts = text.split(TAG_RE)
+  return parts.map((part, i) => {
+    if (i % 2 === 1) {
+      const m = part.match(/<\/?(\w[\w:-]*)/)
+      const name = m ? m[1].toLowerCase() : ''
+      const color = promptTagColors[name] || promptTagColors['*']
+      return `<span style="color:${color};font-weight:600">${escHtml(part)}</span>`
+    }
+    return escHtml(part)
+  }).join('')
+}
+
+// 对 response/output 文本格式化：尝试 JSON 美化，否则识别 \n
+function formatResponseText(text) {
+  const trimmed = text.trim()
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+    try {
+      const parsed = JSON.parse(trimmed)
+      // JSON.stringify 会把字符串中的换行转为 \n，再还原为真实换行
+      const pretty = JSON.stringify(parsed, null, 2).replace(/\\n/g, '\n')
+      return escHtml(pretty)
+    } catch { /* 不是合法 JSON，走下面 */ }
+  }
+  // 把字面量 \n 转为真实换行
+  return escHtml(text.replace(/\\n/g, '\n'))
+}
+
+// ── Category config ──
+const CAT_LABELS = {
+  SESSION: 'Session',
+  GAME_STATE: 'Game',
+  LLM_CALL: 'LLM Call',
+  AGENT_EXEC: 'Agent',
+  WRITER: 'Writer',
+  ERROR: 'Error',
+  LLM_JSON_REPAIR: 'JSON Repair',
+}
+
+// ── DOM refs ──
+const $ = id => document.getElementById(id)
+const statusDot = $('status-dot')
+const statusText = $('status-text')
+const liveDot = $('live-dot')
+const sessionList = $('session-list')
+const filterbar = $('filterbar')
+const content = $('content')
+const emptyState = $('empty-state')
+const loadingState = $('loading-state')
+const timelineContainer = $('timeline-container')
+const timeline = $('timeline')
+const timelineCount = $('timeline-count')
+const refreshBar = $('refresh-bar')
+const backendInput = $('backend-url')
+const localSessionList = $('local-session-list')
+const localDropZone = $('local-drop-zone')
+const localFileInput = $('local-file-input')
+
+// ── Backend URL ──
+backendInput.addEventListener('change', () => {
+  backendUrl = backendInput.value.replace(/\/$/, '')
+  init()
+})
+
+// ── API calls ──
+async function api(path) {
+  const r = await fetch(backendUrl + path)
+  if (!r.ok) throw new Error(`HTTP ${r.status}`)
+  return r.json()
+}
+
+// ── Status indicator ──
+function setStatus(ok) {
+  statusDot.className = 'status-dot ' + (ok ? 'ok' : 'err')
+  statusText.textContent = ok ? '已连接' : '离线'
+  liveDot.classList.toggle('live', ok)
+}
+
+// ── Load session list ──
+async function loadSessionList() {
+  try {
+    const data = await api('/api/logs/sessions')
+    sessions = data.sessions || []
+    currentSession = data.current || null
+    setStatus(true)
+    renderSessionList()
+
+    // Auto-select: if no selection yet, pick live session or most recent
+    if (!selectedFile) {
+      if (currentSession) {
+        const f = sessions.find(s => s.name === currentSession)
+        if (f) selectSession(f.filename)
+      } else if (sessions.length > 0) {
+        selectSession(sessions[0].filename)
+      }
+    }
+  } catch {
+    setStatus(false)
+    sessions = []
+    sessionList.innerHTML = '<div class="session-empty">后端离线</div>'
+  }
+}
+
+// ── Local file loading ──
+function parseJsonl(text) {
+  return text.split('\n')
+    .map(l => l.trim())
+    .filter(Boolean)
+    .flatMap(l => { try { return [JSON.parse(l)] } catch { return [] } })
+}
+
+function loadLocalFiles(fileList) {
+  for (const file of fileList) {
+    if (!file.name.endsWith('.jsonl')) continue
+    const reader = new FileReader()
+    reader.onload = e => {
+      const entries = parseJsonl(e.target.result)
+      localFiles.set(file.name, { name: file.name, entries, size: file.size })
+      renderLocalSessionList()
+      // Auto-select first local file if nothing is selected
+      if (!selectedFile) selectLocalFile(file.name)
+    }
+    reader.readAsText(file)
+  }
+}
+
+function renderLocalSessionList() {
+  if (localFiles.size === 0) {
+    localSessionList.innerHTML = ''
+    return
+  }
+  localSessionList.innerHTML = [...localFiles.entries()].map(([key, f]) => {
+    const active = selectedSource === 'local' && selectedFile === key ? 'active' : ''
+    return `
+      <div class="session-item ${active}" onclick="selectLocalFile('${key.replace(/'/g, "\\'")}')">
+        <div class="session-name" title="${key}">${key.replace('session_', '').replace(/_/g, ' ')}</div>
+        <div class="session-meta">
+          <span class="session-size">${formatBytes(f.size)}</span>
+          <span class="local-badge">本地</span>
+        </div>
+      </div>`
+  }).join('')
+}
+
+function selectLocalFile(key) {
+  stopRefresh()
+  selectedFile = key
+  selectedSource = 'local'
+  renderSessionList()
+  renderLocalSessionList()
+  const f = localFiles.get(key)
+  if (!f) return
+  allEntries = f.entries
+  filteredCats = new Set()
+  filteredAgents = new Set()
+  buildCatCounts()
+  renderFilterBar()
+  renderTimeline()
+  showState('timeline')
+}
+
+// ── Drag-and-drop on drop zone ──
+localDropZone.addEventListener('click', () => localFileInput.click())
+localDropZone.addEventListener('dragover', e => { e.preventDefault(); localDropZone.classList.add('dragover') })
+localDropZone.addEventListener('dragleave', () => localDropZone.classList.remove('dragover'))
+localDropZone.addEventListener('drop', e => {
+  e.preventDefault()
+  localDropZone.classList.remove('dragover')
+  loadLocalFiles(e.dataTransfer.files)
+})
+// Also support drop anywhere on the sidebar
+document.querySelector('.sidebar').addEventListener('dragover', e => e.preventDefault())
+document.querySelector('.sidebar').addEventListener('drop', e => {
+  e.preventDefault()
+  loadLocalFiles(e.dataTransfer.files)
+})
+
+localFileInput.addEventListener('change', e => {
+  loadLocalFiles(e.target.files)
+  e.target.value = ''   // allow re-selecting same file
+})
+
+function renderSessionList() {
+  if (sessions.length === 0) {
+    sessionList.innerHTML = '<div class="session-empty">暂无日志文件</div>'
+    return
+  }
+  sessionList.innerHTML = sessions.map(s => {
+    const isLive = s.name === currentSession
+    const active = s.filename === selectedFile ? 'active' : ''
+    const size = formatBytes(s.size)
+    const nameParts = s.name.replace('session_', '').split('_')
+    // format: 20260425_191623_new_game → 2026-04-25 19:16:23 · new_game
+    let displayName = s.name
+    if (nameParts.length >= 3) {
+      const d = nameParts[0]
+      const t = nameParts[1]
+      const action = nameParts.slice(2).join('_')
+      displayName = `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6)} ${t.slice(0,2)}:${t.slice(2,4)}:${t.slice(4)} · ${action}`
+    }
+    return `
+      <div class="session-item ${active}" data-file="${s.filename}" onclick="selectSession('${s.filename}')">
+        <div class="session-name" title="${s.name}">${displayName}</div>
+        <div class="session-meta">
+          <span class="session-size">${size}</span>
+          ${isLive ? '<span class="live-badge">当前</span>' : ''}
+        </div>
+      </div>`
+  }).join('')
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB'
+  return (b / 1048576).toFixed(1) + ' MB'
+}
+
+// ── Select & load session ──
+async function selectSession(filename) {
+  selectedFile = filename
+  selectedSource = 'server'
+  isLiveSession = sessions.find(s => s.filename === filename)?.name === currentSession
+  renderSessionList()
+  renderLocalSessionList()
+
+  showState('loading')
+  stopRefresh()
+
+  await fetchAndRender()
+
+  if (isLiveSession) {
+    startRefresh()
+  }
+}
+
+async function fetchAndRender() {
+  try {
+    const data = await api(`/api/logs/sessions/${selectedFile}`)
+    allEntries = data.entries || []
+    filteredAgents.clear()
+    buildCatCounts()
+    renderFilterBar()
+    renderTimeline()
+    showState('timeline')
+  } catch (e) {
+    showState('empty')
+    console.error(e)
+  }
+}
+
+function showState(s) {
+  emptyState.classList.toggle('hidden', s !== 'empty')
+  loadingState.classList.toggle('hidden', s !== 'loading')
+  timelineContainer.classList.toggle('hidden', s !== 'timeline')
+}
+
+// ── Category counts ──
+function buildCatCounts() {
+  catCounts = {}
+  agentCounts = {}
+  for (const e of allEntries) {
+    catCounts[e.cat] = (catCounts[e.cat] || 0) + 1
+    if (e.cat === 'AGENT_EXEC' && e.agent) {
+      agentCounts[e.agent] = (agentCounts[e.agent] || 0) + 1
+    }
+  }
+}
+
+// ── Filter bar ──
+function renderFilterBar() {
+  // 完整重建，保证顺序稳定：cat chip → AGENT_EXEC 后紧跟 agent sub-chip
+  filterbar.querySelectorAll('.chip').forEach(c => c.remove())
+
+  const cats = Object.keys(catCounts)
+  cats.forEach(cat => {
+    const chip = document.createElement('div')
+    chip.className = 'chip' + (filteredCats.has(cat) ? ' active' : '')
+    chip.dataset.cat = cat
+    chip.innerHTML = `
+      <span class="chip-dot" style="background:${getCatColor(cat)}"></span>
+      ${CAT_LABELS[cat] || cat}
+      <span class="chip-count">${catCounts[cat]}</span>`
+    chip.addEventListener('click', () => toggleCat(cat))
+    filterbar.appendChild(chip)
+
+    // 在 AGENT_EXEC chip 之后插入 agent 子 chip
+    if (cat === 'AGENT_EXEC') {
+      Object.entries(agentCounts).forEach(([agentName, cnt]) => {
+        const meta = AGENT_META[agentName] || { label: agentName, color: 'var(--cat-default)' }
+        const sub = document.createElement('div')
+        sub.className = 'chip sub-chip' + (filteredAgents.has(agentName) ? ' active' : '')
+        sub.dataset.agent = agentName
+        sub.innerHTML = `
+          <span class="chip-dot" style="background:${meta.color}"></span>
+          ${meta.label}
+          <span class="chip-count">${cnt}</span>`
+        sub.addEventListener('click', () => toggleAgent(agentName))
+        filterbar.appendChild(sub)
+      })
+    }
+  })
+}
+
+function toggleCat(cat) {
+  if (filteredCats.has(cat)) {
+    filteredCats.delete(cat)
+    // 取消 AGENT_EXEC 时同时清空 agent 子过滤
+    if (cat === 'AGENT_EXEC') filteredAgents.clear()
+  } else {
+    filteredCats.add(cat)
+  }
+  renderFilterBar()
+  renderTimeline()
+}
+
+function toggleAgent(agentName) {
+  // 激活某个 agent sub-chip 时自动激活父类 AGENT_EXEC
+  if (filteredAgents.has(agentName)) {
+    filteredAgents.delete(agentName)
+  } else {
+    filteredAgents.add(agentName)
+    filteredCats.add('AGENT_EXEC')
+  }
+  renderFilterBar()
+  renderTimeline()
+}
+
+function getCatColor(cat) {
+  const map = {
+    SESSION: 'var(--cat-session)',
+    GAME_STATE: 'var(--cat-game-state)',
+    LLM_CALL: 'var(--cat-llm-call)',
+    AGENT_EXEC: 'var(--cat-agent-exec)',
+    WRITER: 'var(--cat-writer)',
+    ERROR: 'var(--cat-error)',
+    LLM_JSON_REPAIR: 'var(--cat-repair)',
+  }
+  return map[cat] || 'var(--cat-default)'
+}
+
+// ── Timeline render ──
+function renderTimeline() {
+  const visible = allEntries.filter(e => {
+    // 一级 cat 过滤（空集 = 全显示）
+    if (filteredCats.size > 0 && !filteredCats.has(e.cat)) return false
+    // 二级 agent 子过滤（仅对 AGENT_EXEC 生效，空集 = 全显示）
+    if (e.cat === 'AGENT_EXEC' && filteredAgents.size > 0 && !filteredAgents.has(e.agent)) return false
+    return true
+  })
+
+  timelineCount.textContent = `共 ${allEntries.length} 条，显示 ${visible.length} 条`
+
+  // Incremental update: if same count and not refreshing, skip re-render
+  const existing = timeline.children.length
+  if (existing === visible.length) return
+
+  // Append only new entries if growing (live session)
+  if (existing < visible.length && existing > 0) {
+    const newEntries = visible.slice(existing)
+    newEntries.forEach(e => timeline.appendChild(buildCard(e)))
+    // Scroll to bottom
+    content.scrollTop = content.scrollHeight
+    return
+  }
+
+  // Full re-render
+  timeline.innerHTML = ''
+  const frag = document.createDocumentFragment()
+  visible.forEach(e => frag.appendChild(buildCard(e)))
+  timeline.appendChild(frag)
+}
+
+// ── Build card ──
+function buildCard(entry) {
+  const div = document.createElement('div')
+  div.className = 'log-card'
+  div.setAttribute('data-cat', entry.cat)
+
+  const ts = entry.ts ? entry.ts.replace('T', ' ').slice(0, 23) : ''
+  const summary = buildSummary(entry)
+  const hasBody = hasExpandableContent(entry)
+
+  div.innerHTML = `
+    <div class="card-head" ${hasBody ? 'onclick="toggleCard(this.parentElement)"' : ''}>
+      <span class="cat-badge" data-cat="${entry.cat}">${CAT_LABELS[entry.cat] || entry.cat}</span>
+      <span class="card-ts">${ts}</span>
+      <span class="card-summary">${escHtml(summary)}</span>
+      ${hasBody ? `<svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>` : ''}
+    </div>
+    ${hasBody ? `<div class="card-body">${buildBody(entry)}</div>` : ''}
+  `
+  return div
+}
+
+function toggleCard(card) {
+  card.classList.toggle('expanded')
+}
+
+function buildSummary(e) {
+  switch (e.cat) {
+    case 'SESSION':
+      return `${e.action} — ${e.session_id || ''}`
+    case 'GAME_STATE':
+      return `${e.action} | player: ${e.player || ''} | event: ${e.first_event || e.event_id || ''}`
+    case 'LLM_CALL':
+      return `${e.method} | ${e.model} | prompt ${e.prompt_len}c → resp ${e.response_len}c`
+    case 'AGENT_EXEC':
+      return `${e.agent} · ${e.step}${e.round != null ? ` · round ${e.round}` : ''}${e.tool_calls ? ` · [${e.tool_calls.join(', ')}]` : ''}`
+    case 'WRITER':
+      return `${e.writer_type} | ${e.model} | output ${e.output ? e.output.length : 0}c`
+    case 'ERROR':
+      return e.message || JSON.stringify(e)
+    case 'LLM_JSON_REPAIR':
+      return `repair ${e.model || ''} — ${e.content_preview || ''}`
+    default:
+      return JSON.stringify(e).slice(0, 120)
+  }
+}
+
+function hasExpandableContent(e) {
+  return ['LLM_CALL', 'WRITER', 'AGENT_EXEC', 'GAME_STATE', 'ERROR', 'LLM_JSON_REPAIR'].includes(e.cat)
+}
+
+function buildBody(e) {
+  const parts = []
+
+  // Scalar fields grid (exclude huge text fields)
+  const skipFields = new Set(['ts', 'cat', 'prompt', 'response', 'output', 'prompt_template', 'input', 'parsed'])
+  const scalars = Object.entries(e).filter(([k, v]) => !skipFields.has(k) && typeof v !== 'object')
+  if (scalars.length) {
+    parts.push(`<div class="fields-grid">${scalars.map(([k, v]) =>
+      `<div class="field"><div class="field-key">${escHtml(k)}</div><div class="field-val mono">${escHtml(String(v))}</div></div>`
+    ).join('')}</div>`)
+  }
+
+  // input object (WRITER)
+  if (e.input && typeof e.input === 'object') {
+    Object.entries(e.input).forEach(([k, v]) => {
+      if (typeof v === 'string' && v.length > 0) {
+        parts.push(buildTextBlock(k, v))
+      }
+    })
+  }
+
+  // parsed object (LLM_CALL structured)
+  if (e.parsed && typeof e.parsed === 'object') {
+    parts.push(`<div class="text-block">
+      <div class="text-block-label"><span>parsed</span></div>
+      <pre class="text-pre">${escHtml(JSON.stringify(e.parsed, null, 2))}</pre>
+    </div>`)
+  }
+
+  // tool_calls array (AGENT_EXEC)
+  if (e.tool_calls && Array.isArray(e.tool_calls)) {
+    parts.push(`<div class="text-block">
+      <div class="text-block-label"><span>tool_calls</span></div>
+      <pre class="text-pre">${escHtml(JSON.stringify(e.tool_calls, null, 2))}</pre>
+    </div>`)
+  }
+
+  // prompt_template
+  if (e.prompt_template) parts.push(buildTextBlock('prompt_template', e.prompt_template))
+  // prompt
+  if (e.prompt) parts.push(buildTextBlock('prompt', e.prompt))
+  // response
+  if (e.response) parts.push(buildTextBlock('response', e.response))
+  // output (WRITER)
+  if (e.output) parts.push(buildTextBlock('output', e.output))
+
+  return parts.join('')
+}
+
+// label → renderFn 映射
+const PROMPT_LABELS = new Set(['prompt', 'prompt_template'])
+const RESPONSE_LABELS = new Set(['response', 'output'])
+
+function buildTextBlock(label, text) {
+  const len = text.length
+  const COLLAPSE = 800
+  const id = 'tb_' + Math.random().toString(36).slice(2)
+
+  const renderFn = PROMPT_LABELS.has(label)   ? applyTagColorsAndEscape
+                 : RESPONSE_LABELS.has(label) ? formatResponseText
+                 : escHtml
+
+  if (len <= COLLAPSE) {
+    return `<div class="text-block">
+      <div class="text-block-label">
+        <span>${escHtml(label)}</span>
+        <span class="len-tag">${len} 字</span>
+      </div>
+      <pre class="text-pre">${renderFn(text)}</pre>
+    </div>`
+  }
+  // 超长文本折叠 — 存 { text, renderFn } 避免 onclick 属性转义问题
+  const preview = text.slice(0, COLLAPSE)
+  _expandStore[id] = { text, renderFn }
+  return `<div class="text-block" id="${id}">
+    <div class="text-block-label">
+      <span>${escHtml(label)}</span>
+      <span class="len-tag">${len} 字</span>
+    </div>
+    <pre class="text-pre" id="${id}_pre">${renderFn(preview)}…</pre>
+    <button class="show-more-btn" onclick="expandText('${id}')">展开全部</button>
+  </div>`
+}
+
+// 存放待展开的 { text, renderFn }，key = 随机 id
+const _expandStore = {}
+
+function expandText(id) {
+  const stored = _expandStore[id]
+  if (!stored) return
+  const pre = document.getElementById(id + '_pre')
+  if (pre) pre.innerHTML = stored.renderFn(stored.text)
+  const btn = document.querySelector(`#${id} .show-more-btn`)
+  if (btn) btn.remove()
+  delete _expandStore[id]
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+// ── Auto-refresh ──
+function startRefresh() {
+  refreshBar.classList.remove('hidden')
+  refreshTimer = setInterval(async () => {
+    // Re-check if still live
+    try {
+      const data = await api('/api/logs/sessions')
+      currentSession = data.current || null
+    } catch { /* ignore */ }
+
+    if (currentSession && sessions.find(s => s.filename === selectedFile)?.name === currentSession) {
+      await fetchAndRender()
+    } else {
+      stopRefresh()
+    }
+  }, 2000)
+}
+
+function stopRefresh() {
+  refreshBar.classList.add('hidden')
+  if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null }
+}
+
+$('stop-refresh-btn').addEventListener('click', () => {
+  isLiveSession = false
+  stopRefresh()
+})
+
+$('refresh-list-btn').addEventListener('click', loadSessionList)
+
+// ── Init ──
+async function init() {
+  await Promise.all([loadTagColors(), loadSessionList()])
+  // Poll session list every 5s to detect new sessions
+  setInterval(loadSessionList, 5000)
+}
+
+init()
+</script>
+</body>
+</html>

@@ -154,35 +154,46 @@ class GameEngine:
         return self.world.get_event_image(event_id)
 
     def new_game(self, on_chunk=None) -> str:
+        """开始新游戏，返回第一个事件的 SETUP 叙事文本。
+
+        由 POST /api/game/start 调用，是玩家看到的第一段文字的入口。
+        on_chunk 由 SSE 路由注入，每生成一个 token 就实时推送给前端。
+        """
         with self._lock:
             glog.start_session("new_game")
 
+            # 从 WorldPkg 中取 importance=protagonist 的角色作为玩家身份
             protagonist = self.world.get_protagonist()
             if not protagonist:
                 raise ValueError("WorldPkg 中没有找到主角（importance=protagonist）")
 
             self.player_name = protagonist.name
 
+            # 按 sentence_range 排序取第一个事件
             first_event = self.world.get_first_event()
             if not first_event:
                 raise ValueError("WorldPkg 中没有找到事件")
 
+            # 重置游戏状态机：从第一个事件的 SETUP 阶段开始
             self.current_event_id = first_event.id
             self.current_phase = PhaseType.SETUP
             self.total_turns = 0
             self.awaiting_next_event = False
 
+            # 清空当前事件的上下文（setup_narrative / confrontation_history）
             self.event_context = EventContext()
 
+            # 清空记忆摘要（L0 短期 / L1 长期）及 l1_counter
             self.l0_summaries = []
             self.l1_summaries = []
             self.agents.get("memory_compression").l1_counter = 0
             self.previous_event_content = None
 
+            # 重置平行时间线状态
             self.delta_state = DeltaStateManager()
-            self._reentry_pending = False
-            self._current_adaptation_plan = None
-            self._last_maintained_event_id = None
+            self._reentry_pending = False          # 结构冲突桥接标志
+            self._current_adaptation_plan = None   # 场景适配计划缓存
+            self._last_maintained_event_id = None  # 事件边界维护去重标志
 
             self._clear_auto_save()
 
@@ -192,23 +203,29 @@ class GameEngine:
                 "first_event": first_event.id,
             })
 
+            # 取消后台 prefetch（新游戏不应复用旧缓存）
             self._invalidate_prefetch()
 
+            # 临时挂载 on_chunk 回调，生成结束后还原，避免污染后续请求
             saved_cb = self.on_narrative_chunk
             if on_chunk:
                 self.on_narrative_chunk = on_chunk
 
             try:
+                # 核心：触发 NarrativeGenerationAgent → OrchestratorToolLoop → UnifiedWriter 流式输出
                 response = self._generate_phase_narrative(first_event, PhaseType.SETUP)
             finally:
                 self.on_narrative_chunk = saved_cb
 
+            # narrative 类型事件无需玩家输入，直接等待 continue 推进下一事件
             if first_event.type == "narrative" and not self._reentry_pending:
                 self.awaiting_next_event = True
 
             self._try_auto_save("new_game")
 
+            # 快照当前状态供 GET /api/game/state 读取（避免并发读写）
             self._capture_response_state()
+            # 若下一步可预测（narrative 事件 / interactive 的 SETUP），提前后台生成
             self._maybe_schedule_prefetch()
             return response
 
@@ -414,15 +431,29 @@ class GameEngine:
         phase: PhaseType,
         player_input: str | None = None,
     ) -> str:
+        """执行单个阶段的叙事生成，返回最终叙事文本。
+
+        所有叙事入口（new_game / advance_from_setup / advance_to_next_event /
+        _complete_current_event）最终都汇聚到这里，是 GameEngine 与
+        NarrativeGenerationAgent 之间唯一的调用桥梁。
+        """
+        # 组装 AgentContext（事件元数据 + 历史摘要 + delta 状态）和 extra_kwargs
         ctx, state, extra_kwargs = self._prepare_generation(event, phase, player_input)
 
+        # 若当前请求挂载了 SSE 回调，透传给 Writer 实现流式推送
         if self.on_narrative_chunk:
             extra_kwargs["on_chunk"] = self.on_narrative_chunk
 
+        # 进入 NarrativeGenerationAgent：
+        #   DeltaLifecycle → OrchestratorToolLoop（最多 5 轮）→ UnifiedWriter（流式）
         result: NarrativeGenerationResult = self.agents.execute(
             "narrative_generation", ctx, state, **extra_kwargs,
         )
 
+        # premise_conflicts：Orchestrator 检测到平行时间线 delta 与当前事件的前提条件存在
+        # 结构性冲突（不可通过适配解决），需要先经过 SceneAdaptation 的 BridgePlanner
+        # 生成过渡叙事来演化 delta，消除冲突后再继续。
+        # is_event_entry 限制只在事件入口触发（SETUP 首次生成），避免 CONFRONTATION 中途重复检测。
         is_event_entry = (
             self.event_context.setup_narrative is None
             and not self.event_context.confrontation_history
@@ -432,6 +463,7 @@ class GameEngine:
                 event, ctx, state, result.premise_conflicts,
             )
 
+        # 正常路径：将结果写入 event_context，返回叙事文本
         return self._finalize_generation(result, event, phase)
 
     def _handle_structural_conflict(

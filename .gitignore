@@ -25,7 +25,7 @@ backend/build/
 backend/dist/
 
 # ── 编辑器 ──
-.vscode/
+# .vscode/
 .idea/
 *.sw?
 .DS_Store
@@ -55,3 +55,7 @@ docs/cleanup/
 dissertation/
 # Added by code-review-graph
 .code-review-graph/
+electron-v41.0.3-win32-x64.zip
+zh_core_web_sm-3.8.0-py3-none-any.whl
+data/novels/大明王朝1566(套装共2册)+-+刘和平.epub
+output/大明王朝.zip
