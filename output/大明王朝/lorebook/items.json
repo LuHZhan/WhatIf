@@ -1,0 +1,192 @@
+{
+  "items": [
+    {
+      "id": "sheng_zhi",
+      "name": "圣旨",
+      "aliases": [
+        "诏书",
+        "上谕"
+      ],
+      "importance": "key",
+      "category": "document",
+      "description": {
+        "appearance": "明黄锦缎，朱砂书写",
+        "material": "锦缎",
+        "size": "卷轴"
+      },
+      "function": {
+        "primary_use": "传达皇帝旨意",
+        "special_abilities": [
+          "具有无上权威"
+        ],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "推动情节的关键道具",
+        "symbolic_meaning": "皇权象征"
+      }
+    },
+    {
+      "id": "qing_ci",
+      "name": "青词",
+      "aliases": [
+        "贺表"
+      ],
+      "importance": "normal",
+      "category": "document",
+      "description": {
+        "appearance": "写在青藤纸上的朱砂字",
+        "material": "青藤纸",
+        "size": "单页或几页"
+      },
+      "function": {
+        "primary_use": "敬天拜醮的颂词",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "官员争宠的工具",
+        "symbolic_meaning": "谄媚"
+      }
+    },
+    {
+      "id": "gong_zhuang",
+      "name": "供状",
+      "aliases": [
+        "口供",
+        "证词"
+      ],
+      "importance": "key",
+      "category": "document",
+      "description": {
+        "appearance": "写满字的纸",
+        "material": "纸",
+        "size": "若干页"
+      },
+      "function": {
+        "primary_use": "记录犯人供词",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "定案依据",
+        "symbolic_meaning": "证据"
+      }
+    },
+    {
+      "id": "shen_yi_shi_zhang_ce",
+      "name": "沈一石账册",
+      "aliases": [
+        "账册"
+      ],
+      "importance": "key",
+      "category": "document",
+      "description": {
+        "appearance": "大本册子，封皮写有年份",
+        "material": "纸",
+        "size": "多册"
+      },
+      "function": {
+        "primary_use": "记录沈一石的丝绸生意及行贿账目",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "揭露贪腐的关键证据",
+        "symbolic_meaning": "贪墨记录"
+      }
+    },
+    {
+      "id": "jian",
+      "name": "剑",
+      "aliases": [
+        "胡宗宪的剑"
+      ],
+      "importance": "normal",
+      "category": "weapon",
+      "description": {
+        "appearance": "长剑，有鞘",
+        "material": "铁",
+        "size": "三尺"
+      },
+      "function": {
+        "primary_use": "防身杀敌",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "胡宗宪赠予齐大柱",
+        "symbolic_meaning": "传承"
+      }
+    },
+    {
+      "id": "qin",
+      "name": "琴",
+      "aliases": [
+        "古琴",
+        "广陵散琴"
+      ],
+      "importance": "normal",
+      "category": "other",
+      "description": {
+        "appearance": "古琴，有琴囊",
+        "material": "木",
+        "size": "长三尺"
+      },
+      "function": {
+        "primary_use": "弹奏音乐",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "沈一石、高翰文、芸娘的情感纽带",
+        "symbolic_meaning": "《广陵散》的象征"
+      }
+    },
+    {
+      "id": "si_chou",
+      "name": "丝绸",
+      "aliases": [
+        "绸缎",
+        "匹"
+      ],
+      "importance": "normal",
+      "category": "consumable",
+      "description": {
+        "appearance": "各种颜色花纹的丝绸",
+        "material": "丝",
+        "size": "匹"
+      },
+      "function": {
+        "primary_use": "穿着、贸易",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "改稻为桑的核心商品",
+        "symbolic_meaning": "财富"
+      }
+    },
+    {
+      "id": "liang_chuan",
+      "name": "粮船",
+      "aliases": [],
+      "importance": "normal",
+      "category": "container",
+      "description": {
+        "appearance": "木船，装满粮袋",
+        "material": "木",
+        "size": "大船"
+      },
+      "function": {
+        "primary_use": "运输粮食",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "赈灾物资",
+        "symbolic_meaning": "生命之源"
+      }
+    }
+  ]
+}

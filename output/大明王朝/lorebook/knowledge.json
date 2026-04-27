@@ -1,0 +1,103 @@
+{
+  "knowledge": [
+    {
+      "id": "gai_dao_wei_sang",
+      "name": "改稻为桑国策",
+      "initial_holders": [
+        "jia_jing_di",
+        "yan_song",
+        "yan_shi_fan"
+      ],
+      "description": "朝廷试图在浙江将稻田改为桑田，以增加丝绸产量弥补国库亏空。"
+    },
+    {
+      "id": "hui_ti_yan_tian",
+      "name": "毁堤淹田事件",
+      "initial_holders": [
+        "zheng_bi_chang",
+        "he_mao_cai",
+        "yang_jin_shui",
+        "yan_shi_fan"
+      ],
+      "description": "严党为迫使百姓卖田改桑，派人挖开新安江堤坝，淹毁九个县农田。"
+    },
+    {
+      "id": "tong_wo_an",
+      "name": "通倭冤案",
+      "initial_holders": [
+        "he_mao_cai",
+        "zheng_bi_chang"
+      ],
+      "description": "郑泌昌何茂才陷害淳安百姓齐大柱等人通倭，欲借机打压海瑞。"
+    },
+    {
+      "id": "shen_yi_shi_jia_chan",
+      "name": "沈一石家产抄没",
+      "initial_holders": [
+        "jia_jing_di",
+        "zhao_zhen_ji",
+        "gao_han_wen"
+      ],
+      "description": "沈一石家产被抄，实际只余少量现金和丝绸，大量财物被历任官员贪墨。"
+    },
+    {
+      "id": "zhang_zhen_ren_xue_jing",
+      "name": "张真人血经",
+      "initial_holders": [
+        "yun_niang",
+        "gao_han_wen",
+        "zhang_ju_zheng",
+        "yu_wang",
+        "li_fei"
+      ],
+      "description": "芸娘献出的张三丰血书《道德经》和《南华经》，被裕王妃进献嘉靖，成为救齐大柱的关键。"
+    },
+    {
+      "id": "ji_jiu_tai_zhou_da_jie",
+      "name": "台州大捷",
+      "initial_holders": [
+        "hu_zong_xian",
+        "qi_ji_guang"
+      ],
+      "description": "胡宗宪督戚家军在台州取得抗倭第九次大胜，基本肃清浙江倭患。"
+    },
+    {
+      "id": "hai_rui_shang_shu",
+      "name": "海瑞上《治安疏》",
+      "initial_holders": [
+        "hai_rui"
+      ],
+      "description": "海瑞上疏直言嘉靖帝过失，抨击君权独治，呼吁君臣共治，震动朝野。"
+    },
+    {
+      "id": "liu_bi_ju_hui",
+      "name": "六必居题字",
+      "initial_holders": [
+        "hai_rui",
+        "jia_jing_di"
+      ],
+      "description": "海瑞在六必居给严嵩题写的匾额另作注脚，解释“六必”之意，正人心靖浮言。"
+    },
+    {
+      "id": "yan_dang_dao_tai",
+      "name": "严党倒台",
+      "initial_holders": [
+        "jia_jing_di",
+        "xu_jie",
+        "gao_gong",
+        "zhang_ju_zheng"
+      ],
+      "description": "严嵩父子及党羽被查办，严世蕃等被处死，抄没家财。"
+    },
+    {
+      "id": "jia_jing_bin_tian",
+      "name": "嘉靖驾崩",
+      "initial_holders": [
+        "jia_jing_di",
+        "xu_jie",
+        "yu_wang"
+      ],
+      "description": "嘉靖四十五年十二月十四日，嘉靖帝去世，裕王继位。"
+    }
+  ]
+}

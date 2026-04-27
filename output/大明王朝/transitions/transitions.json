@@ -1,0 +1,180 @@
+{
+  "transitions": [
+    {
+      "event_id": "prelude_winter_snow",
+      "preconditions": [
+        {
+          "name": "嘉靖帝",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "严嵩",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "严世蕃",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "summon_zhou_yunyi",
+      "preconditions": [
+        {
+          "name": "嘉靖帝",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "周云逸",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "execution_zhou_yunyi",
+      "preconditions": [
+        {
+          "name": "冯保",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "周云逸",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "new_year_snow_falls",
+      "preconditions": [
+        {
+          "name": "嘉靖帝",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "严嵩",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "吕芳",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "fengbao_reports_good_omen",
+      "preconditions": [
+        {
+          "name": "嘉靖帝",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "吕芳",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "冯保",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "cabinet_financial_meeting_1",
+      "preconditions": [
+        {
+          "name": "嘉靖帝",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "严嵩",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "严世蕃",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "徐阶",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "高拱",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "张居正",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "吕芳",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        }
+      ],
+      "effects": []
+    }
+  ]
+}

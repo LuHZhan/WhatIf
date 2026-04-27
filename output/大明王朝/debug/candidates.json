@@ -1,0 +1,194 @@
+{
+  "prelude_winter_snow": [
+    {
+      "name": "嘉靖帝",
+      "type": "character",
+      "id": "jia_jing_di",
+      "matched_text": "嘉靖帝"
+    },
+    {
+      "name": "严嵩",
+      "type": "character",
+      "id": "yan_song",
+      "matched_text": "严嵩"
+    },
+    {
+      "name": "严世蕃",
+      "type": "character",
+      "id": "yan_shi_fan",
+      "matched_text": "严世蕃"
+    },
+    {
+      "name": "西苑",
+      "type": "location",
+      "id": "xi_yuan",
+      "matched_text": "西苑"
+    }
+  ],
+  "summon_zhou_yunyi": [
+    {
+      "name": "嘉靖帝",
+      "type": "character",
+      "id": "jia_jing_di",
+      "matched_text": "嘉靖帝"
+    },
+    {
+      "name": "周云逸",
+      "type": "character",
+      "id": "zhou_yun_yi",
+      "matched_text": "周云逸"
+    },
+    {
+      "name": "玉熙宫",
+      "type": "location",
+      "id": "yu_xi_gong",
+      "matched_text": "玉熙宫"
+    },
+    {
+      "name": "西苑",
+      "type": "location",
+      "id": "xi_yuan",
+      "matched_text": "西苑"
+    }
+  ],
+  "execution_zhou_yunyi": [
+    {
+      "name": "冯保",
+      "type": "character",
+      "id": "feng_bao",
+      "matched_text": "冯保"
+    },
+    {
+      "name": "周云逸",
+      "type": "character",
+      "id": "zhou_yun_yi",
+      "matched_text": "周云逸"
+    }
+  ],
+  "new_year_snow_falls": [
+    {
+      "name": "嘉靖帝",
+      "type": "character",
+      "id": "jia_jing_di",
+      "matched_text": "嘉靖帝"
+    },
+    {
+      "name": "严嵩",
+      "type": "character",
+      "id": "yan_song",
+      "matched_text": "严嵩"
+    },
+    {
+      "name": "吕芳",
+      "type": "character",
+      "id": "lv_fang",
+      "matched_text": "吕芳"
+    },
+    {
+      "name": "西苑",
+      "type": "location",
+      "id": "xi_yuan",
+      "matched_text": "西苑"
+    }
+  ],
+  "fengbao_reports_good_omen": [
+    {
+      "name": "嘉靖帝",
+      "type": "character",
+      "id": "jia_jing_di",
+      "matched_text": "万岁爷"
+    },
+    {
+      "name": "吕芳",
+      "type": "character",
+      "id": "lv_fang",
+      "matched_text": "吕芳"
+    },
+    {
+      "name": "陈洪",
+      "type": "character",
+      "id": "chen_hong",
+      "matched_text": "陈洪"
+    },
+    {
+      "name": "冯保",
+      "type": "character",
+      "id": "feng_bao",
+      "matched_text": "冯保"
+    },
+    {
+      "name": "玉熙宫",
+      "type": "location",
+      "id": "yu_xi_gong",
+      "matched_text": "玉熙宫"
+    }
+  ],
+  "cabinet_financial_meeting_1": [
+    {
+      "name": "嘉靖帝",
+      "type": "character",
+      "id": "jia_jing_di",
+      "matched_text": "嘉靖帝"
+    },
+    {
+      "name": "严嵩",
+      "type": "character",
+      "id": "yan_song",
+      "matched_text": "严嵩"
+    },
+    {
+      "name": "严世蕃",
+      "type": "character",
+      "id": "yan_shi_fan",
+      "matched_text": "严世蕃"
+    },
+    {
+      "name": "徐阶",
+      "type": "character",
+      "id": "xu_jie",
+      "matched_text": "徐阶"
+    },
+    {
+      "name": "高拱",
+      "type": "character",
+      "id": "gao_gong",
+      "matched_text": "高拱"
+    },
+    {
+      "name": "张居正",
+      "type": "character",
+      "id": "zhang_ju_zheng",
+      "matched_text": "张居正"
+    },
+    {
+      "name": "吕芳",
+      "type": "character",
+      "id": "lv_fang",
+      "matched_text": "吕芳"
+    },
+    {
+      "name": "周云逸",
+      "type": "character",
+      "id": "zhou_yun_yi",
+      "matched_text": "周云逸"
+    },
+    {
+      "name": "李春芳",
+      "type": "character",
+      "id": "li_chun_fang",
+      "matched_text": "李春芳"
+    },
+    {
+      "name": "玉熙宫",
+      "type": "location",
+      "id": "yu_xi_gong",
+      "matched_text": "玉熙宫"
+    },
+    {
+      "name": "沈一石账册",
+      "type": "item",
+      "id": "shen_yi_shi_zhang_ce",
+      "matched_text": "账册"
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "locations": [
+    {
+      "id": "yu_xi_gong",
+      "name": "玉熙宫",
+      "aliases": [
+        "谨身精舍"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "西苑",
+      "description": {
+        "overview": "嘉靖帝在西苑的居所和修道精舍，兼作办公处所",
+        "atmosphere": "神秘、肃穆，常弥漫檀香",
+        "visual_details": [
+          "正中设紫檀木座椅",
+          "北墙挂中堂，书老子名言",
+          "两侧紫檀长案",
+          "铜香炉鼎"
+        ],
+        "sounds": [
+          "铜磬声",
+          "算盘拨珠声"
+        ],
+        "smells": [
+          "檀香",
+          "沉香"
+        ],
+        "notable_features": [
+          "嘉靖的蒲团",
+          "神坛牌位"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "xi_yuan",
+          "direction": "位于西苑内",
+          "travel_description": "从西苑禁门进入",
+          "accessibility": "禁地"
+        }
+      ]
+    },
+    {
+      "id": "zhi_zao_ju",
+      "name": "织造局",
+      "aliases": [
+        "江南织造局"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "杭州",
+      "description": {
+        "overview": "管理江南丝绸织造的官署，设有作坊",
+        "atmosphere": "繁忙、华丽",
+        "visual_details": [
+          "大厅堂有楼梯",
+          "红纱灯笼",
+          "紫檀镶壁"
+        ],
+        "sounds": [
+          "机杼声",
+          "昆曲声"
+        ],
+        "smells": [
+          "丝绸香"
+        ],
+        "notable_features": [
+          "昆曲演奏",
+          "丝绸展示"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "shen_yi_shi_bie_yuan",
+      "name": "沈一石别院",
+      "aliases": [
+        "琴房别院"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "杭州",
+      "description": {
+        "overview": "沈一石的秘密别院，内有琴房",
+        "atmosphere": "幽静、奢华",
+        "visual_details": [
+          "四面紫檀墙",
+          "乌木衣架",
+          "大床琴几"
+        ],
+        "sounds": [
+          "琴声"
+        ],
+        "smells": [
+          "檀香"
+        ],
+        "notable_features": [
+          "《广陵散》琴声"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "zhe_jiang_xun_fu_ya_men",
+      "name": "浙江巡抚衙门",
+      "aliases": [
+        "巡抚署"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "杭州",
+      "description": {
+        "overview": "浙江省最高行政公署",
+        "atmosphere": "威严、肃穆",
+        "visual_details": [
+          "高檐大门",
+          "八字墙",
+          "旗杆大坪"
+        ],
+        "sounds": [],
+        "smells": [],
+        "notable_features": [
+          "大堂正对圣旨"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "chun_an_xian_ya",
+      "name": "淳安县衙",
+      "aliases": [
+        "淳安正堂"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "淳安县",
+      "description": {
+        "overview": "淳安知县办公及居所",
+        "atmosphere": "简朴",
+        "visual_details": [
+          "大堂",
+          "签押房",
+          "后院"
+        ],
+        "sounds": [],
+        "smells": [],
+        "notable_features": [
+          "海瑞的住处"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "bei_zhen_fu_si_zhao_yu",
+      "name": "北镇抚司诏狱",
+      "aliases": [
+        "诏狱"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "北京",
+      "description": {
+        "overview": "锦衣卫关押钦犯的监狱",
+        "atmosphere": "阴森、恐怖",
+        "visual_details": [
+          "黑漆大门",
+          "高墙",
+          "花岗岩牢房"
+        ],
+        "sounds": [
+          "鞭打声",
+          "锁链声"
+        ],
+        "smells": [
+          "霉味",
+          "血腥"
+        ],
+        "notable_features": [
+          "梧桐树",
+          "绞架"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "lu_bi_ju",
+      "name": "六必居",
+      "aliases": [
+        "六心居"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "北京",
+      "description": {
+        "overview": "北京著名的酱菜铺",
+        "atmosphere": "市井",
+        "visual_details": [
+          "门楣有严嵩题匾"
+        ],
+        "sounds": [],
+        "smells": [
+          "酱菜香"
+        ],
+        "notable_features": [
+          "严嵩题字"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "xi_yuan",
+      "name": "西苑",
+      "aliases": [
+        "西苑禁城"
+      ],
+      "importance": "key",
+      "type": "region",
+      "parent_location": null,
+      "description": {
+        "overview": "嘉靖帝居住的皇家园林，内有玉熙宫、内阁值房等",
+        "atmosphere": null,
+        "visual_details": null,
+        "sounds": null,
+        "smells": null,
+        "notable_features": null
+      },
+      "connected_to": []
+    },
+    {
+      "id": "yan_fu",
+      "name": "严府",
+      "aliases": [
+        "严嵩府"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "北京",
+      "description": {
+        "overview": "首辅严嵩的府邸",
+        "atmosphere": "森严、奢华",
+        "visual_details": [
+          "大门上有“严府”灯笼",
+          "院落开阔"
+        ],
+        "sounds": [
+          "鸡鸣"
+        ],
+        "smells": [],
+        "notable_features": [
+          "晒书",
+          "菜圃"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "da_xing_xian",
+      "name": "大兴县",
+      "aliases": [],
+      "importance": "normal",
+      "type": "settlement",
+      "parent_location": "顺天府",
+      "description": {
+        "overview": "北京附近县城，受灾严重",
+        "atmosphere": null,
+        "visual_details": null,
+        "sounds": null,
+        "smells": null,
+        "notable_features": null
+      },
+      "connected_to": []
+    }
+  ]
+}

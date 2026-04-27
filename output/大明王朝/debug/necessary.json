@@ -1,0 +1,460 @@
+{
+  "events": [
+    {
+      "event_id": "prelude_winter_snow",
+      "reasoning": [
+        {
+          "entity": "嘉靖帝",
+          "type": "character",
+          "step_a_counterfactual": "如果嘉靖帝不存在，就没有'君父'，民怨指向和万寿宫火灾等关键背景无法成立，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "嘉靖帝在后续多个事件中反复以名字或身份被引用，不可替代",
+          "granularity": "named",
+          "forward_references": [
+            "summon_zhou_yunyi: 嘉靖召见周云逸",
+            "new_year_snow_falls: 嘉靖帝斋戒祈雪",
+            "fengbao_reports_good_omen: 冯保报祥瑞给万岁爷",
+            "cabinet_financial_meeting_1: 嘉靖旁听"
+          ]
+        },
+        {
+          "entity": "严嵩",
+          "type": "character",
+          "step_a_counterfactual": "如果严嵩不存在，'民怨指向首辅严嵩'这一核心背景无法成立，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "严嵩在后续new_year_snow_falls和cabinet中被明确提及，具名引用超过50%",
+          "granularity": "named",
+          "forward_references": [
+            "new_year_snow_falls: '内阁自严嵩、吕芳以降表态'",
+            "cabinet_financial_meeting_1: 严嵩定调子"
+          ]
+        },
+        {
+          "entity": "严世蕃",
+          "type": "character",
+          "step_a_counterfactual": "如果严世蕃不存在，民怨也要指向其子，朝局背景不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "严世蕃在cabinet中被指名道姓作为冲突一方，引用率100%",
+          "granularity": "named",
+          "forward_references": [
+            "cabinet_financial_meeting_1: 严世蕃与清流就亏空冲突"
+          ]
+        },
+        {
+          "entity": "西苑",
+          "type": "location",
+          "step_a_counterfactual": "展现朝局背景，万寿宫火灾虽在西苑，但搬到其他宫殿亦能传达背景，地点非核心",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "嘉靖帝",
+            "granularity": "named"
+          },
+          {
+            "name": "严嵩",
+            "granularity": "named"
+          },
+          {
+            "name": "严世蕃",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "summon_zhou_yunyi",
+      "reasoning": [
+        {
+          "entity": "嘉靖帝",
+          "type": "character",
+          "step_a_counterfactual": "如果嘉靖帝不存在，无人召见周云逸，君臣冲突不会发生，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "嘉靖帝在后续多个事件中持续以核心身份出现，不可替代",
+          "granularity": "named",
+          "forward_references": [
+            "execution_zhou_yunyi: 奉旨处死",
+            "new_year_snow_falls: 祈雪",
+            "fengbao_reports_good_omen: 接受祥瑞",
+            "cabinet_financial_meeting_1: 旁听"
+          ]
+        },
+        {
+          "entity": "周云逸",
+          "type": "character",
+          "step_a_counterfactual": "如果周云逸不存在，没有人被召见，君臣冲突无从谈起，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "周云逸虽被处死，但后续在execution和cabinet中仍被指名提及，因果链延续",
+          "granularity": "named",
+          "forward_references": [
+            "execution_zhou_yunyi: 处死周云逸",
+            "cabinet_financial_meeting_1: 提及周云逸"
+          ]
+        },
+        {
+          "entity": "玉熙宫",
+          "type": "location",
+          "step_a_counterfactual": "召见对话性质，搬到任何地点君臣冲突仍可发生，地点非必要",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "西苑",
+          "type": "location",
+          "step_a_counterfactual": "召见对话性质，搬到任何地点君臣冲突仍可发生，地点非必要",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "嘉靖帝",
+            "granularity": "named"
+          },
+          {
+            "name": "周云逸",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "execution_zhou_yunyi",
+      "reasoning": [
+        {
+          "entity": "冯保",
+          "type": "character",
+          "step_a_counterfactual": "如果冯保不存在，无人奉旨处死周云逸，震慑百官无法实现，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "冯保在后续fengbao_reports_good_omen中作为主角出现，引用率100%",
+          "granularity": "named",
+          "forward_references": [
+            "fengbao_reports_good_omen: 冯保争功报瑞雪"
+          ]
+        },
+        {
+          "entity": "周云逸",
+          "type": "character",
+          "step_a_counterfactual": "如果周云逸不存在，无处死对象，震慑百官无从谈起，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "周云逸在cabinet中被提及，因果链延续",
+          "granularity": "named",
+          "forward_references": [
+            "cabinet_financial_meeting_1: 提及周云逸"
+          ]
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "冯保",
+            "granularity": "named"
+          },
+          {
+            "name": "周云逸",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "new_year_snow_falls",
+      "reasoning": [
+        {
+          "entity": "嘉靖帝",
+          "type": "character",
+          "step_a_counterfactual": "如果嘉靖帝不存在，缺乏天子祈雪和天的对应，各方反应的核心对象缺失，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "嘉靖帝作为最高权威在后续事件持续被引用，不可替代",
+          "granularity": "named",
+          "forward_references": [
+            "fengbao_reports_good_omen: 嘉靖接受祥瑞",
+            "cabinet_financial_meeting_1: 嘉靖旁听"
+          ]
+        },
+        {
+          "entity": "严嵩",
+          "type": "character",
+          "step_a_counterfactual": "如果严嵩不存在，内阁表态缺失关键首辅角色，各方反应不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "严嵩在cabinet中作为定调子者出现，引用率100%",
+          "granularity": "named",
+          "forward_references": [
+            "cabinet_financial_meeting_1: 严嵩定调子"
+          ]
+        },
+        {
+          "entity": "吕芳",
+          "type": "character",
+          "step_a_counterfactual": "如果吕芳不存在，司礼监方面的重要表态缺失，各方反应不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "吕芳在后续fengbao和cabinet中均以核心身份出现，不可替代",
+          "granularity": "named",
+          "forward_references": [
+            "fengbao_reports_good_omen: 吕芳敲打冯保",
+            "cabinet_financial_meeting_1: 吕芳参与会议"
+          ]
+        },
+        {
+          "entity": "西苑",
+          "type": "location",
+          "step_a_counterfactual": "降雪是自然现象，搬到其他地点祥瑞同样降临，各方反应可在不同地点发生，地点非必要",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "嘉靖帝",
+            "granularity": "named"
+          },
+          {
+            "name": "严嵩",
+            "granularity": "named"
+          },
+          {
+            "name": "吕芳",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fengbao_reports_good_omen",
+      "reasoning": [
+        {
+          "entity": "嘉靖帝",
+          "type": "character",
+          "step_a_counterfactual": "如果嘉靖帝不存在，无接收祥瑞的对象，冯保无报祥瑞对象，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "嘉靖帝在cabinet中被引用，不可替代",
+          "granularity": "named",
+          "forward_references": [
+            "cabinet_financial_meeting_1: 嘉靖旁听"
+          ]
+        },
+        {
+          "entity": "吕芳",
+          "type": "character",
+          "step_a_counterfactual": "如果吕芳不存在，无人敲打冯保，goal的核心动作缺失，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "吕芳在cabinet中出现，引用率100%",
+          "granularity": "named",
+          "forward_references": [
+            "cabinet_financial_meeting_1: 吕芳参与会议"
+          ]
+        },
+        {
+          "entity": "陈洪",
+          "type": "character",
+          "step_a_counterfactual": "如果陈洪不存在，吕芳仍可独立敲打冯保，goal仍可达成",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "冯保",
+          "type": "character",
+          "step_a_counterfactual": "如果冯保不存在，无人争功报祥瑞，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "冯保在后续事件中不再出现，任何执行报祥瑞任务的太监均可替代",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "玉熙宫",
+          "type": "location",
+          "step_a_counterfactual": "报祥瑞和敲打行为可发生在任何地点，地点非必要",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "嘉靖帝",
+            "granularity": "named"
+          },
+          {
+            "name": "吕芳",
+            "granularity": "named"
+          },
+          {
+            "name": "冯保",
+            "granularity": "functional"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "cabinet_financial_meeting_1",
+      "reasoning": [
+        {
+          "entity": "嘉靖帝",
+          "type": "character",
+          "step_a_counterfactual": "如果嘉靖帝不存在，无皇帝旁听则御前会议性质改变，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，实体后续零引用，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "严嵩",
+          "type": "character",
+          "step_a_counterfactual": "如果严嵩不存在，无人定调子，会议冲突失去主轴，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "严世蕃",
+          "type": "character",
+          "step_a_counterfactual": "如果严世蕃不存在，矛头一方缺失，冲突不平衡，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "徐阶",
+          "type": "character",
+          "step_a_counterfactual": "如果徐阶不存在，清流派缺少主要发言人，冲突无法形成，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "高拱",
+          "type": "character",
+          "step_a_counterfactual": "如果高拱不存在，清流派进一步缺少火力，冲突不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "张居正",
+          "type": "character",
+          "step_a_counterfactual": "如果张居正不存在，清流派又少一员，冲突不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "吕芳",
+          "type": "character",
+          "step_a_counterfactual": "如果吕芳不存在，司礼监代表缺失，会议结构不完整，goal无法达成",
+          "necessary": true,
+          "step_b_substitution": "无后续事件，默认功能性",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "周云逸",
+          "type": "character",
+          "step_a_counterfactual": "如果周云逸从未存在，亏空冲突仍可围绕账册展开，会议主题不变，goal仍可达成",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "李春芳",
+          "type": "character",
+          "step_a_counterfactual": "如果李春芳不存在，其余大臣足够形成冲突，goal仍可达成",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "玉熙宫",
+          "type": "location",
+          "step_a_counterfactual": "换成任何殿堂会议均可照常进行，地点非必要",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "沈一石账册",
+          "type": "item",
+          "step_a_counterfactual": "即使没有账册，亏空数额仍可口头争论，冲突依然发生，goal仍可达成",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "嘉靖帝",
+            "granularity": "functional"
+          },
+          {
+            "name": "严嵩",
+            "granularity": "functional"
+          },
+          {
+            "name": "严世蕃",
+            "granularity": "functional"
+          },
+          {
+            "name": "徐阶",
+            "granularity": "functional"
+          },
+          {
+            "name": "高拱",
+            "granularity": "functional"
+          },
+          {
+            "name": "张居正",
+            "granularity": "functional"
+          },
+          {
+            "name": "吕芳",
+            "granularity": "functional"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    }
+  ]
+}
