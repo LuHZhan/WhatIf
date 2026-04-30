@@ -1,0 +1,439 @@
+{
+  "locations": [
+    {
+      "id": "fugui_old_house",
+      "name": "徐家祖宅",
+      "aliases": [
+        "砖瓦房",
+        "祖屋"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": null,
+      "description": {
+        "overview": "有多个房间的砖瓦房，带院子，原属徐家地主，后被龙二买去，福贵搬出。",
+        "atmosphere": "最初充满财富气息，后空荡。",
+        "visual_details": [
+          "白墙黑瓦",
+          "雕花门窗"
+        ],
+        "sounds": [
+          "铜钱碰撞声",
+          "脚步声"
+        ],
+        "smells": [],
+        "notable_features": [
+          "村口粪缸附近的宅子"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "fugui_thatched_house",
+          "direction": "村东",
+          "travel_description": "搬出后住茅屋",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "fugui_thatched_house",
+      "name": "福贵茅屋",
+      "aliases": [
+        "茅屋",
+        "福贵家"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "village",
+      "description": {
+        "overview": "简易茅草屋，屋顶茅草，土墙，很小，只有一床一灶。",
+        "atmosphere": "贫穷但温暖。",
+        "visual_details": [
+          "屋顶茅草",
+          "土墙",
+          "小方桌",
+          "床上铺稻草"
+        ],
+        "sounds": [
+          "风吹茅草声",
+          "家珍咳嗽"
+        ],
+        "smells": [
+          "泥土味",
+          "粥味"
+        ],
+        "notable_features": [
+          "门前有树",
+          "旁边有菜地"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "village_entrance",
+          "direction": "东",
+          "travel_description": "步行几分钟",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "qinglou",
+      "name": "青楼",
+      "aliases": [
+        "妓院",
+        "赌场"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "county_town",
+      "description": {
+        "overview": "县城里的妓院兼赌场，有多个房间，赌厅很大。",
+        "atmosphere": "嘈杂、色情、烟雾缭绕。",
+        "visual_details": [
+          "红灯笼",
+          "牌九桌",
+          "麻将",
+          "妓女房间"
+        ],
+        "sounds": [
+          "骰子声",
+          "女人笑声",
+          "叫骂声"
+        ],
+        "smells": [
+          "烟味",
+          "胭脂味",
+          "酒味"
+        ],
+        "notable_features": [
+          "龙二常所在",
+          "沈先生角落打盹"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town_street",
+          "direction": "南",
+          "travel_description": "出门就是街道",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "village",
+      "name": "福贵所在村庄",
+      "aliases": [
+        "徐家村"
+      ],
+      "importance": "key",
+      "type": "settlement",
+      "parent_location": null,
+      "description": {
+        "overview": "普通南方农村，有农田、池塘、晒场、羊棚等。",
+        "atmosphere": "贫穷但宁静，时有社会运动。",
+        "visual_details": [
+          "稻田",
+          "棉花地",
+          "池塘泛黄",
+          "土路"
+        ],
+        "sounds": [
+          "狗吠",
+          "牛叫",
+          "哨子声"
+        ],
+        "smells": [
+          "泥土",
+          "粪便",
+          "炊烟"
+        ],
+        "notable_features": [
+          "村口有榆树",
+          "粪缸"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town",
+          "direction": "西",
+          "travel_description": "步行十多里路",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "county_town",
+      "name": "县城",
+      "aliases": [
+        "城里",
+        "县城"
+      ],
+      "importance": "key",
+      "type": "settlement",
+      "parent_location": null,
+      "description": {
+        "overview": "有米行、医院、学校、绸店、饭店等，是福贵常去的地方。",
+        "atmosphere": "热闹，文革时混乱。",
+        "visual_details": [
+          "街道",
+          "店铺",
+          "大字报"
+        ],
+        "sounds": [
+          "叫卖",
+          "游行口号"
+        ],
+        "smells": [
+          "食物香",
+          "灰尘"
+        ],
+        "notable_features": [
+          "米行街",
+          "医院"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "village",
+          "direction": "东",
+          "travel_description": "步行十多里路",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "county_hospital",
+      "name": "县城医院",
+      "aliases": [
+        "医院"
+      ],
+      "importance": "key",
+      "type": "building",
+      "parent_location": "county_town",
+      "description": {
+        "overview": "白色墙壁的房子，有产房和停尸小屋。",
+        "atmosphere": "冰冷、死亡气息。",
+        "visual_details": [
+          "产房",
+          "停尸间",
+          "氧气瓶"
+        ],
+        "sounds": [
+          "哭声",
+          "医生脚步声"
+        ],
+        "smells": [
+          "消毒水",
+          "血腥"
+        ],
+        "notable_features": [
+          "有庆凤霞二喜都死在这里"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town_street",
+          "direction": "南",
+          "travel_description": "出医院门就是街",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "school",
+      "name": "城里小学",
+      "aliases": [
+        "学校"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "county_town",
+      "description": {
+        "overview": "两排平房教室，有操场。",
+        "atmosphere": "孩子们的读书声。",
+        "visual_details": [
+          "教室",
+          "操场",
+          "旗杆"
+        ],
+        "sounds": [
+          "读书声",
+          "跑步声"
+        ],
+        "smells": [
+          "墨水",
+          "尘土"
+        ],
+        "notable_features": null
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town_street",
+          "direction": "北",
+          "travel_description": "步行几分钟",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "sheep_pen",
+      "name": "村里羊棚",
+      "aliases": [
+        "羊棚"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "village",
+      "description": {
+        "overview": "关着公社的羊和牛。",
+        "atmosphere": "牲口气味。",
+        "visual_details": [
+          "木栅栏",
+          "草堆"
+        ],
+        "sounds": [
+          "羊叫",
+          "牛叫"
+        ],
+        "smells": [
+          "羊粪",
+          "草料"
+        ],
+        "notable_features": null
+      },
+      "connected_to": []
+    },
+    {
+      "id": "village_entrance",
+      "name": "村口",
+      "aliases": [
+        "村口"
+      ],
+      "importance": "normal",
+      "type": "path",
+      "parent_location": "village",
+      "description": {
+        "overview": "通往外界的土路，有榆树，粪缸。",
+        "atmosphere": "黄昏时宁静。",
+        "visual_details": [
+          "榆树",
+          "粪缸",
+          "土路"
+        ],
+        "sounds": [
+          "风声",
+          "牛铃声"
+        ],
+        "smells": [
+          "粪臭"
+        ],
+        "notable_features": [
+          "父亲摔死处"
+        ]
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town",
+          "direction": "西",
+          "travel_description": "土路",
+          "accessibility": null
+        }
+      ]
+    },
+    {
+      "id": "battlefield",
+      "name": "安徽包围圈战场",
+      "aliases": [
+        "战场",
+        "坑道"
+      ],
+      "importance": "key",
+      "type": "wilderness",
+      "parent_location": null,
+      "description": {
+        "overview": "方圆二十里包围圈，坑道纵横，尸体遍野，雪地。",
+        "atmosphere": "残酷、绝望、寒冷。",
+        "visual_details": [
+          "坑道",
+          "尸体",
+          "雪",
+          "烧黑的树木"
+        ],
+        "sounds": [
+          "枪炮声",
+          "伤号呻吟",
+          "轰炸"
+        ],
+        "smells": [
+          "硝烟",
+          "焦糊",
+          "血腥"
+        ],
+        "notable_features": [
+          "空投场地"
+        ]
+      },
+      "connected_to": []
+    },
+    {
+      "id": "canteen",
+      "name": "村里食堂",
+      "aliases": [
+        "食堂"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "village",
+      "description": {
+        "overview": "人民公社的集体食堂，曾天天有肉。",
+        "atmosphere": "热闹，后来冷清。",
+        "visual_details": [
+          "大锅",
+          "长桌",
+          "领饭队伍"
+        ],
+        "sounds": [
+          "碗筷声",
+          "说笑"
+        ],
+        "smells": [
+          "饭香",
+          "肉香"
+        ],
+        "notable_features": null
+      },
+      "connected_to": []
+    },
+    {
+      "id": "erxi_fengxia_home",
+      "name": "二喜凤霞家",
+      "aliases": [
+        "城里偏头女婿家"
+      ],
+      "importance": "normal",
+      "type": "building",
+      "parent_location": "county_town",
+      "description": {
+        "overview": "县城里的普通平房，有灶间和睡觉房间。",
+        "atmosphere": "简朴但温暖。",
+        "visual_details": [
+          "门上有标语",
+          "枕巾床单有口号"
+        ],
+        "sounds": [
+          "邻居说话"
+        ],
+        "smells": [],
+        "notable_features": null
+      },
+      "connected_to": [
+        {
+          "location_id": "county_town_street",
+          "direction": "出门",
+          "travel_description": "街道",
+          "accessibility": null
+        }
+      ]
+    }
+  ]
+}

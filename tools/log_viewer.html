@@ -456,6 +456,73 @@ body {
   border-radius: 10px; padding: 1px 7px; font-size: 11px; font-weight: 500;
 }
 
+/* ── WPKG category colors ── */
+[data-cat="WPKG_START"]    { --cc: #f59e0b; --cb: #fef3c7; }
+[data-cat="WPKG_STAGE"]    { --cc: #3b82f6; --cb: #eff6ff; }
+[data-cat="WPKG_STEP"]     { --cc: #10b981; --cb: #ecfdf5; }
+[data-cat="WPKG_LLM"]      { --cc: var(--cat-llm-call);   --cb: #fce8d5; }
+[data-cat="WPKG_BATCH"]    { --cc: #8b5cf6; --cb: #f5f3ff; }
+[data-cat="WPKG_VALIDATE"] { --cc: var(--cat-repair);     --cb: #fef7e0; }
+[data-cat="WPKG_DONE"]     { --cc: var(--cat-session);    --cb: #e6f4ea; }
+[data-cat="WPKG_ERROR"]    { --cc: var(--cat-error);      --cb: #fce8e6; }
+
+/* ── WPKG Pipeline Overview Panel ── */
+.wpkg-pipeline {
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.wpkg-pipeline-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 13px; font-weight: 600; color: var(--md-on-surface);
+}
+.wpkg-status-done    { font-size: 12px; font-weight: 500; color: #137333; background: #e6f4ea; border-radius: 10px; padding: 2px 10px; }
+.wpkg-status-running { font-size: 12px; font-weight: 500; color: #1557b0; background: #e8f0fe; border-radius: 10px; padding: 2px 10px; }
+.wpkg-stages-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.wpkg-stage-card {
+  background: var(--md-surface-variant);
+  border: 1px solid var(--md-outline-variant);
+  border-top: 3px solid var(--stage-color, #dadce0);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.wpkg-stage-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--md-on-surface-variant);
+  margin-bottom: 8px;
+}
+.wpkg-step-row {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 3px 0;
+  font-size: 12px;
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+.wpkg-step-row:last-child { border-bottom: none; }
+.wpkg-step-icon { font-size: 11px; flex-shrink: 0; width: 14px; text-align: center; }
+.wpkg-step-name { color: var(--md-on-surface); }
+.wpkg-step-stats { font-size: 11px; color: var(--md-on-surface-dim); margin-left: auto; white-space: nowrap; }
+.wpkg-step-done    .wpkg-step-icon { color: #137333; }
+.wpkg-step-done    .wpkg-step-name { color: var(--md-on-surface-variant); }
+.wpkg-step-skip    .wpkg-step-icon { color: #9aa0a6; }
+.wpkg-step-skip    .wpkg-step-name { color: var(--md-on-surface-dim); text-decoration: line-through; }
+.wpkg-step-running .wpkg-step-icon { color: #1a73e8; }
+.wpkg-step-running .wpkg-step-name { color: #1a73e8; }
+.wpkg-step-error   .wpkg-step-icon { color: #d93025; }
+.wpkg-step-error   .wpkg-step-name { color: #d93025; }
+.wpkg-step-pending .wpkg-step-icon { color: var(--md-on-surface-dim); }
+.wpkg-step-pending .wpkg-step-name { color: var(--md-on-surface-dim); }
+.wpkg-batch-info {
+  margin-top: 6px; font-size: 11px; color: #8b5cf6;
+  text-align: right; font-weight: 500;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -544,6 +611,7 @@ body {
       <div class="timeline-header">
         <span class="timeline-count" id="timeline-count"></span>
       </div>
+      <div class="wpkg-pipeline hidden" id="wpkg-pipeline"></div>
       <div class="timeline" id="timeline"></div>
     </div>
   </div>
@@ -634,6 +702,31 @@ function formatResponseText(text) {
   return escHtml(text.replace(/\\n/g, '\n'))
 }
 
+// ── LLM caller 角色说明 ──
+const CALLER_ROLES = {
+  // Runtime agents
+  setup_orchestrator:          'Setup · 场景分析 + Delta 判断',
+  confrontation_orchestrator:  'Confrontation · 工具决策 + 写作指导',
+  resolution_orchestrator:     'Resolution · 结局判断 + 写作指导',
+  unified_writer:              'Writer · 正文叙事生成',
+  bridge_planner:              'Bridge · 过渡叙事规划',
+  deviation_controller:        'Deviation · 偏差检测与修正',
+  l0_recall_agent:             'L0 Recall · 短期记忆召回',
+  l1_recall_agent:             'L1 Recall · 长期记忆召回',
+  entity_recognizer_agent:     'Entity · 实体识别',
+  l0_compressor:               'L0 Compress · 短期记忆压缩',
+  l1_compressor:               'L1 Compress · 长期记忆压缩',
+  scene_adapter:               'Scene · 场景适配',
+  // Extractors (preprocessing)
+  event_extractor:             'Extract · 事件提取',
+  lorebook_extractor:          'Extract · Lorebook 实体提取',
+  decision_text_extractor:     'Extract · 决策文本压缩',
+  necessity_grader:            'Extract · 必要性判断',
+  transition_annotator:        'Extract · 状态迁移标注',
+  cross_validator:             'Extract · 跨事件校验',
+  repairer:                    'Extract · 迁移修复',
+}
+
 // ── Category config ──
 const CAT_LABELS = {
   SESSION: 'Session',
@@ -643,6 +736,15 @@ const CAT_LABELS = {
   WRITER: 'Writer',
   ERROR: 'Error',
   LLM_JSON_REPAIR: 'JSON Repair',
+  // preCreateWpkgFile categories
+  WPKG_START:    'Wpkg 开始',
+  WPKG_STAGE:    'Wpkg 阶段',
+  WPKG_STEP:     'Wpkg 步骤',
+  WPKG_LLM:      'Wpkg LLM',
+  WPKG_BATCH:    'Wpkg 批次',
+  WPKG_VALIDATE: 'Wpkg 验证',
+  WPKG_DONE:     'Wpkg 完成',
+  WPKG_ERROR:    'Wpkg 错误',
 }
 
 // ── DOM refs ──
@@ -942,12 +1044,123 @@ function getCatColor(cat) {
     WRITER: 'var(--cat-writer)',
     ERROR: 'var(--cat-error)',
     LLM_JSON_REPAIR: 'var(--cat-repair)',
+    WPKG_START:    '#f59e0b',
+    WPKG_STAGE:    '#3b82f6',
+    WPKG_STEP:     '#10b981',
+    WPKG_LLM:      'var(--cat-llm-call)',
+    WPKG_BATCH:    '#8b5cf6',
+    WPKG_VALIDATE: 'var(--cat-repair)',
+    WPKG_DONE:     'var(--cat-session)',
+    WPKG_ERROR:    'var(--cat-error)',
   }
   return map[cat] || 'var(--cat-default)'
 }
 
+// ── preCreateWpkgFile Pipeline Overview ──
+const WPKG_STAGE_DEFS = [
+  { num: 1, name: '事件切分', color: '#3b82f6', steps: [
+    { id: '1.1', name: '文本清洗 + 分句' },
+    { id: '1.2', name: '事件提取' },
+    { id: '1.3', name: '决策文本提取' },
+  ]},
+  { num: 2, name: 'Lorebook', color: '#8b5cf6', steps: [
+    { id: '2.1', name: 'Lorebook 提取' },
+  ]},
+  { num: 3, name: '实体状态转移', color: '#ef4444', steps: [
+    { id: '3.1', name: '实体扫描 + 分批' },
+    { id: '3.2', name: '必要性判断' },
+    { id: '3.3', name: '转移标注' },
+    { id: '3.4', name: '交叉验证' },
+    { id: '3.5', name: '错误修复' },
+    { id: '3.6', name: '写入 transitions/' },
+  ]},
+]
+
+function renderWpkgPipeline() {
+  const el = $('wpkg-pipeline')
+  const hasWpkg = allEntries.some(e => e.cat && e.cat.startsWith('WPKG_'))
+  if (!hasWpkg) { el.classList.add('hidden'); return }
+  el.classList.remove('hidden')
+
+  // Collect state from entries
+  const stepState = {}   // stepId → { action, stats }
+  const batches = []
+  let startEntry = null, doneEntry = null
+
+  for (const e of allEntries) {
+    if (e.cat === 'WPKG_START') startEntry = e
+    if (e.cat === 'WPKG_DONE')  doneEntry  = e
+    if (e.cat === 'WPKG_STEP') {
+      if (!stepState[e.step]) stepState[e.step] = {}
+      stepState[e.step].action = e.action
+      if (e.stats) stepState[e.step].stats = e.stats
+    }
+    if (e.cat === 'WPKG_BATCH') batches.push(e)
+  }
+
+  const totalBatches = batches.length > 0 ? (batches[0].total_batches || batches.length) : 0
+  const doneBatches  = batches.filter(b => b.done).length || batches.length
+
+  let html = ''
+  // Header
+  if (startEntry) {
+    const statusHtml = doneEntry
+      ? `<span class="wpkg-status-done">✓ 完成 · ${formatBytes(doneEntry.size_bytes || 0)}</span>`
+      : `<span class="wpkg-status-running">⋯ 进行中</span>`
+    html += `<div class="wpkg-pipeline-header">
+      <span>📄 ${escHtml(startEntry.novel || '')} → ${escHtml(startEntry.output || '')}</span>
+      ${statusHtml}
+    </div>`
+  }
+
+  // Stages
+  html += `<div class="wpkg-stages-row">`
+  for (const stage of WPKG_STAGE_DEFS) {
+    html += `<div class="wpkg-stage-card" style="--stage-color:${stage.color}">
+      <div class="wpkg-stage-title">Stage ${stage.num} — ${stage.name}</div>`
+    for (const step of stage.steps) {
+      const s = stepState[step.id]
+      const action = s ? s.action : null
+      const iconMap  = { done: '✓', skip: '⊘', start: '⋯', error: '✗' }
+      const icon = iconMap[action] || '·'
+      const cls  = action ? `wpkg-step-${action}` : 'wpkg-step-pending'
+      let statsStr = ''
+      if (s && s.stats) {
+        statsStr = Object.entries(s.stats).map(([k, v]) => `${k}: ${v}`).join(' · ')
+      }
+      html += `<div class="wpkg-step-row ${cls}">
+        <span class="wpkg-step-icon">${icon}</span>
+        <span class="wpkg-step-name">${step.id} ${step.name}</span>
+        ${statsStr ? `<span class="wpkg-step-stats">${escHtml(statsStr)}</span>` : ''}
+      </div>`
+    }
+    if (stage.num === 3 && totalBatches > 0) {
+      html += `<div class="wpkg-batch-info">批次进度 ${doneBatches}/${totalBatches}</div>`
+    }
+    html += `</div>`
+  }
+  html += `</div>`
+
+  // Done summary
+  if (doneEntry) {
+    const lc = doneEntry.lorebook_counts || {}
+    html += `<div style="margin-top:10px;font-size:11px;color:var(--md-on-surface-dim);display:flex;gap:16px;flex-wrap:wrap;">
+      <span>事件: <strong style="color:var(--md-on-surface)">${doneEntry.event_count ?? '?'}</strong></span>
+      <span>角色: <strong style="color:var(--md-on-surface)">${lc.characters ?? '?'}</strong></span>
+      <span>地点: <strong style="color:var(--md-on-surface)">${lc.locations ?? '?'}</strong></span>
+      <span>物品: <strong style="color:var(--md-on-surface)">${lc.items ?? '?'}</strong></span>
+      <span>知识: <strong style="color:var(--md-on-surface)">${lc.knowledge ?? '?'}</strong></span>
+      <span>转移: <strong style="color:var(--md-on-surface)">${doneEntry.transition_count ?? '?'}</strong></span>
+    </div>`
+  }
+
+  el.innerHTML = html
+}
+
 // ── Timeline render ──
 function renderTimeline() {
+  renderWpkgPipeline()
+
   const visible = allEntries.filter(e => {
     // 一级 cat 过滤（空集 = 全显示）
     if (filteredCats.size > 0 && !filteredCats.has(e.cat)) return false
@@ -988,11 +1201,17 @@ function buildCard(entry) {
   const summary = buildSummary(entry)
   const hasBody = hasExpandableContent(entry)
 
+  let summaryHtml = escHtml(summary)
+  if (entry.cat === 'LLM_CALL' && entry.caller) {
+    const role = CALLER_ROLES[entry.caller] ?? entry.caller
+    summaryHtml += ` <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:500;background:#eef2ff;color:#4338ca;letter-spacing:.01em;">${escHtml(role)}</span>`
+  }
+
   div.innerHTML = `
     <div class="card-head" ${hasBody ? 'onclick="toggleCard(this.parentElement)"' : ''}>
       <span class="cat-badge" data-cat="${entry.cat}">${CAT_LABELS[entry.cat] || entry.cat}</span>
       <span class="card-ts">${ts}</span>
-      <span class="card-summary">${escHtml(summary)}</span>
+      <span class="card-summary">${summaryHtml}</span>
       ${hasBody ? `<svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>` : ''}
     </div>
     ${hasBody ? `<div class="card-body">${buildBody(entry)}</div>` : ''}
@@ -1010,8 +1229,10 @@ function buildSummary(e) {
       return `${e.action} — ${e.session_id || ''}`
     case 'GAME_STATE':
       return `${e.action} | player: ${e.player || ''} | event: ${e.first_event || e.event_id || ''}`
-    case 'LLM_CALL':
-      return `${e.method} | ${e.model} | prompt ${e.prompt_len}c → resp ${e.response_len}c`
+    case 'LLM_CALL': {
+      const dur = e.duration_ms != null ? ` | ${e.duration_ms >= 1000 ? (e.duration_ms/1000).toFixed(1)+'s' : e.duration_ms+'ms'}` : ''
+      return `${e.method} | ${e.model} | prompt ${e.prompt_len}c → resp ${e.response_len}c${dur}`
+    }
     case 'AGENT_EXEC':
       return `${e.agent} · ${e.step}${e.round != null ? ` · round ${e.round}` : ''}${e.tool_calls ? ` · [${e.tool_calls.join(', ')}]` : ''}`
     case 'WRITER':
@@ -1020,13 +1241,41 @@ function buildSummary(e) {
       return e.message || JSON.stringify(e)
     case 'LLM_JSON_REPAIR':
       return `repair ${e.model || ''} — ${e.content_preview || ''}`
+    // ── preCreateWpkgFile ──
+    case 'WPKG_START':
+      return `${e.novel || ''} → ${e.output || ''}`
+    case 'WPKG_STAGE': {
+      const stageNames = { 1: '事件切分', 2: 'Lorebook 提取', 3: '实体状态转移' }
+      return `Stage ${e.stage} — ${stageNames[e.stage] || e.name || ''}`
+    }
+    case 'WPKG_STEP': {
+      const actionLabel = { start: '开始', done: '完成', skip: '跳过（已缓存）', error: '错误' }
+      const stats = e.stats ? ' · ' + Object.entries(e.stats).map(([k, v]) => `${k}: ${v}`).join(', ') : ''
+      return `[${e.step}] ${e.name || ''} — ${actionLabel[e.action] || e.action}${stats}`
+    }
+    case 'WPKG_LLM': {
+      const attempt = e.attempt > 0 ? ` (重试 ${e.attempt})` : ''
+      const lens = e.prompt_len ? ` | prompt ${e.prompt_len}c → resp ${e.response_len || '?'}c` : ''
+      return `[${e.step}] ${e.class_name || ''} · ${e.model || ''}${attempt}${lens}`
+    }
+    case 'WPKG_BATCH':
+      return `批次 ${e.batch_idx + 1}/${e.total_batches} | ${e.event_count} 个事件 | token 预算 ${e.token_budget}`
+    case 'WPKG_VALIDATE': {
+      const actionLabel = { ok: '✓ 通过', error: `✗ ${e.error_count} 个错误`, repair_done: `修复完成（剩余 ${e.remaining_errors || 0} 个问题）` }
+      return `[${e.step}] ${actionLabel[e.action] || e.action}`
+    }
+    case 'WPKG_DONE':
+      return `${e.wpkg_path || ''} | ${formatBytes(e.size_bytes || 0)} | events: ${e.event_count || '?'} · transitions: ${e.transition_count || '?'}`
+    case 'WPKG_ERROR':
+      return `[${e.step || '?'}] ${e.error || JSON.stringify(e)}`
     default:
       return JSON.stringify(e).slice(0, 120)
   }
 }
 
 function hasExpandableContent(e) {
-  return ['LLM_CALL', 'WRITER', 'AGENT_EXEC', 'GAME_STATE', 'ERROR', 'LLM_JSON_REPAIR'].includes(e.cat)
+  return ['LLM_CALL', 'WRITER', 'AGENT_EXEC', 'GAME_STATE', 'ERROR', 'LLM_JSON_REPAIR',
+          'WPKG_STEP', 'WPKG_LLM', 'WPKG_BATCH', 'WPKG_VALIDATE', 'WPKG_DONE', 'WPKG_ERROR'].includes(e.cat)
 }
 
 function buildBody(e) {
@@ -1074,6 +1323,38 @@ function buildBody(e) {
   if (e.response) parts.push(buildTextBlock('response', e.response))
   // output (WRITER)
   if (e.output) parts.push(buildTextBlock('output', e.output))
+
+  // ── preCreateWpkgFile expanded bodies ──
+  if (e.cat === 'WPKG_STEP' && e.stats && typeof e.stats === 'object') {
+    parts.push(`<div class="fields-grid">${Object.entries(e.stats).map(([k, v]) =>
+      `<div class="field"><div class="field-key">${escHtml(k)}</div><div class="field-val mono">${escHtml(String(v))}</div></div>`
+    ).join('')}</div>`)
+  }
+  if (e.cat === 'WPKG_LLM' && e.prompt) parts.push(buildTextBlock('prompt', e.prompt))
+  if (e.cat === 'WPKG_LLM' && e.response) parts.push(buildTextBlock('response', e.response))
+  if (e.cat === 'WPKG_BATCH') {
+    const batchScalars = Object.entries(e).filter(([k]) => !['ts','cat'].includes(k) && typeof e[k] !== 'object')
+    if (batchScalars.length) {
+      parts.push(`<div class="fields-grid">${batchScalars.map(([k, v]) =>
+        `<div class="field"><div class="field-key">${escHtml(k)}</div><div class="field-val mono">${escHtml(String(v))}</div></div>`
+      ).join('')}</div>`)
+    }
+  }
+  if (e.cat === 'WPKG_VALIDATE' && Array.isArray(e.errors) && e.errors.length) {
+    parts.push(`<div class="text-block">
+      <div class="text-block-label"><span>验证错误列表</span><span class="len-tag">${e.errors.length} 条</span></div>
+      <pre class="text-pre">${e.errors.map(err => escHtml(String(err))).join('\n')}</pre>
+    </div>`)
+  }
+  if (e.cat === 'WPKG_DONE' && e.lorebook_counts && typeof e.lorebook_counts === 'object') {
+    const lc = e.lorebook_counts
+    parts.push(`<div class="fields-grid">
+      ${['characters','locations','items','knowledge'].map(k =>
+        `<div class="field"><div class="field-key">${k}</div><div class="field-val mono">${lc[k] ?? '-'}</div></div>`
+      ).join('')}
+    </div>`)
+  }
+  if (e.cat === 'WPKG_ERROR' && e.traceback) parts.push(buildTextBlock('traceback', e.traceback))
 
   return parts.join('')
 }

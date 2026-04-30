@@ -1,0 +1,2664 @@
+{
+  "events": [
+    {
+      "event_id": "preface",
+      "reasoning": [],
+      "necessary_entities": {
+        "characters": [],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "narrator_meets_fugui",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "如果福贵不存在，就没有人讲述自己的故事，叙述者也无法引出福贵的故事，goal无法达成。",
+          "necessary": true,
+          "step_b_substitution": "福贵是主人公，后续所有事件都围绕他展开，以其名字反复引用，无法被其他角色替代。",
+          "granularity": "named",
+          "forward_references": [
+            "fugui_gambles_away_fortune: 福贵赌钱",
+            "father_dies_wife_leaves: 福贵还债等",
+            "surviving_after_jiazhen_leaves: 福贵种田",
+            "war_suffering: 福贵被抓壮丁",
+            "captive_and_return_home: 福贵回家",
+            "land_reform_and_longers: 福贵分地",
+            "fugui_jiazhen_affection: 福贵与家珍",
+            "giving_away_fengxia: 福贵送凤霞",
+            "commune_and_jiazhen_ill: 福贵参加公社",
+            "famine_years: 福贵挨饿",
+            "youqing_blood_death: 福贵面对有庆死",
+            "jiazhen_learns_youqing_death: 福贵隐瞒",
+            "jiazhen_illness_worsens: 福贵照顾家珍",
+            "chunsheng_first_visit: 福贵见春生",
+            "fengxia_marries: 福贵嫁女",
+            "fengxia_happy_marriage: 福贵探望",
+            "chunsheng_persecuted: 福贵劝春生",
+            "fengxia_dies_in_childbirth: 福贵丧女",
+            "jiazhen_passes_away: 福贵葬妻",
+            "erxi_dies: 福贵接苦根",
+            "kugen_dies: 福贵带苦根",
+            "fugui_buys_ox: 福贵买牛",
+            "ending: 福贵离去"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍在本事件中只是福贵吆喝牛时提到的名字，并未直接出现，她不存在不影响叙述者遇到福贵、引出故事。goal是展现叙述者遇见福贵引出故事，家珍的提及是故事内容的一部分，但并非达成goal所必需。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞同样是福贵吆喝时提到的名字，不是事件参与者，不存在不影响goal达成。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆也是福贵吆喝提到的名字，不存在不影响goal达成。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "万二喜是福贵吆喝提到的名字，不存在不影响goal达成。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "苦根是福贵吆喝提到的名字，不存在不影响goal达成。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "福贵对叙述者说“一眼看出我是城里人”，提及城里，但事件发生在乡间树下，叙述者遇见福贵不需要特定的县城地点，任何乡间相遇都行。地点不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "老牛福贵",
+          "type": "item",
+          "step_a_counterfactual": "如果老牛不存在，福贵就不会在田里开导牛，也不会引发叙述者的好奇和对话，但叙述者游历乡村可能以其他方式遇见福贵。不过，正是老牛和福贵的互动成为叙述者注意并搭话的直接契机，没有老牛，这次相遇可能不会发生。因此老牛是引出故事的关键物品。",
+          "necessary": true,
+          "step_b_substitution": "后续事件中老牛在多个地方出现，尤其在结尾时福贵与牛相依为命，在fugui_buys_ox中详细讲述买牛经过，在ending中老牛再次出现并构成结尾画面。老牛与福贵同名，具有强烈的象征意义，不可替代。",
+          "granularity": "named",
+          "forward_references": [
+            "fugui_jiazhen_affection: 老牛福贵耕田",
+            "fugui_buys_ox: 买老牛并取名福贵",
+            "ending: 老牛福贵一起离去"
+          ]
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          }
+        ],
+        "items": [
+          {
+            "name": "老牛福贵",
+            "granularity": "named"
+          }
+        ],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fugui_gambles_away_fortune",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "福贵是赌钱输光家产的主体，没有他事件无法发生。",
+          "necessary": true,
+          "step_b_substitution": "主人公，后续始终被引用，无法替代。",
+          "granularity": "named",
+          "forward_references": [
+            "father_dies_wife_leaves: 福贵还债等",
+            "surviving_after_jiazhen_leaves: 福贵种田",
+            "war_suffering: 福贵被抓",
+            "captive_and_return_home: 福贵回家",
+            "land_reform_and_longers: 福贵分地",
+            "fugui_jiazhen_affection: 福贵家珍",
+            "giving_away_fengxia: 福贵送凤霞",
+            "commune_and_jiazhen_ill: 福贵公社",
+            "famine_years: 福贵饥荒",
+            "youqing_blood_death: 有庆之死",
+            "jiazhen_learns_youqing_death: 家珍得知",
+            "jiazhen_illness_worsens: 家珍病重",
+            "chunsheng_first_visit: 春生到访",
+            "fengxia_marries: 凤霞出嫁",
+            "fengxia_happy_marriage: 凤霞婚后",
+            "chunsheng_persecuted: 春生遭难",
+            "fengxia_dies_in_childbirth: 凤霞难产",
+            "jiazhen_passes_away: 家珍过世",
+            "erxi_dies: 二喜亡故",
+            "kugen_dies: 苦根夭折",
+            "fugui_buys_ox: 福贵买牛",
+            "ending: 最后场景"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "本事件中家珍仅是背景，虽然提及她怀孕但未推动赌钱输光本身。目标是为后续悲剧埋下伏笔，主要是福贵输钱，家珍不参与赌场。没有她，输光家产仍会发生，但她后来的反应是后续事件的重要部分。然而此事件goal是福贵输光家产，为悲剧伏笔，家珍作为家人是悲剧承受者之一，但并非输光这一行动的必要角色。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞在事件中只是偶尔提到，不参与赌钱，不存在不影响输光家产。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆还未出生，在事件中仅为提及，不影响输钱。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "龙二是赌场赢家，设计让福贵输光家产，没有龙二，福贵可能输给其他人，但龙二是直接导致福贵倾家荡产的关键人物。目标是为后续悲剧埋下伏笔，需要有一个让福贵破产的对手。",
+          "necessary": true,
+          "step_b_substitution": "龙二后来成为地主，在土地改革中被枪毙，且对福贵说“我是替你去死啊”，在后续 land_reform_and_longers 中按名字引用。但检查后续事件：他在 father_dies_wife_leaves 中作为债主出现（收地契），在 surviving_after_jiazhen_leaves 中租地给福贵，在 land_reform_and_longers 中被枪毙。龙二的身份与福贵命运紧密相连，他的结局反过来印证福贵命运的转折，因此具有 named 特性。（龙二在多个后续事件中按名字出场，引用率超过50%）",
+          "granularity": "named",
+          "forward_references": [
+            "father_dies_wife_leaves: 龙二收地契",
+            "surviving_after_jiazhen_leaves: 龙二租地",
+            "land_reform_and_longers: 龙二被毙"
+          ]
+        },
+        {
+          "entity": "沈先生",
+          "type": "character",
+          "step_a_counterfactual": "沈先生是赌场老板或介入者，他可能出老千帮助龙二，但没有沈先生，龙二仍然可以用其他方式赢钱。他的存在不是福贵破产的必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "长根",
+          "type": "character",
+          "step_a_counterfactual": "长根是福贵家的老雇工，在输光事件中未出现，不影响。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "青楼",
+          "type": "location",
+          "step_a_counterfactual": "赌钱可以在任何地方进行，青楼不是必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "赌场可能在县城，但输光家产这一事件不依赖特定地点。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "村口不是赌钱发生地，不影响。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "三担铜钱",
+          "type": "item",
+          "step_a_counterfactual": "铜钱是还债的媒介，但输光家产的关键是输掉地契房契，铜钱是后续还债的道具，不属于本事件直接必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "灌水银骰子",
+          "type": "item",
+          "step_a_counterfactual": "灌水银骰子是龙二作弊的工具，没有这个工具，龙二可能用其他方式作弊，但骰子作为具体作弊手段并非不可替代。不过，如果是通过出老千导致福贵输钱，作弊工具是必要的。但替代测试：换成其他作弊工具，后续并不会引用这个骰子，后续事件只关乎福贵破产的结果，不关心具体作弊物品。所以即使必要，也是 functional。",
+          "necessary": true,
+          "step_b_substitution": "灌水银骰子只在赌场出现，后续事件从未提到它，换成任何作弊工具，剧情不变。",
+          "granularity": "functional",
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "龙二",
+            "granularity": "named"
+          }
+        ],
+        "items": [
+          {
+            "name": "灌水银骰子",
+            "granularity": "functional"
+          }
+        ],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "father_dies_wife_leaves",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "福贵是承受后果的主体，没有他事件无从发生。",
+          "necessary": true,
+          "step_b_substitution": "主人公，后续始终引用。",
+          "granularity": "named",
+          "forward_references": [
+            "surviving_after_jiazhen_leaves 等全部后续"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍被丈人接走是事件的核心部分，她是被接走的对象，没有她这一部分无法成立。但 goal 是“福贵承受破产的后果：父亲安排还债后去世，岳丈强行接走家珍”，家珍是受害者也是关键人物。",
+          "necessary": true,
+          "step_b_substitution": "家珍后续在 surviving_after_jiazhen_leaves 中带着有庆回来，之后在多个事件中作为福贵妻子出现，名字一再被引用。她是 family 核心成员，不可替代。",
+          "granularity": "named",
+          "forward_references": [
+            "surviving_after_jiazhen_leaves: 家珍回来",
+            "fugui_jiazhen_affection: 家珍做鞋",
+            "giving_away_fengxia: 家珍不舍",
+            "commune_and_jiazhen_ill: 家珍生病",
+            "famine_years: 家珍挣扎",
+            "youqing_blood_death: 家珍丧子",
+            "jiazhen_learns_youqing_death: 家珍得知",
+            "jiazhen_illness_worsens: 家珍病危",
+            "chunsheng_first_visit: 家珍拒见",
+            "fengxia_marries: 家珍嫁女",
+            "fengxia_happy_marriage: 家珍高兴",
+            "chunsheng_persecuted: 家珍原谅",
+            "fengxia_dies_in_childbirth: 家珍丧女",
+            "jiazhen_passes_away: 家珍去世"
+          ]
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞被留在徐家，但她的存在不是父亲死去或家珍被接走的必要条件。不过她作为福贵与家珍的女儿，在事件中承担情感纽带，但 goal 中的核心后果是父亲去世和妻子被接走，凤霞不被接走是一个附带结果。没有凤霞，父亲照常去世，岳丈照常接家珍。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆在腹中还未出生，只是家珍被接走时归属陈家的理由之一，但不影响事件发生。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "徐老爷",
+          "type": "character",
+          "step_a_counterfactual": "徐老爷（福贵父亲）安排还债、气死，是事件关键环节，没有他死亡和还债的情节就不完整。",
+          "necessary": true,
+          "step_b_substitution": "徐老爷死后只在后续偶尔被提及（如家珍说福贵爹的坟），但后续事件不再以他为主角，他作为一个角色完成功能后退出。引用率极低，倾向 functional。",
+          "granularity": "functional",
+          "forward_references": [
+            "surviving_after_jiazhen_leaves: 福贵娘提到爹的坟在这里"
+          ]
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "龙二作为债主来收地契房契，是破产后果的直接执行者，没有他收债，还债过程不完整。",
+          "necessary": true,
+          "step_b_substitution": "龙二已在前面判定为 named，这里继续 named，因为他在后续 land_reform 中被枪毙。",
+          "granularity": "named",
+          "forward_references": [
+            "land_reform_and_longers: 龙二被毙"
+          ]
+        },
+        {
+          "entity": "王喜",
+          "type": "character",
+          "step_a_counterfactual": "王喜是一个佃户，目睹徐老爷摔下粪缸，但即使没有王喜，徐老爷仍会死，他非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "长根",
+          "type": "character",
+          "step_a_counterfactual": "长根在福贵挑铜钱回家路上相遇，哭诉离开，这个次要角色不是事件核心环节。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "搬家到茅屋是破产后果之一，但 goal 是承受破产后果，茅屋是结果而非必要条件，搬到任何破屋都可以。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "进城还债，但还债可以在任何地方，不是特定地点依赖。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "村口是父亲走向粪缸的地方，但不影响死亡后果。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "三担铜钱",
+          "type": "item",
+          "step_a_counterfactual": "三担铜钱是还债的具体形式，没有铜钱，还债仍可通过银元等，但父亲特意要求用铜钱让福贵体验艰辛，这是教育手段。不过目标只是还债，铜钱不是唯一方式。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二的金牙",
+          "type": "item",
+          "step_a_counterfactual": "金牙是龙二镶的炫耀物，不影响还债或父亲死亡。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "小镰刀是后来苦根的物品，与本事件无关，错误候选。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "徐老爷",
+            "granularity": "functional"
+          },
+          {
+            "name": "龙二",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "narrator_pause_1",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "叙述者观察福贵，若福贵不在，无法观察。",
+          "necessary": true,
+          "step_b_substitution": "继续是主人公，named。",
+          "granularity": "named",
+          "forward_references": [
+            "后续事件反复引用"
+          ]
+        },
+        {
+          "entity": "老牛福贵",
+          "type": "item",
+          "step_a_counterfactual": "老牛在此事件中蹲在池塘水中，是观察对象之一，但叙述者的观察主要是福贵，老牛不是必需，没有老牛叙述者仍可观察福贵。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "surviving_after_jiazhen_leaves",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "福贵是种田养家的主体，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "后续全部"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍归来是事件高潮，goal 包含“最终家珍带着儿子归来”，她不可或缺。",
+          "necessary": true,
+          "step_b_substitution": "家珍后续作为重要家庭成员，named。",
+          "granularity": "named",
+          "forward_references": [
+            "后续如 famine_years 等"
+          ]
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞陪伴福贵并等待母亲，但 goal 是福贵种田和家珍归来，凤霞不是必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆作为归来的儿子，是家珍带回的婴儿，代表家庭完整的一个元素，但不是事件达成的必要条件。即使没有有庆，家珍归来本身也可算部分达成 goal。但 goal 明确说“家珍带着儿子归来”，所以有庆是归来的儿子，存在必要。",
+          "necessary": true,
+          "step_b_substitution": "有庆后续成长，成为重要角色，在 famine_years 养羊、上学，在 youqing_blood_death 中死亡，名字大量引用。",
+          "granularity": "named",
+          "forward_references": [
+            "giving_away_fengxia: 有庆上学",
+            "commune_and_jiazhen_ill: 有庆养羊",
+            "famine_years: 有庆跑步",
+            "youqing_blood_death: 有庆抽血死",
+            "jiazhen_learns_youqing_death: 提及有庆",
+            "jiazhen_illness_worsens: 有庆坟",
+            "chunsheng_first_visit: 有庆之死",
+            "fengxia_marries: 提及有庆",
+            "fengxia_happy_marriage: 提及有庆",
+            "chunsheng_persecuted: 提及有庆",
+            "fengxia_dies_in_childbirth: 有庆的坟",
+            "jiazhen_passes_away: 有庆的坟",
+            "ending: 有庆耕田（隐喻）"
+          ]
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "龙二租地给福贵，是福贵成为佃户的促成者，但 goal 主要是福贵艰难种田和家珍归来，龙二是提供土地的人。如果没有龙二，福贵可能向别人租地，所以龙二不是绝对必要的。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "王喜",
+          "type": "character",
+          "step_a_counterfactual": "王喜是次要人物，无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "长根",
+          "type": "character",
+          "step_a_counterfactual": "长根作为乞丐来访，增加悲剧色彩，但不是 goal 的必要部分。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "居住的茅屋是家，但种田和家珍归来可发生在任何住处，地点不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "青楼",
+          "type": "location",
+          "step_a_counterfactual": "此处候选指赌场，但事件中无赌场，忽略。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "县城是福贵想借钱、家珍回来的地方，但非必需。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二的金牙",
+          "type": "item",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "很后的物品，无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "有庆",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "mother_ill_and_conscripted",
+      "reasoning": [
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "事件中家珍存在，但 goal 是福贵进城请郎中时被抓壮丁，家珍不是被抓的直接原因。但她是娘病的知情人，不过没有她，福贵依然可能被抓。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞在事件中可能在场，但不是必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆年幼，无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "家是起点，但抓壮丁发生在进城途中，不依赖茅屋。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "进城请郎中是抓壮丁的契机，但福贵可以在任何地方被抓，不是必须县城。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "war_suffering",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "福贵是经历战争的主体，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "captive_and_return_home 等"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "福贵想起家珍，但她不在战场，不是战争经历的必要存在。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "同理，不在场。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "不在场。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "春生是与福贵一起被抓的娃娃兵，共同经历困苦，是展现战争残酷和友情的必要角色，也是后续故事中重要的县长。",
+          "necessary": true,
+          "step_b_substitution": "春生后来成为县长刘解放，在 youqing_blood_death 中因输血致有庆死，在 chunsheng_first_visit 中上门道歉，在 chunsheng_persecuted 中遭批斗自杀。名字被一再引用，是重要角色。",
+          "granularity": "named",
+          "forward_references": [
+            "captive_and_return_home: 春生一同被俘",
+            "youqing_blood_death: 春生（刘县长）",
+            "chunsheng_first_visit: 春生到访",
+            "chunsheng_persecuted: 春生自杀"
+          ]
+        },
+        {
+          "entity": "老全",
+          "type": "character",
+          "step_a_counterfactual": "老全是福贵在军队中认识的老兵，讲述逃兵经历并最终死亡，他的死亡是战争残酷的点睛之笔，但 goal 是“福贵在军队中经历战争残酷，老全死亡”，所以老全死亡本身就是 goal 的一部分，因此老全必要。",
+          "necessary": true,
+          "step_b_substitution": "老全死后不再出现，后续事件无一引用，属于 functional。",
+          "granularity": "functional",
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "与战场无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "安徽包围圈战场",
+          "type": "location",
+          "step_a_counterfactual": "战场是战争发生的地点，但具体地点不是必须的，战争可以在任何地方，goal 不依赖特定地理位置。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "春生",
+            "granularity": "named"
+          },
+          {
+            "name": "老全",
+            "granularity": "functional"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "captive_and_return_home",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "后续"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "福贵回家与家珍重聚，家珍是家人，是回家的目的之一，但 goal 是“福贵被解放军俘虏后选择回家，与家人重聚，得知母亲去世和凤霞聋哑”，家珍是重聚对象，必要。",
+          "necessary": true,
+          "step_b_substitution": "家珍 named",
+          "granularity": "named",
+          "forward_references": [
+            "后续"
+          ]
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞因病聋哑是福贵得知的重要信息，她是家人之一，goal 中提到“凤霞聋哑”，所以凤霞是必要的。",
+          "necessary": true,
+          "step_b_substitution": "凤霞后续在 giving_away_fengxia、fengxia_marries 等中作为主角，named。",
+          "granularity": "named",
+          "forward_references": [
+            "giving_away_fengxia: 凤霞被送走",
+            "fengxia_marries: 凤霞出嫁",
+            "fengxia_dies_in_childbirth: 凤霞难产"
+          ]
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆作为儿子也是家人，但 goal 未明确提及有庆，然而与家人重聚包括有庆。虽然没有有庆，福贵仍可回家，但家人团聚不完整。从 goal 看，主要提及母亲去世和凤霞聋哑，有庆不是核心信息。不过有庆是家庭一员，但此时他尚年幼，不是情节推动者。判断：goal 中未强调有庆，因此不是必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "春生在俘虏期间可能和福贵一起，但 goal 侧重于福贵选择回家，春生不是关键。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "徐家祖宅",
+          "type": "location",
+          "step_a_counterfactual": "不是必需。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "家，但可以在任何地方团聚。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "安徽包围圈战场",
+          "type": "location",
+          "step_a_counterfactual": "俘虏发生地，但不是 goal 的核心地点。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "凤霞",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "land_reform_and_longers",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "福贵感叹命运，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "后续"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍在家纳鞋底，与福贵对话，是感叹的倾诉对象，但不是事件核心（龙二被毙和福贵分地）。没有家珍，福贵依然可以感叹。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "龙二是被枪毙的对象，是事件主角之一，没有他就没有“龙二被枪毙”这一核心内容。",
+          "necessary": true,
+          "step_b_substitution": "龙二 named（前面已判断）",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "枪决可以在别处，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "安徽包围圈战场",
+          "type": "location",
+          "step_a_counterfactual": "福贵对比提及，但不是事件地点。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "龙二",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fugui_jiazhen_affection",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "表达厮守愿望的主体，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "后续"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "厮守愿望的另一方，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "后续"
+          ]
+        },
+        {
+          "entity": "老牛福贵",
+          "type": "item",
+          "step_a_counterfactual": "老牛在事件中作为耕田工具出现，福贵与它对话，但厮守愿望的表述不依赖老牛，没有老牛，福贵和家珍的对话仍可进行。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "giving_away_fengxia",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "做决定的主角。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍是母亲，不舍但又支持，但送走凤霞的决定是福贵做出的，家珍虽参与情感但非必要。goal是“为供有庆上学，福贵决定送走凤霞，最终因亲情又不舍，将她接回”。这个决定可以由福贵单方面做出。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "被送走的对象，核心人物，必需。",
+          "necessary": true,
+          "step_b_substitution": "凤霞 named",
+          "granularity": "named",
+          "forward_references": [
+            "fengxia_marries",
+            "fengxia_dies_in_childbirth"
+          ]
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "供他上学是送凤霞的动机，但即使没有有庆，福贵也可能因贫穷送走凤霞。不过文本中就是为有庆上学，所以有庆是动机的一部分。没有有庆，就不会发生送凤霞。所以有庆必要。",
+          "necessary": true,
+          "step_b_substitution": "有庆是儿子，后续 named。",
+          "granularity": "named",
+          "forward_references": [
+            "commune_and_jiazhen_ill",
+            "famine_years",
+            "youqing_blood_death"
+          ]
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "送凤霞的地点可能在城里或别处，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "城里小学",
+          "type": "location",
+          "step_a_counterfactual": "学校是有庆上学的地方，但送凤霞的决策不依赖学校这一地点。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "很后的物品，无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "凤霞",
+            "granularity": "named"
+          },
+          {
+            "name": "有庆",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "commune_and_jiazhen_ill",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "家庭一员，经历公社化，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍积劳成疾是goal，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞参与劳动，但 goal 是家珍生病，凤霞不是核心。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆养羊、上学，与家珍生病无直接关系。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "此处龙二仅在回忆中提及，不是事件参与者。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长组织砸锅、食堂等公社化活动，是推动情节的关键背景人物。没有队长，公社化运动的具体执行者缺失，但事件可能由别的干部完成。队长在后续 famine_years 和 jiazhen_illness_worsens 等事件中继续出现，按名字引用，有一定角色。但此事件中他是否必要？如果仅为了家珍生病，队长不是直接导致她生病的人，但公社化是他推动的，是背景。考虑到 goal “人民公社化运动使家庭生活改变，家珍积劳成疾”，队长作为公社化执行者是必要的。",
+          "necessary": true,
+          "step_b_substitution": "队长在多个事件中出现，如 famine_years（要粮）、jiazhen_illness_worsens（带医生）、fengxia_marries（做媒），名字被引用，属于功能性但持续出现的配角，引用率较高，但检查：他不是一个具体的不可替代的人，任何队长都可以执行公社化，然而小说中队长成为一个有名字的角色，出现多次，形成一定身份。根据替代测试，若换另一个队长，后续事件中“队长”所指代的角色可以延续，所以是 functional。因为他没有专有名字，只以职务称呼，实际上就是功能角色。",
+          "granularity": "functional",
+          "forward_references": [
+            "famine_years: 队长要粮",
+            "jiazhen_illness_worsens: 队长带医生",
+            "fengxia_marries: 队长做媒"
+          ]
+        },
+        {
+          "entity": "王喜",
+          "type": "character",
+          "step_a_counterfactual": "次要人物。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "王先生",
+          "type": "character",
+          "step_a_counterfactual": "风水先生，看地方煮钢铁，不是家珍生病的必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "家珍去医院诊断软骨病，地点不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "城里小学",
+          "type": "location",
+          "step_a_counterfactual": "有庆学校，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村里羊棚",
+          "type": "location",
+          "step_a_counterfactual": "有庆养羊处，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村里食堂",
+          "type": "location",
+          "step_a_counterfactual": "公社化象征，但非必需具体地点。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "队长",
+            "granularity": "functional"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "famine_years",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍在饥荒中病重，是goal的重要部分，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞参与劳动，但不是goal核心。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "有庆割草跑步等，但饥荒中他的存在不是goal的必要条件，饥荒仍会发生。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长要粮、分粮，是饥荒时期的村干部，但事件主要是自家挣扎，队长非核心。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "体育老师",
+          "type": "character",
+          "step_a_counterfactual": "夸奖有庆跑步，无关饥荒。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "城里小学",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村里羊棚",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村里食堂",
+          "type": "location",
+          "step_a_counterfactual": "食堂散伙，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "youqing_blood_death",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "面对丧子之痛的主体，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍此时病重在家，不在医院，但她的存在是福贵隐瞒的原因。不过 goal 是“有庆为县长夫人献血被抽死，福贵面对丧子之痛和对春生的恨”，家珍不是核心参与者，她不知道。所以不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "被抽血致死，是事件中心，必需。",
+          "necessary": true,
+          "step_b_substitution": "有庆 named",
+          "granularity": "named",
+          "forward_references": [
+            "jiazhen_learns_youqing_death: 有庆的坟",
+            "chunsheng_first_visit: 有庆之死",
+            "后续提及"
+          ]
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "春生是县长，其夫人需要输血，导致有庆死亡，因此春生是间接责任者，是福贵恨的对象，必需。",
+          "necessary": true,
+          "step_b_substitution": "春生 named",
+          "granularity": "named",
+          "forward_references": [
+            "chunsheng_first_visit: 登门道歉",
+            "chunsheng_persecuted: 自杀"
+          ]
+        },
+        {
+          "entity": "老全",
+          "type": "character",
+          "step_a_counterfactual": "老全已死，只是回忆。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "体育老师",
+          "type": "character",
+          "step_a_counterfactual": "与输血无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "医院在县城，但可以发生在别处。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "医院是抽血地点，但 goal 不依赖特定医院。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "城里小学",
+          "type": "location",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "有庆",
+            "granularity": "named"
+          },
+          {
+            "name": "春生",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "jiazhen_learns_youqing_death",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "得知儿子死讯的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞未被提及，不是必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已死，作为被提及的对象，但 goal 围绕家珍发现儿子已死，有庆是事件起因，他的死亡是信息核心，因此作为已故人物，仍然是必要实体（信息源）。从实体角度看，有庆这个人已不存在，但他的死亡事实构成信息。不过候选列表中仍有有庆，作为角色，他在本事件中不出场，但家珍得知的是“有庆死了”。严格来说，有庆是信息内容，而不是事件参与者。如果候选中有“有庆死亡的消息”作为 information 类型，会更合适。但现有候选只有有庆这个角色。对于角色有庆，在事件中他并未出现，只是被提及，不符合候选角色参与事件的要求。根据排除规则：“只是被提及但不参与事件的角色”应排除。因此有庆在此事件中不必要，排除。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "narrator_pause_2",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "叙述者与福贵互动，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "jiazhen_illness_worsens",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "病危好转的核心人物，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "凤霞照顾父母，但非 goal 核心。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已死，被提及坟地，但非参与角色。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长带来医生，是帮助家珍诊断的人，但医生也可由别人带来。不过队长是组织者，在贫困中帮忙，他的出现是事件的一部分。但 goal 是家珍病危好转，队长并非关键。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村里羊棚",
+          "type": "location",
+          "step_a_counterfactual": "做棺材处，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "chunsheng_first_visit",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍拒绝春生，是事件核心，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已死，是家珍愤怒的原因，作为被提及对象，非参与角色。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "来访者，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长劝说，但不是必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "春生",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fengxia_marries",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "嫁女的决定者，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "母亲，参与情感，但不是嫁女动作的核心。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "新娘，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "fengxia_happy_marriage",
+            "fengxia_dies_in_childbirth"
+          ]
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "新郎，必需。",
+          "necessary": true,
+          "step_b_substitution": "二喜在后续事件中作为女婿出现，在 erxi_dies 中死亡，名字多次引用，named。",
+          "granularity": "named",
+          "forward_references": [
+            "fengxia_happy_marriage: 二喜疼爱凤霞",
+            "fengxia_dies_in_childbirth: 二喜守候",
+            "erxi_dies: 二喜被夹死",
+            "kugen_dies: 二喜的坟",
+            "ending: 二喜耕田（隐喻）"
+          ]
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "不在这个事件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长做媒，是促成婚姻的关键中间人，但没有队长别人也可以做媒。不过在这个故事中，队长的参与是具体的。根据替代测试，换一个人做媒，后续不受影响，队长的角色可替代。因此 functional。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "徐家祖宅",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "福贵茅屋",
+          "type": "location",
+          "step_a_counterfactual": "嫁女发生在茅屋，但可以在任何地方。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "二喜来自县城，但婚姻不依赖县城。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "凤霞",
+            "granularity": "named"
+          },
+          {
+            "name": "万二喜",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fengxia_happy_marriage",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "探望女儿，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍在家高兴，但她不是幸福婚姻的直接参与者，只是背景。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "婚姻幸福的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已故，仅提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "丈夫，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长被红卫兵抓走一段，但与凤霞婚姻无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "凤霞住在城里，但幸福生活可以不依赖特定城市。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "凤霞",
+            "granularity": "named"
+          },
+          {
+            "name": "万二喜",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "chunsheng_persecuted",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "劝春生活下去，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "最终原谅春生，说出“你要活着”，是关键转变，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "未出现。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已故，作为提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "遭难的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "批斗在城里，但 goal 是春生遭难和福贵劝慰，地点不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          },
+          {
+            "name": "春生",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fengxia_dies_in_childbirth",
+      "reasoning": [
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "家珍在家等待，但凤霞死亡她不直接在场，非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "难产死亡的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已死，提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "丈夫，在产房外等候，悲痛欲绝，是该事件的重要参与者，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "erxi_dies"
+          ]
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "医院是难产发生地，但 goal 是凤霞难产而死，不依赖特定医院。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "村口",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "凤霞",
+            "granularity": "named"
+          },
+          {
+            "name": "万二喜",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "jiazhen_passes_away",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "陪伴妻子临终，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "去世的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "已死，提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已死，提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "二喜背凤霞尸体回家，但在家珍去世时他已离开？事件描述“家珍在凤霞死后不到三个月死了”，二喜可能还在，但非核心。不过二喜作为女婿，在场与否不确定，但从描述看，二喜可能不在家珍去世现场。goal 是家珍安然亡故，二喜不是必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "苦根刚出生，家珍取名，但苦根不是家珍亡故的必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "凤霞死在医院，但家珍死在家中，不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "家珍",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "erxi_dies",
+      "reasoning": [
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "已故，仅在回忆中。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "已故，回忆。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "已故，回忆。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "被夹死的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "kugen_dies: 二喜的坟",
+            "ending: 二喜耕田（隐喻）"
+          ]
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "二喜的儿子，但二喜死亡时他在不远处玩，对事件本身不必要。不过 goal 是“二喜独自抚养苦根，在搬运时被水泥板夹死”，苦根是二喜抚养的对象，也是悲剧的组成部分。没有苦根，二喜仍可能被夹死，但故事中他的存在加深了悲剧。对于二喜死亡事件，苦根不是导致死亡的原因，但他是事件描述的一部分。但 goal 提到“二喜独自抚养苦根”，所以苦根是背景。但就二喜死亡这一事件而言，苦根是否必要？如果苦根不存在，二喜可能不会随身背着背兜，但事故仍可能发生。所以苦根不是二喜死亡的必要条件。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "事故发生在城里搬运场，但地点不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城医院",
+          "type": "location",
+          "step_a_counterfactual": "二喜被送医院，但不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "二喜的背兜",
+          "type": "item",
+          "step_a_counterfactual": "背兜是二喜用来背苦根的工具，展现了父爱。但没有背兜，二喜仍然可能死亡，背兜不是事故的直接原因。因此不是必要物品。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "万二喜",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "kugen_dies",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "带苦根生活，煮豆子致其撑死，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "fugui_buys_ox"
+          ]
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "已故，苦根的母亲，提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "已故，提及。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "被撑死的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "苦根是最后一个死去的亲人，名字在 ending 中与老牛一起被提及，具有象征意义，named。",
+          "granularity": "named",
+          "forward_references": [
+            "fugui_buys_ox: 苦根死后第二年买牛",
+            "ending: 苦根耕了半亩"
+          ]
+        },
+        {
+          "entity": "队长",
+          "type": "character",
+          "step_a_counterfactual": "队长出现夸苦根，但非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "县城",
+          "type": "location",
+          "step_a_counterfactual": "不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根的小镰刀",
+          "type": "item",
+          "step_a_counterfactual": "小镰刀是苦根的劳动工具，福贵为他打制，但苦根死于吃豆子，与镰刀无关。没有镰刀，苦根仍会死。因此不必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          },
+          {
+            "name": "苦根",
+            "granularity": "named"
+          }
+        ],
+        "items": [],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "fugui_buys_ox",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "买牛的主角，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": [
+            "ending"
+          ]
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "已故，提及埋在一起，非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "已故，提及，非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "龙二",
+          "type": "character",
+          "step_a_counterfactual": "回忆中提起，非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "春生",
+          "type": "character",
+          "step_a_counterfactual": "回忆中提起，非必要。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "老牛福贵",
+          "type": "item",
+          "step_a_counterfactual": "被买下的老牛，是事件核心，必需。",
+          "necessary": true,
+          "step_b_substitution": "老牛在 ending 中再次出现，与福贵相依为命，具有不可替代的象征意义，named。",
+          "granularity": "named",
+          "forward_references": [
+            "ending: 老牛福贵与福贵离去"
+          ]
+        },
+        {
+          "entity": "十元压枕钱",
+          "type": "item",
+          "step_a_counterfactual": "压枕的十元钱是留给收尸人的，不是买牛款，与事件无关。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          }
+        ],
+        "items": [
+          {
+            "name": "老牛福贵",
+            "granularity": "named"
+          }
+        ],
+        "information": [],
+        "locations": []
+      }
+    },
+    {
+      "event_id": "ending",
+      "reasoning": [
+        {
+          "entity": "福贵",
+          "type": "character",
+          "step_a_counterfactual": "叙述者目送他离去，必需。",
+          "necessary": true,
+          "step_b_substitution": "named",
+          "granularity": "named",
+          "forward_references": []
+        },
+        {
+          "entity": "家珍",
+          "type": "character",
+          "step_a_counterfactual": "福贵对话中提及的名字，是隐喻，非实际参与。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "凤霞",
+          "type": "character",
+          "step_a_counterfactual": "提及名字。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "有庆",
+          "type": "character",
+          "step_a_counterfactual": "提及名字。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "万二喜",
+          "type": "character",
+          "step_a_counterfactual": "提及名字。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "苦根",
+          "type": "character",
+          "step_a_counterfactual": "提及名字。",
+          "necessary": false,
+          "step_b_substitution": null,
+          "granularity": null,
+          "forward_references": []
+        },
+        {
+          "entity": "老牛福贵",
+          "type": "item",
+          "step_a_counterfactual": "和福贵一起离去，是结尾画面的组成部分，必需。",
+          "necessary": true,
+          "step_b_substitution": "named（之前已经）",
+          "granularity": "named",
+          "forward_references": []
+        }
+      ],
+      "necessary_entities": {
+        "characters": [
+          {
+            "name": "福贵",
+            "granularity": "named"
+          }
+        ],
+        "items": [
+          {
+            "name": "老牛福贵",
+            "granularity": "named"
+          }
+        ],
+        "information": [],
+        "locations": []
+      }
+    }
+  ]
+}

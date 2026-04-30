@@ -1,0 +1,177 @@
+{
+  "items": [
+    {
+      "id": "gambling_copper_coins",
+      "name": "三担铜钱",
+      "aliases": [
+        "铜钱",
+        "还债的钱"
+      ],
+      "importance": "key",
+      "category": "other",
+      "description": {
+        "appearance": "三担铜钱，上面盖着南瓜叶，重量沉重。",
+        "material": "铜",
+        "size": "三担"
+      },
+      "function": {
+        "primary_use": "还赌债",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "体现赚钱艰辛，父辈对儿子的教育",
+        "symbolic_meaning": "富贵的代价"
+      }
+    },
+    {
+      "id": "longer_gold_teeth",
+      "name": "龙二的金牙",
+      "aliases": [
+        "金牙"
+      ],
+      "importance": "normal",
+      "category": "other",
+      "description": {
+        "appearance": "两颗大金牙镶在嘴里，咧嘴时明显",
+        "material": "金",
+        "size": "牙齿大小"
+      },
+      "function": {
+        "primary_use": "炫耀财富",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "标志龙二成为地主后的得意",
+        "symbolic_meaning": "贪婪的象征"
+      }
+    },
+    {
+      "id": "loaded_dice",
+      "name": "灌水银骰子",
+      "aliases": [
+        "骰子",
+        "作弊骰子"
+      ],
+      "importance": "normal",
+      "category": "tool",
+      "description": {
+        "appearance": "普通骰子但内部挖空灌有水银，一拍水银下沉控制点数。",
+        "material": "骨头/塑料，水银",
+        "size": "小"
+      },
+      "function": {
+        "primary_use": "赌博作弊",
+        "special_abilities": [
+          "可掷出指定点数"
+        ],
+        "limitations": [
+          "需拍一下让水银下沉"
+        ]
+      },
+      "significance": {
+        "narrative_role": "导致福贵输光家产的关键道具",
+        "symbolic_meaning": "欺骗与不公"
+      }
+    },
+    {
+      "id": "baby_carrier",
+      "name": "二喜的背兜",
+      "aliases": [
+        "背兜"
+      ],
+      "importance": "normal",
+      "category": "tool",
+      "description": {
+        "appearance": "用布和竹条做的背篼，可将孩子背在身后",
+        "material": "布，竹",
+        "size": "适合幼儿"
+      },
+      "function": {
+        "primary_use": "背着苦根干搬运活",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "体现二喜做父亲的艰辛",
+        "symbolic_meaning": "父爱"
+      }
+    },
+    {
+      "id": "kugen_sickle",
+      "name": "苦根的小镰刀",
+      "aliases": [
+        "小镰刀",
+        "镰刀"
+      ],
+      "importance": "normal",
+      "category": "tool",
+      "description": {
+        "appearance": "小巧的铁制镰刀，专门为儿童打制",
+        "material": "铁",
+        "size": "适合小孩手"
+      },
+      "function": {
+        "primary_use": "割稻子",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "苦根成为帮手象征",
+        "symbolic_meaning": "代际传承"
+      }
+    },
+    {
+      "id": "old_ox",
+      "name": "老牛福贵",
+      "aliases": [
+        "福贵（牛）",
+        "老牛"
+      ],
+      "importance": "key",
+      "category": "other",
+      "description": {
+        "appearance": "老态龙钟，皮包骨，眼珠圆，常流泪",
+        "material": "血肉",
+        "size": "中型牛"
+      },
+      "function": {
+        "primary_use": "耕田，陪伴",
+        "special_abilities": [
+          "通人性"
+        ],
+        "limitations": [
+          "年纪大，干活慢"
+        ]
+      },
+      "significance": {
+        "narrative_role": "福贵晚年唯一的伙伴，象征命运共同体",
+        "symbolic_meaning": "生命韧性"
+      }
+    },
+    {
+      "id": "ten_yuan_note",
+      "name": "十元压枕钱",
+      "aliases": [
+        "十元钱"
+      ],
+      "importance": "background",
+      "category": "other",
+      "description": {
+        "appearance": "一张十元纸币，压在枕头下",
+        "material": "纸",
+        "size": "钞票大小"
+      },
+      "function": {
+        "primary_use": "支付自己的丧葬费",
+        "special_abilities": [],
+        "limitations": []
+      },
+      "significance": {
+        "narrative_role": "福贵对后事的安排",
+        "symbolic_meaning": "对死的坦然"
+      }
+    }
+  ]
+}

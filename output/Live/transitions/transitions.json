@@ -1,0 +1,700 @@
+{
+  "transitions": [
+    {
+      "event_id": "preface",
+      "preconditions": [],
+      "effects": []
+    },
+    {
+      "event_id": "narrator_meets_fugui",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "老牛福贵",
+          "type": "item",
+          "attribute": "持有者",
+          "from": "福贵",
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "fugui_gambles_away_fortune",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "龙二",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "灌水银骰子",
+          "type": "item",
+          "attribute": "持有者",
+          "from": "龙二",
+          "granularity": "functional"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "father_dies_wife_leaves",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "徐老爷",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        },
+        {
+          "name": "龙二",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        },
+        {
+          "name": "徐老爷",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "functional"
+        }
+      ]
+    },
+    {
+      "event_id": "narrator_pause_1",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "surviving_after_jiazhen_leaves",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "有庆",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        },
+        {
+          "name": "有庆",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "mother_ill_and_conscripted",
+      "preconditions": [],
+      "effects": []
+    },
+    {
+      "event_id": "war_suffering",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "春生",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "老全",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "captive_and_return_home",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "land_reform_and_longers",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "龙二",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "龙二",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "fugui_jiazhen_affection",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "giving_away_fengxia",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "有庆",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "commune_and_jiazhen_ill",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "队长",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "functional"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "famine_years",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "youqing_blood_death",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "有庆",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "春生",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "有庆",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "jiazhen_learns_youqing_death",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "narrator_pause_2",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "jiazhen_illness_worsens",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "chunsheng_first_visit",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "春生",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "fengxia_marries",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "万二喜",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "fengxia_happy_marriage",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "万二喜",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "chunsheng_persecuted",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "春生",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "fengxia_dies_in_childbirth",
+      "preconditions": [
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "万二喜",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "凤霞",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "to": null,
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "jiazhen_passes_away",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "家珍",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "erxi_dies",
+      "preconditions": [
+        {
+          "name": "万二喜",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "kugen_dies",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "苦根",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    },
+    {
+      "event_id": "fugui_buys_ox",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "老牛福贵",
+          "type": "item",
+          "attribute": "持有者",
+          "from": "福贵",
+          "granularity": "named"
+        }
+      ],
+      "effects": [
+        {
+          "name": "老牛福贵",
+          "type": "item",
+          "attribute": "持有者",
+          "from": null,
+          "to": "福贵",
+          "granularity": "named"
+        }
+      ]
+    },
+    {
+      "event_id": "ending",
+      "preconditions": [
+        {
+          "name": "福贵",
+          "type": "character",
+          "attribute": "地点",
+          "from": null,
+          "granularity": "named"
+        },
+        {
+          "name": "老牛福贵",
+          "type": "item",
+          "attribute": "持有者",
+          "from": "福贵",
+          "granularity": "named"
+        }
+      ],
+      "effects": []
+    }
+  ]
+}

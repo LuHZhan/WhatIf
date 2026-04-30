@@ -73,26 +73,37 @@ async def _stream_with_tts(
     teardown: Callable[[], None] | None = None,
 ):
     """Shared SSE generator. Yields chunk events and optionally audio events.
+    共享的 SSE 生成器。会产出文本分片事件，并在需要时产出音频事件。
 
     Args:
         engine: GameEngine instance.
+            engine：GameEngine 实例。
         run_fn: Blocking function that takes on_chunk callback.
+            run_fn：阻塞函数，接收 on_chunk 回调。
         tts: Whether to enable TTS audio events.
+            tts：是否启用 TTS 音频事件。
         voice: TTS voice name.
+            voice：TTS 音色名称。
         setup: Optional pre-run setup (e.g. set engine.on_narrative_chunk).
+            setup：可选的预运行设置（例如设置 engine.on_narrative_chunk）。
         teardown: Optional post-run cleanup.
+            teardown：可选的运行后清理。
     """
+    # 事件循环与跨线程文本桥：后台线程通过 on_chunk 推送文本到异步队列
     loop = asyncio.get_event_loop()
     chunk_queue: asyncio.Queue[str | None] = asyncio.Queue()
 
     def on_chunk(text: str) -> None:
         loop.call_soon_threadsafe(chunk_queue.put_nowait, text)
 
+    # 可选前置注入（例如把 engine 的分片回调指向 on_chunk）
     if setup:
         setup(on_chunk)
 
+    # 把阻塞式 run_fn 放到线程池执行，避免阻塞当前 async 请求
     future = loop.run_in_executor(None, run_fn, on_chunk)
 
+    # TTS 相关运行态：分句缓冲、音频结果队列、任务列表
     sentence_buf = SentenceBuffer() if tts else None
     audio_queue: asyncio.Queue[tuple[int, bytes] | None] | None = (
         asyncio.Queue() if tts else None
@@ -104,6 +115,7 @@ async def _stream_with_tts(
     next_audio_idx = 0
     audio_hold: dict[int, bytes] = {}
 
+    # 把新分出的句子异步提交给 TTS，并记录句子序号用于后续有序输出
     def _dispatch_sentences(sentences: list[str]) -> None:
         nonlocal sentence_idx
         for s in sentences:
@@ -129,6 +141,7 @@ async def _stream_with_tts(
         return results
 
     # --- Stream text chunks ---
+    # 主循环：持续消费 chunk_queue，并实时向前端推送 SSE chunk/state/audio
     early_state_sent = False
     while not future.done():
         try:
@@ -148,6 +161,7 @@ async def _stream_with_tts(
             yield evt
 
     # --- Check for errors ---
+    # 后台任务结束后检查异常；若失败，发 error + done 并终止流
     try:
         result = await future
     except Exception as e:
@@ -166,6 +180,7 @@ async def _stream_with_tts(
             _dispatch_sentences(sentence_buf.append(chunk))
 
     # --- Flush sentence buffer ---
+    # 把最后未凑成完整句的尾部文本也送去 TTS，并等待所有 TTS 任务完成
     if sentence_buf:
         remaining = sentence_buf.flush()
         if remaining:
@@ -179,6 +194,7 @@ async def _stream_with_tts(
         for evt in _drain_ordered_audio():
             yield evt
 
+    # 可选后置清理（例如恢复 engine 回调），最后发送冻结态 state 与 done
     if teardown:
         teardown()
 

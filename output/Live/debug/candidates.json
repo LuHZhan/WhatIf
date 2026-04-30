@@ -1,0 +1,1335 @@
+{
+  "preface": [],
+  "narrator_meets_fugui": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "老牛福贵",
+      "type": "item",
+      "id": "old_ox",
+      "matched_text": "老牛"
+    }
+  ],
+  "fugui_gambles_away_fortune": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "沈先生",
+      "type": "character",
+      "id": "shen_xiansheng",
+      "matched_text": "沈先生"
+    },
+    {
+      "name": "长根",
+      "type": "character",
+      "id": "chang_gen",
+      "matched_text": "长根"
+    },
+    {
+      "name": "青楼",
+      "type": "location",
+      "id": "qinglou",
+      "matched_text": "青楼"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    },
+    {
+      "name": "三担铜钱",
+      "type": "item",
+      "id": "gambling_copper_coins",
+      "matched_text": "铜钱"
+    },
+    {
+      "name": "灌水银骰子",
+      "type": "item",
+      "id": "loaded_dice",
+      "matched_text": "骰子"
+    }
+  ],
+  "father_dies_wife_leaves": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "徐老爷",
+      "type": "character",
+      "id": "father",
+      "matched_text": "徐老爷"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "王喜",
+      "type": "character",
+      "id": "wang_xi",
+      "matched_text": "王喜"
+    },
+    {
+      "name": "长根",
+      "type": "character",
+      "id": "chang_gen",
+      "matched_text": "长根"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    },
+    {
+      "name": "三担铜钱",
+      "type": "item",
+      "id": "gambling_copper_coins",
+      "matched_text": "三担铜钱"
+    },
+    {
+      "name": "龙二的金牙",
+      "type": "item",
+      "id": "longer_gold_teeth",
+      "matched_text": "金牙"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "镰刀"
+    }
+  ],
+  "narrator_pause_1": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "老牛福贵",
+      "type": "item",
+      "id": "old_ox",
+      "matched_text": "老牛"
+    }
+  ],
+  "surviving_after_jiazhen_leaves": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "王喜",
+      "type": "character",
+      "id": "wang_xi",
+      "matched_text": "王喜"
+    },
+    {
+      "name": "长根",
+      "type": "character",
+      "id": "chang_gen",
+      "matched_text": "长根"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "青楼",
+      "type": "location",
+      "id": "qinglou",
+      "matched_text": "赌场"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "龙二的金牙",
+      "type": "item",
+      "id": "longer_gold_teeth",
+      "matched_text": "金牙"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "镰刀"
+    }
+  ],
+  "mother_ill_and_conscripted": [
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    }
+  ],
+  "war_suffering": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "老全",
+      "type": "character",
+      "id": "old_quan",
+      "matched_text": "老全"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "安徽包围圈战场",
+      "type": "location",
+      "id": "battlefield",
+      "matched_text": "坑道"
+    }
+  ],
+  "captive_and_return_home": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "徐家祖宅",
+      "type": "location",
+      "id": "fugui_old_house",
+      "matched_text": "砖瓦房"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    },
+    {
+      "name": "安徽包围圈战场",
+      "type": "location",
+      "id": "battlefield",
+      "matched_text": "坑道"
+    }
+  ],
+  "land_reform_and_longers": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "安徽包围圈战场",
+      "type": "location",
+      "id": "battlefield",
+      "matched_text": "战场"
+    }
+  ],
+  "fugui_jiazhen_affection": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "老牛福贵",
+      "type": "item",
+      "id": "old_ox",
+      "matched_text": "老牛"
+    }
+  ],
+  "giving_away_fengxia": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "城里小学",
+      "type": "location",
+      "id": "school",
+      "matched_text": "学校"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "镰刀"
+    }
+  ],
+  "commune_and_jiazhen_ill": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "王喜",
+      "type": "character",
+      "id": "wang_xi",
+      "matched_text": "王喜"
+    },
+    {
+      "name": "王先生",
+      "type": "character",
+      "id": "fengshui_master",
+      "matched_text": "王先生"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    },
+    {
+      "name": "城里小学",
+      "type": "location",
+      "id": "school",
+      "matched_text": "学校"
+    },
+    {
+      "name": "村里羊棚",
+      "type": "location",
+      "id": "sheep_pen",
+      "matched_text": "村里羊棚"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    },
+    {
+      "name": "村里食堂",
+      "type": "location",
+      "id": "canteen",
+      "matched_text": "村里食堂"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "镰刀"
+    }
+  ],
+  "famine_years": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "体育老师",
+      "type": "character",
+      "id": "sports_teacher",
+      "matched_text": "体育老师"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "城里小学",
+      "type": "location",
+      "id": "school",
+      "matched_text": "学校"
+    },
+    {
+      "name": "村里羊棚",
+      "type": "location",
+      "id": "sheep_pen",
+      "matched_text": "村里羊棚"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    },
+    {
+      "name": "村里食堂",
+      "type": "location",
+      "id": "canteen",
+      "matched_text": "食堂"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "镰刀"
+    }
+  ],
+  "youqing_blood_death": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "老全",
+      "type": "character",
+      "id": "old_quan",
+      "matched_text": "老全"
+    },
+    {
+      "name": "体育老师",
+      "type": "character",
+      "id": "sports_teacher",
+      "matched_text": "体育老师"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    },
+    {
+      "name": "城里小学",
+      "type": "location",
+      "id": "school",
+      "matched_text": "学校"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "jiazhen_learns_youqing_death": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "narrator_pause_2": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    }
+  ],
+  "jiazhen_illness_worsens": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "村里羊棚",
+      "type": "location",
+      "id": "sheep_pen",
+      "matched_text": "羊棚"
+    }
+  ],
+  "chunsheng_first_visit": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "fengxia_marries": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "万二喜"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "徐家祖宅",
+      "type": "location",
+      "id": "fugui_old_house",
+      "matched_text": "砖瓦房"
+    },
+    {
+      "name": "福贵茅屋",
+      "type": "location",
+      "id": "fugui_thatched_house",
+      "matched_text": "茅屋"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "县城"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "fengxia_happy_marriage": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "chunsheng_persecuted": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "fengxia_dies_in_childbirth": [
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    },
+    {
+      "name": "村口",
+      "type": "location",
+      "id": "village_entrance",
+      "matched_text": "村口"
+    }
+  ],
+  "jiazhen_passes_away": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    }
+  ],
+  "erxi_dies": [
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "县城医院",
+      "type": "location",
+      "id": "county_hospital",
+      "matched_text": "医院"
+    },
+    {
+      "name": "二喜的背兜",
+      "type": "item",
+      "id": "baby_carrier",
+      "matched_text": "背兜"
+    }
+  ],
+  "kugen_dies": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "队长",
+      "type": "character",
+      "id": "team_leader",
+      "matched_text": "队长"
+    },
+    {
+      "name": "县城",
+      "type": "location",
+      "id": "county_town",
+      "matched_text": "城里"
+    },
+    {
+      "name": "苦根的小镰刀",
+      "type": "item",
+      "id": "kugen_sickle",
+      "matched_text": "小镰刀"
+    }
+  ],
+  "fugui_buys_ox": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "龙二",
+      "type": "character",
+      "id": "longer",
+      "matched_text": "龙二"
+    },
+    {
+      "name": "春生",
+      "type": "character",
+      "id": "chunsheng",
+      "matched_text": "春生"
+    },
+    {
+      "name": "老牛福贵",
+      "type": "item",
+      "id": "old_ox",
+      "matched_text": "老牛"
+    },
+    {
+      "name": "十元压枕钱",
+      "type": "item",
+      "id": "ten_yuan_note",
+      "matched_text": "十元钱"
+    }
+  ],
+  "ending": [
+    {
+      "name": "福贵",
+      "type": "character",
+      "id": "fugui",
+      "matched_text": "福贵"
+    },
+    {
+      "name": "家珍",
+      "type": "character",
+      "id": "jiazhen",
+      "matched_text": "家珍"
+    },
+    {
+      "name": "凤霞",
+      "type": "character",
+      "id": "fengxia",
+      "matched_text": "凤霞"
+    },
+    {
+      "name": "有庆",
+      "type": "character",
+      "id": "youqing",
+      "matched_text": "有庆"
+    },
+    {
+      "name": "万二喜",
+      "type": "character",
+      "id": "erxi",
+      "matched_text": "二喜"
+    },
+    {
+      "name": "苦根",
+      "type": "character",
+      "id": "kugen",
+      "matched_text": "苦根"
+    },
+    {
+      "name": "老牛福贵",
+      "type": "item",
+      "id": "old_ox",
+      "matched_text": "老牛"
+    }
+  ]
+}

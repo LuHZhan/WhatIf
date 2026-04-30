@@ -1,0 +1,18 @@
+{
+  "reports": [
+    {
+      "event_id": "fugui_buys_ox",
+      "errors": [
+        {
+          "type": "continuity_break",
+          "entity": "老牛福贵",
+          "current_granularity": null,
+          "suggested_granularity": null,
+          "evidence": "在事件 'narrator_meets_fugui' 中，老牛福贵已标注为福贵持有（from: '福贵'），且后续事件未改变其持有者；但事件 'fugui_buys_ox' 的 precondition 将老牛福贵的持有者设为 null，effect 又将其变为福贵持有，与序列前部状态冲突。",
+          "description": "序列中老牛福贵的持有者状态出现矛盾：较早事件已显示福贵持有老牛，但 fuguibuysox 又描述从无到有的获得过程，连续性断裂。",
+          "suggestion": "若按线性顺序检查，应将 fugui_buys_ox 的老牛福贵 precondition.from 改为 '福贵'；或重新审视事件排序，将框架叙事与回忆内部时间线分离，以避免不一致。"
+        }
+      ]
+    }
+  ]
+}

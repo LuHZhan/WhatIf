@@ -245,6 +245,11 @@ class Location(BaseModel):
     description: LocationDescription
     connected_to: list[LocationConnection] = Field(default_factory=list)
 
+    @field_validator('aliases', 'connected_to', mode='before')
+    @classmethod
+    def _none_to_list(cls, v):
+        return [] if v is None else v
+
 
 class LocationData(BaseModel):
     """所有地点的集合，对应 locations.json"""
@@ -284,6 +289,11 @@ class Item(BaseModel):
     id: str = Field(description="唯一标识符")
     name: str = Field(description="物品名称")
     aliases: list[str] = Field(default_factory=list, description="别名")
+
+    @field_validator('aliases', mode='before')
+    @classmethod
+    def _none_to_list(cls, v):
+        return [] if v is None else v
     importance: ItemImportance
     category: ItemCategory
     description: ItemDescription
@@ -410,7 +420,16 @@ class EventNecessity(BaseModel):
     """单个事件的必要性分析结果"""
     event_id: str
     reasoning: list[NecessityReasoning]
-    necessary_entities: NecessaryEntities
+    necessary_entities: NecessaryEntities = Field(default_factory=NecessaryEntities)
+
+    @field_validator('reasoning', mode='before')
+    @classmethod
+    def _drop_incomplete_reasoning(cls, v: object) -> object:
+        # LLM 有时只返回 {'entity': '...'} 而缺少必填字段，直接过滤掉
+        if not isinstance(v, list):
+            return v
+        required = {'type', 'step_a_counterfactual', 'necessary'}
+        return [item for item in v if isinstance(item, dict) and required.issubset(item)]
 
 
 class NecessityData(BaseModel):

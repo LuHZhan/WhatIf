@@ -1,0 +1,86 @@
+{
+  "knowledge": [
+    {
+      "id": "longer_cheated_in_gambling",
+      "name": "龙二赌博出千",
+      "initial_holders": [
+        "fugui",
+        "longer"
+      ],
+      "description": "龙二在赌局中使用灌水银骰子作弊，骗光了福贵的家产。福贵后来才知道这一真相。"
+    },
+    {
+      "id": "youqing_death_reason",
+      "name": "有庆死于医院抽血过量",
+      "initial_holders": [
+        "chunsheng",
+        "sports_teacher",
+        "fugui"
+      ],
+      "description": "有庆为救县长（春生）女人献血，被抽血医生过量抽取导致失血性休克死亡。"
+    },
+    {
+      "id": "fengxia_death_reason",
+      "name": "凤霞产后大出血死亡",
+      "initial_holders": [
+        "erxi",
+        "fugui"
+      ],
+      "description": "凤霞在县城医院生产时顺利生下儿子，但随后大出血，经抢救无效死亡。"
+    },
+    {
+      "id": "erxi_death_cause",
+      "name": "二喜被水泥板挤压身亡",
+      "initial_holders": [
+        "fugui"
+      ],
+      "description": "二喜在搬运水泥板时，吊车发生故障，两排水泥板将其挤扁致死。"
+    },
+    {
+      "id": "kugen_death_cause",
+      "name": "苦根吃豆子撑死",
+      "initial_holders": [
+        "fugui"
+      ],
+      "description": "福贵心疼生病的苦根，煮了半锅新鲜豆子加盐，苦根因难得吃豆子贪食过量，导致腹胀窒息死亡。"
+    },
+    {
+      "id": "longer_executed",
+      "name": "龙二被人民政府枪毙",
+      "initial_holders": [
+        "team_leader",
+        "fugui"
+      ],
+      "description": "土地改革中，龙二因恶霸地主罪被判处死刑，在邻村执行枪决，挨了五枪。"
+    },
+    {
+      "id": "chunsheng_suicide",
+      "name": "春生上吊自杀",
+      "initial_holders": [
+        "fugui",
+        "jiazhen"
+      ],
+      "description": "文化大革命中，春生被批斗走投无路，深夜到福贵家告别后，一个多月后上吊身亡。"
+    },
+    {
+      "id": "jiazhen_disease",
+      "name": "家珍患软骨病",
+      "initial_holders": [
+        "fugui",
+        "jiazhen"
+      ],
+      "description": "家珍因长期劳累营养不足患上软骨病，全身无力，医生诊断无法治愈。"
+    },
+    {
+      "id": "fugui_gambled_away_fortune",
+      "name": "福贵赌博输光祖产",
+      "initial_holders": [
+        "fugui",
+        "jiazhen",
+        "longer",
+        "father"
+      ],
+      "description": "福贵在青楼与龙二等人赌博，半年内输掉了祖上一百多亩地和房产，从阔少爷沦为佃户。"
+    }
+  ]
+}

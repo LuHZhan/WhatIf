@@ -1,0 +1,997 @@
+{
+  "characters": [
+    {
+      "id": "fugui",
+      "name": "福贵",
+      "aliases": [
+        "徐福贵",
+        "徐家少爷",
+        "福贵"
+      ],
+      "importance": "protagonist",
+      "identity": {
+        "role": "农民",
+        "affiliation": "徐家（后为贫农）"
+      },
+      "personality": {
+        "traits": [
+          "败家",
+          "乐观",
+          "能承受苦难",
+          "善良",
+          "有时暴躁"
+        ],
+        "speaking_style": "粗俗直白，带乡土气息，喜用比喻",
+        "motivations": [
+          "活着",
+          "守护家人",
+          "传宗接代"
+        ],
+        "fears": [
+          "孤独",
+          "家人死去"
+        ]
+      },
+      "appearance": {
+        "physical": "年轻时白色丝绸衣衫，头发抹油；老年赤裸胸膛，皮肤黝黑皱纹多，头发花白",
+        "distinctive_features": [
+          "年轻时风流倜傥",
+          "老时满脸沧桑"
+        ],
+        "typical_attire": "年轻时白衣绸衫，老年粗布衣服，草鞋"
+      },
+      "relationships": [
+        {
+          "target_id": "jiazhen",
+          "type": "family",
+          "description": "夫妻，感情深厚",
+          "initial_attitude": 90
+        },
+        {
+          "target_id": "fengxia",
+          "type": "family",
+          "description": "父女，疼爱女儿",
+          "initial_attitude": 95
+        },
+        {
+          "target_id": "youqing",
+          "type": "family",
+          "description": "父子，开始粗暴后来心疼",
+          "initial_attitude": 70
+        },
+        {
+          "target_id": "erxi",
+          "type": "family",
+          "description": "岳父与女婿，互相尊重",
+          "initial_attitude": 85
+        },
+        {
+          "target_id": "kugen",
+          "type": "family",
+          "description": "外公与外孙，相依为命",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "father",
+          "type": "family",
+          "description": "父子，由叛逆到愧疚",
+          "initial_attitude": 40
+        },
+        {
+          "target_id": "mother",
+          "type": "family",
+          "description": "母子，母亲始终包容",
+          "initial_attitude": 90
+        },
+        {
+          "target_id": "longer",
+          "type": "acquaintance",
+          "description": "赌友/债主，后成为佃主",
+          "initial_attitude": -10
+        },
+        {
+          "target_id": "chunsheng",
+          "type": "friend",
+          "description": "战友，后为县长，因儿子死有恨但最终原谅",
+          "initial_attitude": 60
+        }
+      ],
+      "dialogue_examples": [
+        "做牛耕田，做狗看家，做和尚化缘，做鸡报晓，做女人织布，哪只牛不耕田？这是自古就有的道理。",
+        "人只要活得高兴，穷也不怕。",
+        "做人不能忘记四条，话不要说错，床不要睡错，门槛不要踏错，口袋不要摸错。",
+        "我怕它知道只有自己在耕田，就多叫出几个名字去骗它。"
+      ]
+    },
+    {
+      "id": "jiazhen",
+      "name": "家珍",
+      "aliases": [
+        "陈家小姐",
+        "家珍"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "家庭主妇",
+        "affiliation": "陈家（米行老板女儿）"
+      },
+      "personality": {
+        "traits": [
+          "贤惠",
+          "逆来顺受",
+          "坚韧",
+          "深爱丈夫和孩子",
+          "宽厚"
+        ],
+        "speaking_style": "温和细语，极少抱怨，关键时刻坚定",
+        "motivations": [
+          "维持家庭",
+          "照顾子女",
+          "与福贵白头到老"
+        ],
+        "fears": [
+          "失去孩子",
+          "拖累家人"
+        ]
+      },
+      "appearance": {
+        "physical": "年轻时漂亮，穿月白旗袍；后因病憔悴瘦弱",
+        "distinctive_features": [
+          "微笑时眼弯",
+          "头发梳得整齐"
+        ],
+        "typical_attire": "初旗袍，后粗布衣服"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "妻子，始终不离不弃",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "fengxia",
+          "type": "family",
+          "description": "母女",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "youqing",
+          "type": "family",
+          "description": "母子",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "father",
+          "type": "family",
+          "description": "公媳",
+          "initial_attitude": 70
+        },
+        {
+          "target_id": "chunsheng",
+          "type": "acquaintance",
+          "description": "因有庆之死怨恨，后原谅",
+          "initial_attitude": -30
+        }
+      ],
+      "dialogue_examples": [
+        "只要你以后不赌就好了。",
+        "我也不想要什么福分，只求每年都能给你做一双新鞋。",
+        "这辈子也快过完了，你对我这么好，我也心满意足。"
+      ]
+    },
+    {
+      "id": "fengxia",
+      "name": "凤霞",
+      "aliases": [
+        "凤霞"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "女儿",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "善良",
+          "勤劳",
+          "聪慧",
+          "坚强"
+        ],
+        "speaking_style": "不会说话，通过手势和表情表达",
+        "motivations": [
+          "帮助父母",
+          "照顾弟弟",
+          "过好日子"
+        ],
+        "fears": [
+          "被遗弃"
+        ]
+      },
+      "appearance": {
+        "physical": "年轻时像家珍，脸黝黑，门牙脱落；出嫁时漂亮",
+        "distinctive_features": [
+          "聋哑",
+          "总微笑着"
+        ],
+        "typical_attire": "初粗布破衣，出嫁时新娘装"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "父女，女儿非常孝顺",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "jiazhen",
+          "type": "family",
+          "description": "母女",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "youqing",
+          "type": "family",
+          "description": "姐弟，感情深厚",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "erxi",
+          "type": "family",
+          "description": "夫妻，恩爱",
+          "initial_attitude": 90
+        }
+      ],
+      "dialogue_examples": []
+    },
+    {
+      "id": "youqing",
+      "name": "有庆",
+      "aliases": [
+        "徐有庆"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "学生",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "懂事",
+          "倔强",
+          "善良",
+          "爱羊",
+          "重视姐姐"
+        ],
+        "speaking_style": "孩子气，直率",
+        "motivations": [
+          "帮家里干活",
+          "保护姐姐",
+          "上学"
+        ],
+        "fears": [
+          "被打",
+          "失去姐姐"
+        ]
+      },
+      "appearance": {
+        "physical": "瘦小，常光脚，皮肤黑",
+        "distinctive_features": [
+          "跑得快",
+          "两个门牙"
+        ],
+        "typical_attire": "破旧衣服，鞋子常坏"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "父子，开始怕父亲后来理解",
+          "initial_attitude": 60
+        },
+        {
+          "target_id": "jiazhen",
+          "type": "family",
+          "description": "母子，依赖母亲",
+          "initial_attitude": 95
+        },
+        {
+          "target_id": "fengxia",
+          "type": "family",
+          "description": "姐弟，特别亲",
+          "initial_attitude": 100
+        }
+      ],
+      "dialogue_examples": [
+        "我要姐姐。",
+        "我不上学，我要姐姐。",
+        "爹，别打我好吗？"
+      ]
+    },
+    {
+      "id": "erxi",
+      "name": "万二喜",
+      "aliases": [
+        "二喜",
+        "偏头女婿"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "搬运工",
+        "affiliation": "县城搬运队"
+      },
+      "personality": {
+        "traits": [
+          "实在",
+          "善良",
+          "勤快",
+          "疼爱妻子儿子",
+          "内向"
+        ],
+        "speaking_style": "话少，多用嗯、好",
+        "motivations": [
+          "还清债务",
+          "照顾好凤霞和苦根"
+        ],
+        "fears": [
+          "欠债",
+          "失去家人"
+        ]
+      },
+      "appearance": {
+        "physical": "偏头（脑袋靠着左肩），穿中山服",
+        "distinctive_features": [
+          "偏头",
+          "干活利索"
+        ],
+        "typical_attire": "中山服，干净"
+      },
+      "relationships": [
+        {
+          "target_id": "fengxia",
+          "type": "family",
+          "description": "丈夫，深爱凤霞",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "kugen",
+          "type": "family",
+          "description": "父子，独自抚养",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "岳父，尊重孝顺",
+          "initial_attitude": 90
+        },
+        {
+          "target_id": "jiazhen",
+          "type": "family",
+          "description": "岳母",
+          "initial_attitude": 90
+        }
+      ],
+      "dialogue_examples": [
+        "爹，娘，我把凤霞娶走啦。",
+        "我要大的，他们给了我小的。"
+      ]
+    },
+    {
+      "id": "kugen",
+      "name": "苦根",
+      "aliases": [
+        "苦根"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "外孙",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "聪明",
+          "活泼",
+          "懂事",
+          "依赖外公"
+        ],
+        "speaking_style": "孩子话，模仿大人",
+        "motivations": [
+          "买牛",
+          "和福贵在一起"
+        ],
+        "fears": []
+      },
+      "appearance": {
+        "physical": "瘦小",
+        "distinctive_features": [
+          "眼睛圆",
+          "像凤霞"
+        ],
+        "typical_attire": "破旧衣服"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "外公，亲密",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "erxi",
+          "type": "family",
+          "description": "父亲，依赖",
+          "initial_attitude": 100
+        }
+      ],
+      "dialogue_examples": [
+        "福贵，今天买牛吗？",
+        "镰刀越快，我力气也就越大啦。"
+      ]
+    },
+    {
+      "id": "father",
+      "name": "徐老爷",
+      "aliases": [
+        "徐家老爷",
+        "福贵爹"
+      ],
+      "importance": "supporting",
+      "identity": {
+        "role": "地主（后破产）",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "严厉",
+          "传统",
+          "最终无奈",
+          "爱子"
+        ],
+        "speaking_style": "呵斥，后变得低沉",
+        "motivations": [
+          "保住家产",
+          "让儿子光宗耀祖"
+        ],
+        "fears": [
+          "家业败落"
+        ]
+      },
+      "appearance": {
+        "physical": "穿黑绸衣，背手走路",
+        "distinctive_features": [
+          "蹲粪缸拉屎习惯"
+        ],
+        "typical_attire": "黑绸衣"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "父亲，恨铁不成钢",
+          "initial_attitude": 40
+        },
+        {
+          "target_id": "mother",
+          "type": "family",
+          "description": "夫妻",
+          "initial_attitude": 60
+        }
+      ],
+      "dialogue_examples": [
+        "孽子。",
+        "从前，我们徐家的老祖宗不过是养了一只小鸡...",
+        "徐家出了两个败家子啊。"
+      ]
+    },
+    {
+      "id": "mother",
+      "name": "福贵娘",
+      "aliases": [
+        "徐家太太",
+        "福贵娘"
+      ],
+      "importance": "supporting",
+      "identity": {
+        "role": "家庭主妇",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "慈祥",
+          "宽容",
+          "坚韧",
+          "迷信"
+        ],
+        "speaking_style": "和蔼，常劝慰",
+        "motivations": [
+          "儿子平安",
+          "家庭和睦"
+        ],
+        "fears": [
+          "福贵学坏"
+        ]
+      },
+      "appearance": {
+        "physical": "小脚，白发",
+        "distinctive_features": [
+          "小脚",
+          "总穿旧衣"
+        ],
+        "typical_attire": "粗布衣服"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "family",
+          "description": "母亲，溺爱",
+          "initial_attitude": 100
+        },
+        {
+          "target_id": "jiazhen",
+          "type": "family",
+          "description": "婆婆，亲如母女",
+          "initial_attitude": 90
+        },
+        {
+          "target_id": "fengxia",
+          "type": "family",
+          "description": "孙女",
+          "initial_attitude": 95
+        }
+      ],
+      "dialogue_examples": [
+        "人只要活得高兴，穷也不怕。",
+        "上梁不正下梁歪啊。",
+        "男人都是馋嘴的猫。"
+      ]
+    },
+    {
+      "id": "longer",
+      "name": "龙二",
+      "aliases": [
+        "龙老爷",
+        "龙二"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "赌徒/地主",
+        "affiliation": "无固定"
+      },
+      "personality": {
+        "traits": [
+          "狡猾",
+          "贪婪",
+          "精明",
+          "最后倒霉"
+        ],
+        "speaking_style": "油滑，带南方口音",
+        "motivations": [
+          "赢钱",
+          "占有土地",
+          "享受"
+        ],
+        "fears": [
+          "失去财富"
+        ]
+      },
+      "appearance": {
+        "physical": "镶金牙，穿白绸衣或丝绸衣衫",
+        "distinctive_features": [
+          "金牙",
+          "身边常带干毛巾"
+        ],
+        "typical_attire": "白绸衣，后来丝绸衣衫"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "acquaintance",
+          "description": "赌友/债主/地主",
+          "initial_attitude": -20
+        },
+        {
+          "target_id": "shen_xiansheng",
+          "type": "rival",
+          "description": "赌博对手",
+          "initial_attitude": -30
+        }
+      ],
+      "dialogue_examples": [
+        "赌场无赢家，我是见好就收。",
+        "福贵，我是替你去死啊。"
+      ]
+    },
+    {
+      "id": "chunsheng",
+      "name": "春生",
+      "aliases": [
+        "刘解放",
+        "刘县长"
+      ],
+      "importance": "key",
+      "identity": {
+        "role": "县长（后为走资派）",
+        "affiliation": "国民党/共产党"
+      },
+      "personality": {
+        "traits": [
+          "年轻时有孩子气",
+          "成熟后沉重",
+          "善良",
+          "最终脆弱"
+        ],
+        "speaking_style": "到后期低沉",
+        "motivations": [
+          "想活着",
+          "报恩"
+        ],
+        "fears": [
+          "被批斗"
+        ]
+      },
+      "appearance": {
+        "physical": "长高长胖，穿中山服",
+        "distinctive_features": [
+          "脸肿（被批斗后）"
+        ],
+        "typical_attire": "中山服"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "friend",
+          "description": "战友，后因有庆之死产生隔阂",
+          "initial_attitude": 80
+        },
+        {
+          "target_id": "jiazhen",
+          "type": "acquaintance",
+          "description": "被家珍怨恨",
+          "initial_attitude": -40
+        },
+        {
+          "target_id": "youqing",
+          "type": "subordinate",
+          "description": "间接害死有庆",
+          "initial_attitude": 0
+        }
+      ],
+      "dialogue_examples": [
+        "福贵，我是来和你告别的。",
+        "我还以为你死了。"
+      ]
+    },
+    {
+      "id": "narrator",
+      "name": "叙述者",
+      "aliases": [
+        "我",
+        "收集歌谣的人"
+      ],
+      "importance": "supporting",
+      "identity": {
+        "role": "民间歌谣收集者",
+        "affiliation": "无"
+      },
+      "personality": {
+        "traits": [
+          "好奇",
+          "闲散",
+          "有同情心",
+          "热爱生活"
+        ],
+        "speaking_style": "文学化描述，内省",
+        "motivations": [
+          "收集民谣",
+          "了解人生"
+        ],
+        "fears": []
+      },
+      "appearance": {
+        "physical": "年轻，戴草帽，穿拖鞋",
+        "distinctive_features": [
+          "总打呵欠",
+          "毛巾挂在皮带上"
+        ],
+        "typical_attire": "草帽，拖鞋，毛巾"
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "acquaintance",
+          "description": "听故事者",
+          "initial_attitude": 90
+        }
+      ],
+      "dialogue_examples": []
+    },
+    {
+      "id": "shen_xiansheng",
+      "name": "沈先生",
+      "aliases": [
+        "沈先生"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "赌博高手",
+        "affiliation": "青楼"
+      },
+      "personality": {
+        "traits": [
+          "老练",
+          "冷静",
+          "赌技高超"
+        ],
+        "speaking_style": "话不多，沉稳",
+        "motivations": [
+          "赢钱"
+        ],
+        "fears": []
+      },
+      "appearance": {
+        "physical": "年近六十，眼睛贼亮，穿蓝布长衫",
+        "distinctive_features": [
+          "手青筋突暴"
+        ],
+        "typical_attire": "蓝布长衫"
+      },
+      "relationships": [
+        {
+          "target_id": "longer",
+          "type": "rival",
+          "description": "赌博对手，最终输给龙二",
+          "initial_attitude": -10
+        }
+      ],
+      "dialogue_examples": [
+        "我老了。",
+        "赌博全靠一双眼睛一双手。"
+      ]
+    },
+    {
+      "id": "team_leader",
+      "name": "队长",
+      "aliases": [
+        "村长",
+        "公社队长"
+      ],
+      "importance": "supporting",
+      "identity": {
+        "role": "生产队队长",
+        "affiliation": "人民公社"
+      },
+      "personality": {
+        "traits": [
+          "粗鲁",
+          "实际",
+          "有时好心",
+          "怕事"
+        ],
+        "speaking_style": "骂骂咧咧，直率",
+        "motivations": [
+          "完成上级任务",
+          "让村里好过"
+        ],
+        "fears": [
+          "被批斗"
+        ]
+      },
+      "appearance": {
+        "physical": "平常农民模样",
+        "distinctive_features": [
+          "吹口哨召集"
+        ],
+        "typical_attire": null
+      },
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "ally",
+          "description": "互相帮助",
+          "initial_attitude": 70
+        }
+      ],
+      "dialogue_examples": [
+        "他娘的，你们死了让老子怎么去向上面交待。",
+        "福贵，你们家立大功啦。"
+      ]
+    },
+    {
+      "id": "wang_xi",
+      "name": "王喜",
+      "aliases": [
+        "王喜"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "佃户/饲养员",
+        "affiliation": "徐家/公社"
+      },
+      "personality": {
+        "traits": [
+          "老实",
+          "善良"
+        ],
+        "speaking_style": "简单",
+        "motivations": [
+          "干活"
+        ],
+        "fears": null
+      },
+      "appearance": null,
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "acquaintance",
+          "description": "主仆/村民",
+          "initial_attitude": 50
+        },
+        {
+          "target_id": "youqing",
+          "type": "acquaintance",
+          "description": "照顾羊",
+          "initial_attitude": 50
+        }
+      ],
+      "dialogue_examples": [
+        "少奶奶，老爷像是熟了。"
+      ]
+    },
+    {
+      "id": "chang_gen",
+      "name": "长根",
+      "aliases": [
+        "长根"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "雇工/乞丐",
+        "affiliation": "徐家"
+      },
+      "personality": {
+        "traits": [
+          "忠心",
+          "念旧",
+          "善良"
+        ],
+        "speaking_style": "老迈",
+        "motivations": null,
+        "fears": null
+      },
+      "appearance": null,
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "subordinate",
+          "description": "少爷与雇工",
+          "initial_attitude": 80
+        },
+        {
+          "target_id": "fengxia",
+          "type": "acquaintance",
+          "description": "给凤霞红绸",
+          "initial_attitude": 70
+        }
+      ],
+      "dialogue_examples": [
+        "少爷，你怎么成这样子了。",
+        "要饭的皇帝也是皇帝。"
+      ]
+    },
+    {
+      "id": "old_quan",
+      "name": "老全",
+      "aliases": [
+        "老全"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "老兵",
+        "affiliation": "国民党军队"
+      },
+      "personality": {
+        "traits": [
+          "经验丰富",
+          "麻木",
+          "最后悲伤"
+        ],
+        "speaking_style": "粗野，沧桑",
+        "motivations": null,
+        "fears": null
+      },
+      "appearance": null,
+      "relationships": [
+        {
+          "target_id": "fugui",
+          "type": "acquaintance",
+          "description": "战友，教导福贵",
+          "initial_attitude": 60
+        },
+        {
+          "target_id": "chunsheng",
+          "type": "acquaintance",
+          "description": "同部队",
+          "initial_attitude": 50
+        }
+      ],
+      "dialogue_examples": [
+        "谁也逃不掉。",
+        "老子连死在什么地方都不知道。"
+      ]
+    },
+    {
+      "id": "sports_teacher",
+      "name": "体育老师",
+      "aliases": [
+        "大胖子体育老师"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "体育老师",
+        "affiliation": "城里学校"
+      },
+      "personality": {
+        "traits": [
+          "爱学生",
+          "有同情心"
+        ],
+        "speaking_style": "直率",
+        "motivations": null,
+        "fears": null
+      },
+      "appearance": null,
+      "relationships": [
+        {
+          "target_id": "youqing",
+          "type": "superior",
+          "description": "老师与好学生",
+          "initial_attitude": 90
+        },
+        {
+          "target_id": "fugui",
+          "type": "acquaintance",
+          "description": "告知有庆死讯并劝架",
+          "initial_attitude": 50
+        }
+      ],
+      "dialogue_examples": [
+        "你有几个儿子？",
+        "想不到。"
+      ]
+    },
+    {
+      "id": "fengshui_master",
+      "name": "王先生",
+      "aliases": [
+        "风水先生"
+      ],
+      "importance": "minor",
+      "identity": {
+        "role": "风水先生",
+        "affiliation": "无"
+      },
+      "personality": {
+        "traits": [
+          "专业",
+          "趋炎附势"
+        ],
+        "speaking_style": null,
+        "motivations": null,
+        "fears": null
+      },
+      "appearance": null,
+      "relationships": [
+        {
+          "target_id": "jiazhen",
+          "type": "acquaintance",
+          "description": "认识家珍父亲",
+          "initial_attitude": 40
+        }
+      ],
+      "dialogue_examples": [
+        "好地方，好风水。"
+      ]
+    }
+  ]
+}
