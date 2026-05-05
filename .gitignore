@@ -45,7 +45,7 @@ data/novels/*.txt
 !data/novels/.gitkeep
 
 # ── 非项目文件 ──
-CLAUDE.md
+# CLAUDE.md
 .claude/
 archived/
 Test/

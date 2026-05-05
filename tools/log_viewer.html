@@ -319,6 +319,55 @@ body {
 }
 .log-card.expanded .card-body { display: flex; }
 
+/* ── 卡片内：详情 / 请求·响应 分段切换（与 chip 色系一致） ── */
+.card-body-dual {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+.card-view-segmented {
+  display: inline-flex;
+  align-self: flex-start;
+  flex-shrink: 0;
+  padding: 3px;
+  background: var(--md-outline-variant);
+  border-radius: 10px;
+  border: 1px solid var(--md-outline);
+  gap: 2px;
+}
+.seg-btn {
+  height: 30px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  transition: background .15s, color .15s, box-shadow .15s;
+  white-space: nowrap;
+}
+.seg-btn:hover {
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+}
+.seg-btn.active {
+  background: var(--md-surface);
+  color: var(--md-primary-dark);
+  box-shadow: var(--md-shadow-1);
+}
+.card-body-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.card-body-panel.hidden { display: none !important; }
+
 /* ── Fields ── */
 .fields-grid {
   display: grid;
@@ -365,6 +414,67 @@ body {
 }
 .text-pre::-webkit-scrollbar { width: 4px; }
 .text-pre::-webkit-scrollbar-thumb { background: var(--md-outline); border-radius: 2px; }
+
+/* ── HTTP / 载荷分栏（通用：真实 HTTP 字段 或 LLM 伪分栏） ── */
+.http-payload-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.http-payload-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--md-on-surface-dim);
+}
+.http-quad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 10px 12px;
+  align-items: stretch;
+}
+@media (max-width: 960px) {
+  .http-quad {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+}
+.http-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.http-cell-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--md-on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.http-cell-label .len-tag { flex-shrink: 0; }
+.headers-pre {
+  background: #f4f6f8;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--md-on-surface);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 180px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+.body-pre {
+  max-height: 360px;
+}
 .show-more-btn {
   align-self: flex-start;
   height: 28px; padding: 0 12px;
@@ -1214,7 +1324,7 @@ function buildCard(entry) {
       <span class="card-summary">${summaryHtml}</span>
       ${hasBody ? `<svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>` : ''}
     </div>
-    ${hasBody ? `<div class="card-body">${buildBody(entry)}</div>` : ''}
+    ${hasBody ? `<div class="card-body">${buildCardBodyHtml(entry)}</div>` : ''}
   `
   return div
 }
@@ -1274,15 +1384,205 @@ function buildSummary(e) {
 }
 
 function hasExpandableContent(e) {
+  if (e && typeof e === 'object') {
+    if (e.http && typeof e.http === 'object') return true
+    const httpKeys = ['request_headers', 'request_body', 'response_headers', 'response_body',
+      'http_request_headers', 'http_response_headers', 'http_request_body', 'http_response_body',
+      'http_request', 'http_response', 'raw_request', 'raw_response']
+    if (httpKeys.some(k => e[k] != null && e[k] !== '')) return true
+  }
   return ['LLM_CALL', 'WRITER', 'AGENT_EXEC', 'GAME_STATE', 'ERROR', 'LLM_JSON_REPAIR',
           'WPKG_STEP', 'WPKG_LLM', 'WPKG_BATCH', 'WPKG_VALIDATE', 'WPKG_DONE', 'WPKG_ERROR'].includes(e.cat)
+}
+
+// ── 通用 HTTP / 传输层字段（任意 cat，只要 JSON 里带了就渲染头+体分栏） ──
+function headersToText(h) {
+  if (h == null || h === '') return ''
+  if (typeof h === 'string') return h
+  if (typeof h === 'object') {
+    try {
+      return Object.entries(h)
+        .map(([k, v]) => `${k}: ${typeof v === 'object' ? JSON.stringify(v) : v}`)
+        .join('\n')
+    } catch {
+      return String(h)
+    }
+  }
+  return String(h)
+}
+
+function bodyToText(b) {
+  if (b == null) return ''
+  if (typeof b === 'string') return b
+  try {
+    return JSON.stringify(b, null, 2)
+  } catch {
+    return String(b)
+  }
+}
+
+/** 从一条日志解析出「请求头/请求体/响应头/响应体」，无则返回 null */
+function extractGenericHttp(e) {
+  if (e.http && typeof e.http === 'object') {
+    const req = e.http.request || e.http.req || {}
+    const res = e.http.response || e.http.res || {}
+    const reqH = [req.line, req.status_line, req.request_line].filter(Boolean).join('\n')
+      ? [req.line, req.status_line, req.request_line].filter(Boolean).join('\n') + '\n' + headersToText(req.headers ?? req.header)
+      : headersToText(req.headers ?? req.header)
+    const resH = [res.status_line, res.line].filter(Boolean).join('\n')
+      ? [res.status_line, res.line].filter(Boolean).join('\n') + '\n' + headersToText(res.headers ?? res.header)
+      : headersToText(res.headers ?? res.header)
+    return {
+      title: e.http.title || 'HTTP',
+      reqH: reqH.trim(),
+      reqB: bodyToText(req.body ?? req.body_text),
+      resH: resH.trim(),
+      resB: bodyToText(res.body ?? res.body_text),
+    }
+  }
+  const flatReqH = e.request_headers ?? e.http_request_headers ?? e.req_headers
+  const flatReqB = e.request_body ?? e.http_request_body ?? e.req_body
+  const flatResH = e.response_headers ?? e.http_response_headers ?? e.res_headers
+  const flatResB = e.response_body ?? e.http_response_body ?? e.res_body
+  const rawReq = e.http_request ?? e.raw_request
+  const rawRes = e.http_response ?? e.raw_response
+  const hasFlat = flatReqH != null || flatReqB != null || flatResH != null || flatResB != null
+  const hasRaw = rawReq != null || rawRes != null
+  if (!hasFlat && !hasRaw) return null
+  if (hasRaw && !hasFlat) {
+    return {
+      title: 'HTTP（原始报文）',
+      reqH: '',
+      reqB: typeof rawReq === 'string' ? rawReq : bodyToText(rawReq),
+      resH: '',
+      resB: typeof rawRes === 'string' ? rawRes : bodyToText(rawRes),
+    }
+  }
+  return {
+    title: 'HTTP',
+    reqH: headersToText(flatReqH),
+    reqB: bodyToText(flatReqB),
+    resH: headersToText(flatResH),
+    resB: bodyToText(flatResB),
+  }
+}
+
+function buildLlmHeadBodyShape(e) {
+  const reqHL = []
+  if (e.method != null) reqHL.push(`Method: ${e.method}`)
+  if (e.caller != null) reqHL.push(`Caller: ${e.caller}`)
+  if (e.model != null) reqHL.push(`Model: ${e.model}`)
+  if (e.temperature != null) reqHL.push(`Temperature: ${e.temperature}`)
+  if (e.thinking_budget != null) reqHL.push(`Thinking-Budget: ${e.thinking_budget}`)
+  if (e.response_model != null) reqHL.push(`Response-Model-Class: ${e.response_model}`)
+  if (e.cached_content_len != null) reqHL.push(`Cached-Content-Chars: ${e.cached_content_len}`)
+  if (e.extra_params != null && Object.keys(e.extra_params).length) {
+    reqHL.push(`Extra-Params: ${JSON.stringify(e.extra_params)}`)
+  }
+  const resHL = []
+  if (e.duration_ms != null) resHL.push(`Duration-Ms: ${e.duration_ms}`)
+  if (e.prompt_len != null) resHL.push(`Prompt-Chars: ${e.prompt_len}`)
+  if (e.response_len != null) resHL.push(`Response-Chars: ${e.response_len}`)
+  const reqB = e.prompt != null ? String(e.prompt) : ''
+  const resB = e.response != null ? String(e.response) : ''
+  return {
+    title: 'LLM 调用（请求头 / 请求体 | 响应头 / 响应体）',
+    reqH: reqHL.join('\n'),
+    resH: resHL.join('\n'),
+    reqB,
+    resB,
+  }
+}
+
+function buildHttpQuadHtml(shape) {
+  const title = shape.title || 'HTTP'
+  const reqH = shape.reqH || ''
+  const resH = shape.resH || ''
+  const reqB = shape.reqB || ''
+  const resB = shape.resB || ''
+  const hReq = reqH ? escHtml(reqH) : '<span style="color:var(--md-on-surface-dim)">（无）</span>'
+  const hRes = resH ? escHtml(resH) : '<span style="color:var(--md-on-surface-dim)">（无）</span>'
+  return `<div class="http-payload-wrap">
+    <div class="http-payload-title">${escHtml(title)}</div>
+    <div class="http-quad">
+      <div class="http-cell">
+        <div class="http-cell-label"><span>请求头</span></div>
+        <pre class="headers-pre">${hReq}</pre>
+      </div>
+      <div class="http-cell">
+        <div class="http-cell-label"><span>响应头</span></div>
+        <pre class="headers-pre">${hRes}</pre>
+      </div>
+      <div class="http-cell">${buildTextBlock('请求体', reqB, 'body-pre')}</div>
+      <div class="http-cell">${buildTextBlock('响应体', resB, 'body-pre')}</div>
+    </div>
+  </div>`
+}
+
+const HTTP_SHAPE_KEYS = new Set([
+  'http', 'request_headers', 'request_body', 'response_headers', 'response_body',
+  'http_request_headers', 'http_response_headers', 'http_request_body', 'http_response_body',
+  'req_headers', 'req_body', 'res_headers', 'res_body',
+  'http_request', 'http_response', 'raw_request', 'raw_response',
+])
+
+/** 是否有「请求/响应」分栏视图（与详情切换，不替换详情内容） */
+function getHttpAlternateShape(e) {
+  const genericHttp = extractGenericHttp(e)
+  const llmShape = e.cat === 'LLM_CALL' && !genericHttp ? buildLlmHeadBodyShape(e) : null
+  const wpkgShape = e.cat === 'WPKG_LLM' && !genericHttp ? buildWpkgLlmHeadBodyShape(e) : null
+  const shape = genericHttp || llmShape || wpkgShape
+  if (!shape) return null
+  if (!(shape.reqH || shape.resH || shape.reqB || shape.resB)) return null
+  return shape
+}
+
+function buildWpkgLlmHeadBodyShape(e) {
+  const reqHL = []
+  if (e.step != null) reqHL.push(`Step: ${e.step}`)
+  if (e.class_name != null) reqHL.push(`Class: ${e.class_name}`)
+  if (e.model != null) reqHL.push(`Model: ${e.model}`)
+  if (e.attempt != null) reqHL.push(`Attempt: ${e.attempt}`)
+  if (e.prompt_len != null) reqHL.push(`Prompt-Chars: ${e.prompt_len}`)
+  const resHL = []
+  if (e.response_len != null) resHL.push(`Response-Chars: ${e.response_len}`)
+  return {
+    title: 'WPKG LLM（请求头 / 请求体 | 响应头 / 响应体）',
+    reqH: reqHL.join('\n'),
+    resH: resHL.join('\n'),
+    reqB: e.prompt != null ? String(e.prompt) : '',
+    resB: e.response != null ? String(e.response) : '',
+  }
+}
+
+function buildHttpAlternatePanelHtml(e) {
+  const shape = getHttpAlternateShape(e)
+  return shape ? buildHttpQuadHtml(shape) : ''
+}
+
+/** 详情 + 可选「请求/响应」切换外壳 */
+function buildCardBodyHtml(entry) {
+  const detailHtml = buildBody(entry)
+  const altHtml = buildHttpAlternatePanelHtml(entry)
+  if (!altHtml) return detailHtml
+  return `<div class="card-body-dual">
+    <div class="card-view-segmented" role="tablist" aria-label="日志视图切换">
+      <button type="button" class="seg-btn active" role="tab" aria-selected="true" data-show="detail">详情</button>
+      <button type="button" class="seg-btn" role="tab" aria-selected="false" data-show="http">请求 / 响应</button>
+    </div>
+    <div class="card-body-panel" data-panel="detail">${detailHtml}</div>
+    <div class="card-body-panel hidden" data-panel="http">${altHtml}</div>
+  </div>`
 }
 
 function buildBody(e) {
   const parts = []
 
+  const genericHttp = extractGenericHttp(e)
+
   // Scalar fields grid (exclude huge text fields)
   const skipFields = new Set(['ts', 'cat', 'prompt', 'response', 'output', 'prompt_template', 'input', 'parsed'])
+  if (genericHttp) HTTP_SHAPE_KEYS.forEach(k => skipFields.add(k))
   const scalars = Object.entries(e).filter(([k, v]) => !skipFields.has(k) && typeof v !== 'object')
   if (scalars.length) {
     parts.push(`<div class="fields-grid">${scalars.map(([k, v]) =>
@@ -1299,14 +1599,6 @@ function buildBody(e) {
     })
   }
 
-  // parsed object (LLM_CALL structured)
-  if (e.parsed && typeof e.parsed === 'object') {
-    parts.push(`<div class="text-block">
-      <div class="text-block-label"><span>parsed</span></div>
-      <pre class="text-pre">${escHtml(JSON.stringify(e.parsed, null, 2))}</pre>
-    </div>`)
-  }
-
   // tool_calls array (AGENT_EXEC)
   if (e.tool_calls && Array.isArray(e.tool_calls)) {
     parts.push(`<div class="text-block">
@@ -1319,6 +1611,13 @@ function buildBody(e) {
   if (e.prompt_template) parts.push(buildTextBlock('prompt_template', e.prompt_template))
   // prompt
   if (e.prompt) parts.push(buildTextBlock('prompt', e.prompt))
+  // parsed object (LLM_CALL structured) — 在 prompt 之后、response 之前
+  if (e.parsed && typeof e.parsed === 'object') {
+    parts.push(`<div class="text-block">
+      <div class="text-block-label"><span>parsed</span></div>
+      <pre class="text-pre">${escHtml(JSON.stringify(e.parsed, null, 2))}</pre>
+    </div>`)
+  }
   // response
   if (e.response) parts.push(buildTextBlock('response', e.response))
   // output (WRITER)
@@ -1359,14 +1658,15 @@ function buildBody(e) {
   return parts.join('')
 }
 
-// label → renderFn 映射
-const PROMPT_LABELS = new Set(['prompt', 'prompt_template'])
-const RESPONSE_LABELS = new Set(['response', 'output'])
+// label → renderFn 映射（含 HTTP 分栏里的「请求体 / 响应体」标签）
+const PROMPT_LABELS = new Set(['prompt', 'prompt_template', '请求体'])
+const RESPONSE_LABELS = new Set(['response', 'output', '响应体'])
 
-function buildTextBlock(label, text) {
+function buildTextBlock(label, text, preClass = '') {
   const len = text.length
   const COLLAPSE = 800
   const id = 'tb_' + Math.random().toString(36).slice(2)
+  const preCls = 'text-pre' + (preClass ? ' ' + preClass : '')
 
   const renderFn = PROMPT_LABELS.has(label)   ? applyTagColorsAndEscape
                  : RESPONSE_LABELS.has(label) ? formatResponseText
@@ -1378,7 +1678,7 @@ function buildTextBlock(label, text) {
         <span>${escHtml(label)}</span>
         <span class="len-tag">${len} 字</span>
       </div>
-      <pre class="text-pre">${renderFn(text)}</pre>
+      <pre class="${preCls}">${renderFn(text)}</pre>
     </div>`
   }
   // 超长文本折叠 — 存 { text, renderFn } 避免 onclick 属性转义问题
@@ -1389,7 +1689,7 @@ function buildTextBlock(label, text) {
       <span>${escHtml(label)}</span>
       <span class="len-tag">${len} 字</span>
     </div>
-    <pre class="text-pre" id="${id}_pre">${renderFn(preview)}…</pre>
+    <pre class="${preCls}" id="${id}_pre">${renderFn(preview)}…</pre>
     <button class="show-more-btn" onclick="expandText('${id}')">展开全部</button>
   </div>`
 }
@@ -1444,6 +1744,27 @@ $('stop-refresh-btn').addEventListener('click', () => {
 })
 
 $('refresh-list-btn').addEventListener('click', loadSessionList)
+
+// ── 卡片内「详情 | 请求/响应」分段切换（委托，避免内联 id） ──
+function onCardSegmentClick(ev) {
+  const btn = ev.target.closest('.seg-btn')
+  if (!btn || !timeline.contains(btn)) return
+  const strip = btn.closest('.card-view-segmented')
+  const dual = btn.closest('.card-body-dual')
+  if (!strip || !dual) return
+  ev.stopPropagation()
+  const mode = btn.dataset.show
+  strip.querySelectorAll('.seg-btn').forEach(b => {
+    const on = b === btn
+    b.classList.toggle('active', on)
+    b.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  dual.querySelectorAll('.card-body-panel').forEach(p => {
+    p.classList.toggle('hidden', p.dataset.panel !== mode)
+  })
+}
+
+timeline.addEventListener('click', onCardSegmentClick)
 
 // ── Init ──
 async function init() {

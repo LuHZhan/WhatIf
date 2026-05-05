@@ -1,0 +1,29 @@
+---
+alwaysApply: true
+---
+# Python、C++ 对比与代码审阅图
+
+本仓库**项目级技能**根目录：`.cursor/skills/<技能名>/SKILL.md`（与仓库一并版本管理）。阅读技能时用工作区相对路径或从该目录打开。
+
+## Python（python-patterns）
+
+凡与 **Python** 相关的问答——包括**概念解释**、语法辨析、标准库/生态、以及本仓库 `**/*.py` / `**/*.pyi` 的实现或评审——在**作答或改代码之前**，须先用工具 **Read** 项目技能 **`python-patterns`** 的完整内容：`.cursor/skills/python-patterns/SKILL.md`（同一对话中若本轮已读过且文件未变，可不再重复读取）。
+
+读完后再回答；并默认倾向：显式类型标注、`dataclass` / `Protocol`、构造器注入、合理的 `async` / 上下文管理器、可区分的自定义异常、清晰的模块边界；避免无类型的可调用对象与难以测试的隐式全局状态。
+
+## C++（cpp-pro）与 Python 语法对比
+
+当用户要求**对照 Python 与 C++ 语法**、用其中一种语言解释另一种的概念，或对比泛型、资源管理、错误处理、并发模型等时：
+
+1. **Python 侧**：仍须先按上节完成 **`python-patterns`** SKILL 的阅读。
+2. **C++ 侧**：先 **Read** 项目技能 **`cpp-pro`**：`.cursor/skills/cpp-pro/SKILL.md`（同一对话中若本轮已读过且文件未变，可不再重复读取），再作答或改代码。
+3. 对比时成对说明意图而非硬套关键字，例如：C++20 **`concept`** 与 Python **`Protocol`/结构化子类型**；**RAII / 析构** 与 **`with` / `__enter__`·`__exit__`**；**`std::optional<T>`** 与 **`T | None`**；**模板与 SFINAE** 与 **`TypeVar`、重载、`typing.overload`**；异常与错误码策略的差异等。
+4. 写清各自适用的**语言标准/版本**（如 C++20/23、Python 3.10+ 联合类型），避免把一种语言的未定义行为或对象模型默认搬到另一种上。
+
+## Code review graph（MCP，对应会话中的 `.code-review-graph`）
+
+在需要**调用链、被谁 import、文件内符号摘要、影响半径、语义/关键词搜节点、大函数审计**时：
+
+1. 使用 MCP 服务器 **`project-0-WhatIf-code-review-graph`**（例如 `query_graph_tool`、`get_impact_radius_tool`、`semantic_search_nodes_tool`、`find_large_functions_tool`、`build_or_update_graph_tool` 等）。
+2. **每次** `call_mcp_tool` 前在 Cursor 的 MCP 工具描述中查看该工具的 **JSON schema**（参数名、必填项），禁止凭记忆猜参数。
+3. 仓库下的 **`.code-review-graph/`** 可能为空或未同步；以 MCP 构建/查询到的图为准；图过旧或首次分析时可先执行增量/全量 **`build_or_update_graph_tool`**（注意耗时）。

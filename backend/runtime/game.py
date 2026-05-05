@@ -42,7 +42,7 @@ from runtime.game_logger import glog
 
 @dataclass
 class _PrefetchSlot:
-    action: str                                                  
+    action: str
     future: Future | None = None
     result: str | None = None
     completed: threading.Event = field(default_factory=threading.Event)
@@ -65,10 +65,17 @@ class ResponseState:
 
 
 _REQUIRED_SAVE_KEYS = {
-    "current_event_id", "current_phase", "total_turns",
-    "player_name", "awaiting_next_event", "event_context",
-    "l0_summaries", "l1_summaries", "_l1_counter",
-    "game_ended", "delta_state",
+    "current_event_id",
+    "current_phase",
+    "total_turns",
+    "player_name",
+    "awaiting_next_event",
+    "event_context",
+    "l0_summaries",
+    "l1_summaries",
+    "_l1_counter",
+    "game_ended",
+    "delta_state",
 }
 
 
@@ -84,7 +91,6 @@ def _validate_save_data(data: dict) -> str | None:
 
 
 class GameEngine:
-
     def __init__(self, worldpkg_path: Path, saves_dir: Path | None = None):
         self._lock = threading.RLock()
 
@@ -120,35 +126,55 @@ class GameEngine:
         self._last_maintained_event_id: str | None = None
         self.on_narrative_chunk = None
 
-        self._prefetch_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="prefetch")
+        self._prefetch_pool = ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix="prefetch"
+        )
         self._prefetch_slot: _PrefetchSlot | None = None
         self.response_state = ResponseState(
-            phase=None, event_id=None, turn=0,
-            awaiting_next_event=False, game_ended=False,
+            phase=None,
+            event_id=None,
+            turn=0,
+            awaiting_next_event=False,
+            game_ended=False,
         )
 
         self.agents = AgentExecutor()
-        self.agents.register("memory_compression", MemoryCompressionAgent(
-            l0_compressor=L0Compressor(self.llm, protagonist_name=protagonist_name),
-            l1_compressor=L1Compressor(self.llm, protagonist_name=protagonist_name),
-        ))
+        self.agents.register(
+            "memory_compression",
+            MemoryCompressionAgent(
+                l0_compressor=L0Compressor(self.llm, protagonist_name=protagonist_name),
+                l1_compressor=L1Compressor(self.llm, protagonist_name=protagonist_name),
+            ),
+        )
         self.agents.register("delta_lifecycle", DeltaLifecycleAgent())
-        self.agents.register("context_enrichment", ContextEnrichmentAgent(
-            history_agent=HistoryRecaller(self.llm),
-            entity_agent=EntityRecognizerAgent(self.llm),
-            lorebook_query=lorebook_query,
-            lorebook_content=lorebook_content,
-        ))
-        self.agents.register("deviation_guidance", DeviationGuidanceAgent(
-            deviation_controller=DeviationController(self.llm),
-        ))
-        self.agents.register("narrative_generation", NarrativeGenerationAgent(
-            llm=self.llm,
-            writer=writer,
-        ))
-        self.agents.register("scene_adaptation", SceneAdaptationAgent(
-            llm=self.llm,
-        ))
+        self.agents.register(
+            "context_enrichment",
+            ContextEnrichmentAgent(
+                history_agent=HistoryRecaller(self.llm),
+                entity_agent=EntityRecognizerAgent(self.llm),
+                lorebook_query=lorebook_query,
+                lorebook_content=lorebook_content,
+            ),
+        )
+        self.agents.register(
+            "deviation_guidance",
+            DeviationGuidanceAgent(
+                deviation_controller=DeviationController(self.llm),
+            ),
+        )
+        self.agents.register(
+            "narrative_generation",
+            NarrativeGenerationAgent(
+                llm=self.llm,
+                writer=writer,
+            ),
+        )
+        self.agents.register(
+            "scene_adaptation",
+            SceneAdaptationAgent(
+                llm=self.llm,
+            ),
+        )
 
     def get_event_image(self, event_id: str) -> tuple[bytes, str] | None:
         return self.world.get_event_image(event_id)
@@ -191,17 +217,20 @@ class GameEngine:
 
             # 重置平行时间线状态
             self.delta_state = DeltaStateManager()
-            self._reentry_pending = False          # 结构冲突桥接标志
-            self._current_adaptation_plan = None   # 场景适配计划缓存
+            self._reentry_pending = False  # 结构冲突桥接标志
+            self._current_adaptation_plan = None  # 场景适配计划缓存
             self._last_maintained_event_id = None  # 事件边界维护去重标志
 
             self._clear_auto_save()
 
-            glog.log("GAME_STATE", {
-                "action": "new_game",
-                "player": self.player_name,
-                "first_event": first_event.id,
-            })
+            glog.log(
+                "GAME_STATE",
+                {
+                    "action": "new_game",
+                    "player": self.player_name,
+                    "first_event": first_event.id,
+                },
+            )
 
             # 取消后台 prefetch（新游戏不应复用旧缓存）
             self._invalidate_prefetch()
@@ -278,13 +307,17 @@ class GameEngine:
         self.event_context = EventContext.model_validate(data["event_context"])
         self.l0_summaries = [L0Summary.model_validate(s) for s in data["l0_summaries"]]
         self.l1_summaries = [L1Summary.model_validate(s) for s in data["l1_summaries"]]
-        self.agents.get("memory_compression").restore_save_state({"l1_counter": data["_l1_counter"]})
+        self.agents.get("memory_compression").restore_save_state(
+            {"l1_counter": data["_l1_counter"]}
+        )
         self.previous_event_content = data.get("previous_event_content")
         saved_reentry_pending = data.get("_reentry_pending", False)
         # Bridge narrative already serves as the event's setup payload.
         # Older saves may still persist the old "re-enter setup" flag, which
         # would otherwise replay the same structural conflict loop forever.
-        self._reentry_pending = bool(saved_reentry_pending and not self.event_context.setup_narrative)
+        self._reentry_pending = bool(
+            saved_reentry_pending and not self.event_context.setup_narrative
+        )
         self._current_adaptation_plan = data.get("_current_adaptation_plan")
         self.game_ended = data["game_ended"]
         self.delta_state = DeltaStateManager.from_dict(data["delta_state"])
@@ -315,12 +348,15 @@ class GameEngine:
 
     def process_input(self, player_input: str) -> str:
         with self._lock:
-            glog.log("PLAYER", {
-                "input": player_input,
-                "event_id": self.current_event_id,
-                "phase": self.current_phase.value if self.current_phase else None,
-                "turn": self.total_turns,
-            })
+            glog.log(
+                "PLAYER",
+                {
+                    "input": player_input,
+                    "event_id": self.current_event_id,
+                    "phase": self.current_phase.value if self.current_phase else None,
+                    "turn": self.total_turns,
+                },
+            )
 
             if self.current_event_id is None:
                 return "[错误] 游戏尚未开始"
@@ -338,14 +374,19 @@ class GameEngine:
             if not current_event:
                 return "[错误] 当前事件不存在"
 
-            ctx = self._build_agent_context(current_event, PhaseType.CONFRONTATION, player_input)
+            ctx = self._build_agent_context(
+                current_event, PhaseType.CONFRONTATION, player_input
+            )
             state = self._build_game_state()
 
             extra_kwargs: dict = {}
             if self.on_narrative_chunk:
                 extra_kwargs["on_chunk"] = self.on_narrative_chunk
             if self._current_adaptation_plan:
-                from runtime.agents.narrative_generation.agent import _render_adaptation_plan_tags
+                from runtime.agents.narrative_generation.agent import (
+                    _render_adaptation_plan_tags,
+                )
+
                 extra_kwargs["adaptation_plan_text"] = _render_adaptation_plan_tags(
                     self._current_adaptation_plan,
                 )
@@ -353,7 +394,10 @@ class GameEngine:
 
             try:
                 result: NarrativeGenerationResult = self.agents.execute(
-                    "narrative_generation", ctx, state, **extra_kwargs,
+                    "narrative_generation",
+                    ctx,
+                    state,
+                    **extra_kwargs,
                 )
             except Exception as e:
                 return f"[错误] 叙事生成失败: {e}"
@@ -364,7 +408,8 @@ class GameEngine:
             delta_agent = self.agents.get("delta_lifecycle")
             if result.delta_fact:
                 delta_agent.create_delta(
-                    state, result.delta_fact,
+                    state,
+                    result.delta_fact,
                     self.current_event_id,
                     result.delta_intensity or 3,
                 )
@@ -395,9 +440,14 @@ class GameEngine:
         state = self._build_game_state()
         extra_kwargs: dict = {}
         if phase == PhaseType.SETUP:
-            extra_kwargs["event_original_text"] = self._get_phase_text_decision(event.id, phase)
+            extra_kwargs["event_original_text"] = self._get_phase_text_decision(
+                event.id, phase
+            )
         elif self._current_adaptation_plan:
-            from runtime.agents.narrative_generation.agent import _render_adaptation_plan_tags
+            from runtime.agents.narrative_generation.agent import (
+                _render_adaptation_plan_tags,
+            )
+
             extra_kwargs["adaptation_plan_text"] = _render_adaptation_plan_tags(
                 self._current_adaptation_plan,
             )
@@ -447,7 +497,10 @@ class GameEngine:
         # 进入 NarrativeGenerationAgent：
         #   DeltaLifecycle → OrchestratorToolLoop（最多 5 轮）→ UnifiedWriter（流式）
         result: NarrativeGenerationResult = self.agents.execute(
-            "narrative_generation", ctx, state, **extra_kwargs,
+            "narrative_generation",
+            ctx,
+            state,
+            **extra_kwargs,
         )
 
         # premise_conflicts：Orchestrator 检测到平行时间线 delta 与当前事件的前提条件存在
@@ -460,7 +513,10 @@ class GameEngine:
         )
         if result.premise_conflicts and is_event_entry:
             return self._handle_structural_conflict(
-                event, ctx, state, result.premise_conflicts,
+                event,
+                ctx,
+                state,
+                result.premise_conflicts,
             )
 
         # 正常路径：将结果写入 event_context，返回叙事文本
@@ -474,8 +530,11 @@ class GameEngine:
         premise_conflicts: list[dict],
     ) -> str:
         valid_conflicts = [
-            c for c in premise_conflicts
-            if all(k in c for k in ("delta_id", "conflicting_premise", "conflict_reason"))
+            c
+            for c in premise_conflicts
+            if all(
+                k in c for k in ("delta_id", "conflicting_premise", "conflict_reason")
+            )
         ]
         if not valid_conflicts:
             raise RuntimeError(
@@ -483,7 +542,9 @@ class GameEngine:
             )
 
         bridge_result: BridgeResult = self.agents.execute(
-            "scene_adaptation", ctx, state,
+            "scene_adaptation",
+            ctx,
+            state,
             premise_conflicts=valid_conflicts,
         )
 
@@ -508,12 +569,15 @@ class GameEngine:
         self.event_context.setup_narrative = bridge_result.bridge_narrative
         self._reentry_pending = False
 
-        glog.log("GAME_STATE", {
-            "action": "structural_conflict_bridge",
-            "event_id": event.id,
-            "conflicts": len(valid_conflicts),
-            "evolutions": len(bridge_result.delta_evolutions),
-        })
+        glog.log(
+            "GAME_STATE",
+            {
+                "action": "structural_conflict_bridge",
+                "event_id": event.id,
+                "conflicts": len(valid_conflicts),
+                "evolutions": len(bridge_result.delta_evolutions),
+            },
+        )
 
         return bridge_result.bridge_narrative
 
@@ -528,7 +592,9 @@ class GameEngine:
         return AgentContext(
             event_meta=EventMeta(
                 event_id=event.id,
-                importance=event.importance.value if hasattr(event.importance, 'value') else str(event.importance),
+                importance=event.importance.value
+                if hasattr(event.importance, "value")
+                else str(event.importance),
                 goal=event.goal,
                 event_type=event.type,
                 soft_guide_hints=event.soft_guide_hints,
@@ -537,7 +603,9 @@ class GameEngine:
                     for p in self.world.get_preconditions(event.id)
                 ],
             ),
-            event_context=event_context if event_context is not None else self.event_context,
+            event_context=event_context
+            if event_context is not None
+            else self.event_context,
             phase=phase,
             phase_source=self._get_phase_text_full(event.id, phase),
             phase_source_decision=self._get_phase_text_decision(event.id, phase),
@@ -574,7 +642,10 @@ class GameEngine:
         )
 
     def _pre_advance_from_setup(self) -> tuple[Event | None, PhaseType, str]:
-        glog.log("GAME_STATE", {"action": "advance_from_setup", "event_id": self.current_event_id})
+        glog.log(
+            "GAME_STATE",
+            {"action": "advance_from_setup", "event_id": self.current_event_id},
+        )
 
         if self.current_event_id is None:
             return None, PhaseType.SETUP, "error"
@@ -615,7 +686,8 @@ class GameEngine:
         self._save_current_event_as_previous()
         if self.current_event_id != self._last_maintained_event_id:
             self.agents.get("delta_lifecycle").event_boundary_maintenance(
-                self._build_game_state(), self.current_event_id,
+                self._build_game_state(),
+                self.current_event_id,
             )
             self._last_maintained_event_id = self.current_event_id
 
@@ -624,7 +696,11 @@ class GameEngine:
             event, phase, special = self._pre_advance_from_setup()
 
             if special == "error":
-                return "[错误] 游戏尚未开始" if self.current_event_id is None else "[错误] 当前事件不存在"
+                return (
+                    "[错误] 游戏尚未开始"
+                    if self.current_event_id is None
+                    else "[错误] 当前事件不存在"
+                )
             if special == "game_ending":
                 return self._handle_game_ending()
 
@@ -633,7 +709,10 @@ class GameEngine:
             return narrative
 
     def _pre_advance_to_next_event(self) -> Event | None:
-        glog.log("GAME_STATE", {"action": "advance_to_next_event", "from_event": self.current_event_id})
+        glog.log(
+            "GAME_STATE",
+            {"action": "advance_to_next_event", "from_event": self.current_event_id},
+        )
 
         self._try_auto_save("_pre_advance_to_next_event")
 
@@ -674,7 +753,12 @@ class GameEngine:
         with self._lock:
             slot = self._prefetch_slot
 
-            if slot and slot.completed.is_set() and slot.error is None and slot.result is not None:
+            if (
+                slot
+                and slot.completed.is_set()
+                and slot.error is None
+                and slot.result is not None
+            ):
                 self._prefetch_slot = None
                 glog.log("PREFETCH", {"action": "cache_hit"})
                 if on_chunk:
@@ -686,7 +770,9 @@ class GameEngine:
 
             if slot and not slot.completed.is_set():
                 self._prefetch_slot = None
-                glog.log("PREFETCH", {"action": "stream_takeover", "target": slot.action})
+                glog.log(
+                    "PREFETCH", {"action": "stream_takeover", "target": slot.action}
+                )
             else:
                 slot = None
                 self._invalidate_prefetch()
@@ -752,7 +838,9 @@ class GameEngine:
 
                     next_id = self.world.get_next_event_id(self.current_event_id)
                     if not next_id:
-                        slot.result = f"\n\n《{self.world.metadata.title}》的故事到此结束。\n"
+                        slot.result = (
+                            f"\n\n《{self.world.metadata.title}》的故事到此结束。\n"
+                        )
                         slot.game_ending = True
                         return
                     next_event = self.world.get_event(next_id)
@@ -762,7 +850,9 @@ class GameEngine:
                     slot.event = next_event
                     slot.phase = PhaseType.SETUP
                     ctx = self._build_agent_context(
-                        next_event, PhaseType.SETUP, event_context=EventContext(),
+                        next_event,
+                        PhaseType.SETUP,
+                        event_context=EventContext(),
                     )
                     state = GameState(
                         delta_state=self.delta_state,
@@ -771,7 +861,9 @@ class GameEngine:
                         current_event_id=next_id,
                     )
                     extra_kwargs: dict = {
-                        "event_original_text": self._get_phase_text_decision(next_id, PhaseType.SETUP),
+                        "event_original_text": self._get_phase_text_decision(
+                            next_id, PhaseType.SETUP
+                        ),
                     }
                     extra_kwargs["on_chunk"] = lambda chunk: slot.chunk_queue.put(chunk)
 
@@ -782,7 +874,8 @@ class GameEngine:
                     slot.event = event
                     slot.phase = PhaseType.CONFRONTATION
                     ctx, state, extra_kwargs = self._prepare_generation(
-                        event, PhaseType.CONFRONTATION,
+                        event,
+                        PhaseType.CONFRONTATION,
                     )
                     extra_kwargs["on_chunk"] = lambda chunk: slot.chunk_queue.put(chunk)
 
@@ -790,20 +883,31 @@ class GameEngine:
                     return
 
             result: NarrativeGenerationResult = self.agents.execute(
-                "narrative_generation", ctx, state, **extra_kwargs,
+                "narrative_generation",
+                ctx,
+                state,
+                **extra_kwargs,
             )
 
             if result.premise_conflicts:
                 bridge_result = self._prefetch_bridge(
-                    slot, ctx, state, result.premise_conflicts,
+                    slot,
+                    ctx,
+                    state,
+                    result.premise_conflicts,
                 )
                 if bridge_result is not None:
                     slot.bridge_data = bridge_result
                     slot.result = bridge_result.bridge_narrative
                     slot.chunk_queue.put(bridge_result.bridge_narrative)
-                    glog.log("PREFETCH", {"action": "bridge_completed", "target": slot.action})
+                    glog.log(
+                        "PREFETCH",
+                        {"action": "bridge_completed", "target": slot.action},
+                    )
                 else:
-                    glog.log("PREFETCH", {"action": "bridge_failed", "target": slot.action})
+                    glog.log(
+                        "PREFETCH", {"action": "bridge_failed", "target": slot.action}
+                    )
             else:
                 slot.generation_result = result
                 slot.result = result.narrative
@@ -811,9 +915,14 @@ class GameEngine:
 
         except Exception as e:
             slot.error = e
-            glog.log("PREFETCH", {
-                "action": "error", "target": slot.action, "error": str(e),
-            })
+            glog.log(
+                "PREFETCH",
+                {
+                    "action": "error",
+                    "target": slot.action,
+                    "error": str(e),
+                },
+            )
         finally:
             slot.chunk_queue.put(None)
             slot.completed.set()
@@ -826,15 +935,20 @@ class GameEngine:
         premise_conflicts: list[dict],
     ) -> BridgeResult | None:
         valid_conflicts = [
-            c for c in premise_conflicts
-            if all(k in c for k in ("delta_id", "conflicting_premise", "conflict_reason"))
+            c
+            for c in premise_conflicts
+            if all(
+                k in c for k in ("delta_id", "conflicting_premise", "conflict_reason")
+            )
         ]
         if not valid_conflicts:
             return None
 
         try:
             bridge_result: BridgeResult = self.agents.execute(
-                "scene_adaptation", ctx, state,
+                "scene_adaptation",
+                ctx,
+                state,
                 premise_conflicts=valid_conflicts,
             )
             if not bridge_result.delta_evolutions:
@@ -845,7 +959,9 @@ class GameEngine:
             return None
 
     def _stream_from_prefetch(
-        self, slot: _PrefetchSlot, on_chunk,
+        self,
+        slot: _PrefetchSlot,
+        on_chunk,
     ) -> tuple[str | None, bool]:
         chunks: list[str] = []
         while True:
@@ -891,11 +1007,14 @@ class GameEngine:
             self.event_context.setup_narrative = slot.bridge_data.bridge_narrative
             self._reentry_pending = False
 
-            glog.log("GAME_STATE", {
-                "action": "structural_conflict_bridge",
-                "event_id": slot.event.id,
-                "evolutions": len(slot.bridge_data.delta_evolutions),
-            })
+            glog.log(
+                "GAME_STATE",
+                {
+                    "action": "structural_conflict_bridge",
+                    "event_id": slot.event.id,
+                    "evolutions": len(slot.bridge_data.delta_evolutions),
+                },
+            )
             self._try_auto_save("prefetch_bridge")
             return
 
@@ -933,7 +1052,9 @@ class GameEngine:
         if self.current_event_id and any(
             s.event_id == self.current_event_id for s in self.l0_summaries
         ):
-            existing = next(s for s in self.l0_summaries if s.event_id == self.current_event_id)
+            existing = next(
+                s for s in self.l0_summaries if s.event_id == self.current_event_id
+            )
             self.previous_event_content = existing.summary
             return
 
@@ -952,7 +1073,9 @@ class GameEngine:
             self.previous_event_content = None
             return
         l0 = self.agents.get("memory_compression").compress_event_sync_l0(
-            self._build_game_state(), self.current_event_id, event_text,
+            self._build_game_state(),
+            self.current_event_id,
+            event_text,
         )
         self.previous_event_content = l0.summary
 
@@ -964,13 +1087,23 @@ class GameEngine:
             current_event_id=self.current_event_id or "",
         )
 
-    def _get_phase_text(self, event_id: str, phase_type: PhaseType, *, full: bool) -> str:
+    def _get_phase_text(
+        self, event_id: str, phase_type: PhaseType, *, full: bool
+    ) -> str:
         event = self.world.get_event(event_id)
         if not event:
             raise ValueError(f"Event {event_id} not found")
         if event.type == "narrative":
-            return self.world.get_event_text_full(event_id) if full else self.world.get_event_text_decision(event_id)
-        return self.world.get_phase_text_full(event_id, phase_type.value) if full else self.world.get_phase_text_decision(event_id, phase_type.value)
+            return (
+                self.world.get_event_text_full(event_id)
+                if full
+                else self.world.get_event_text_decision(event_id)
+            )
+        return (
+            self.world.get_phase_text_full(event_id, phase_type.value)
+            if full
+            else self.world.get_phase_text_decision(event_id, phase_type.value)
+        )
 
     def _get_phase_text_full(self, event_id: str, phase_type: PhaseType) -> str:
         return self._get_phase_text(event_id, phase_type, full=True)
@@ -1010,7 +1143,9 @@ class GameEngine:
             "event_context": self.event_context.model_dump(),
             "l0_summaries": [s.model_dump() for s in l0_snapshot],
             "l1_summaries": [s.model_dump() for s in l1_snapshot],
-            "_l1_counter": self.agents.get("memory_compression").get_save_state()["l1_counter"],
+            "_l1_counter": self.agents.get("memory_compression").get_save_state()[
+                "l1_counter"
+            ],
             "previous_event_content": self.previous_event_content,
             "delta_state": self.delta_state.to_dict(),
             "_reentry_pending": self._reentry_pending,
@@ -1023,14 +1158,22 @@ class GameEngine:
             self.flush_compressions()
 
             if not description:
-                event = self.world.get_event(self.current_event_id) if self.current_event_id else None
+                event = (
+                    self.world.get_event(self.current_event_id)
+                    if self.current_event_id
+                    else None
+                )
                 if not event:
                     event_summary = "未知"
                 elif event.type == "narrative":
                     event_summary = event.decision_text[:50]
                 else:
                     phase = self.world.get_phase(event.id, self.current_phase.value)
-                    event_summary = phase.decision_text[:50] if phase and phase.decision_text else event.goal[:50]
+                    event_summary = (
+                        phase.decision_text[:50]
+                        if phase and phase.decision_text
+                        else event.goal[:50]
+                    )
                 description = f"{event_summary} - {self.current_phase.value} - 轮次{self.total_turns}"
 
             save_dir = config.SAVES_DIR / f"save_{slot:03d}"
@@ -1079,6 +1222,7 @@ class GameEngine:
 
     def _clear_auto_save(self) -> None:
         import shutil
+
         save_dir = config.SAVES_DIR / "save_000"
         if save_dir.exists():
             shutil.rmtree(save_dir)
@@ -1087,11 +1231,14 @@ class GameEngine:
         self._invalidate_prefetch()
         self._prefetch_pool.shutdown(wait=False)
         self.agents.get("memory_compression").shutdown()
-        glog.log("GAME_STATE", {
-            "action": "shutdown",
-            "l0_count": len(self.l0_summaries),
-            "l1_count": len(self.l1_summaries),
-        })
+        glog.log(
+            "GAME_STATE",
+            {
+                "action": "shutdown",
+                "l0_count": len(self.l0_summaries),
+                "l1_count": len(self.l1_summaries),
+            },
+        )
         glog.end_session()
 
     def _handle_command(self, command: str) -> str:
